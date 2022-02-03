@@ -14,10 +14,26 @@ type Page struct {
 }
 
 type Todo struct {
-	Artists   string `json:"artists"`
-	Locations string `json:"locations"`
-	Dates     string `json:"dates"`
-	Relation  string `json:"relation"`
+	Artistslink   string `json:"artists"`
+	Locationslink string `json:"locations"`
+	Dateslink     string `json:"dates"`
+	Relationlink  string `json:"relation"`
+}
+
+type info struct {
+	Artists []artist
+}
+
+type artist struct {
+	Id           string
+	Image        string
+	Name         string
+	Members      []string
+	CreationDate int
+	FirstAlbum   string
+	Locations    string
+	ConcertDates string
+	Relations    string
 }
 
 func get(adress string) {
@@ -31,18 +47,26 @@ func get(adress string) {
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
 	// Convert response body to string
-	bodyString := string(bodyBytes)
-	fmt.Println("API Response as String:\n" + bodyString)
+	//bodyString := string(bodyBytes)
+	//fmt.Println("API Response as String:\n" + bodyString)
 
 	// Convert response body to Todo struct
-	var todoStruct Todo
+	var todoStruct info
 	json.Unmarshal(bodyBytes, &todoStruct)
 	fmt.Printf("API Response as struct %+v\n", todoStruct)
+	fmt.Println(todoStruct.Artists)
+	for i, p := range todoStruct.Artists {
+		fmt.Println("id ", i, ":", p.Id)
+		fmt.Println("Name: ", p.Name)
+		fmt.Println("Members :", p.Members)
+		fmt.Println("Création Date :", p.CreationDate)
+		fmt.Println("First album :", p.FirstAlbum)
+	}
 }
 
 func main() {
 	lien := "https://groupietrackers.herokuapp.com/api"
-	get(lien)
+	get(lien + "/artists")
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 
