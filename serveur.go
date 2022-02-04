@@ -20,10 +20,6 @@ type Todo struct {
 	Relationlink  string `json:"relation"`
 }
 
-type info struct {
-	Artists []artist
-}
-
 type artist struct {
 	Id           string
 	Image        string
@@ -46,21 +42,11 @@ func get(adress string) {
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
-	// Convert response body to string
-	//bodyString := string(bodyBytes)
-	//fmt.Println("API Response as String:\n" + bodyString)
-
+	var tab interface{}
 	// Convert response body to Todo struct
-	var todoStruct info
-	json.Unmarshal(bodyBytes, &todoStruct)
-	fmt.Printf("API Response as struct %+v\n", todoStruct)
-	fmt.Println(todoStruct.Artists)
-	for i, p := range todoStruct.Artists {
-		fmt.Println("id ", i, ":", p.Id)
-		fmt.Println("Name: ", p.Name)
-		fmt.Println("Members :", p.Members)
-		fmt.Println("Création Date :", p.CreationDate)
-		fmt.Println("First album :", p.FirstAlbum)
+	json.Unmarshal(bodyBytes, &tab)
+	for key, value := range tab.([]interface{})[0].(map[string]interface{}) {
+		fmt.Println(key, " :", value)
 	}
 }
 
