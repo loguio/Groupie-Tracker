@@ -1,17 +1,18 @@
-{{define artistes}}
+{{define "index"}}
 <!DOCTYPE html>
 <html>
     <head>
         <title>Groupie Tracker - {{ .name }}</title>
+        <!-- <link rel="stylesheet" href="stylegohtml.css" /> -->
     </head>
     <body>
-            name : "{{ .name }}"
-            members : "{{ .members }}"
-            creationDate : "{{ .creationDate }}"
-            firstAlbum : "{{ .firstAlbum }}"
-            locations : "{{ .locations}}"
-            concertDates : "{{ .concertDates}}"
-            relations : "{{ .relations}}"
+            name : "{{ .name }}"</br>
+            members : "{{ .members }}"</br> <!-- Permettre d'afficher tous les membres -->
+            creationDate : "{{ .creationDate }}"</br>
+            firstAlbum : "{{ .firstAlbum }}"</br>
+            locations : "{{ .locations}}"</br>
+            concertDates : "{{ .concertDates}}"</br>
+            relations : "{{ .relations}}"</br>
     </body>
 </html>
 {{end}}
