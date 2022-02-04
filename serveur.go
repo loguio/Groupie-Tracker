@@ -20,18 +20,6 @@ type Todo struct {
 	Relationlink  string `json:"relation"`
 }
 
-type artist struct {
-	Id           string
-	Image        string
-	Name         string
-	Members      []string
-	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
-	Relations    string
-}
-
 func get(adress string) {
 	fmt.Println("1. Performing Http Get...")
 	resp, err := http.Get(adress)
@@ -43,10 +31,10 @@ func get(adress string) {
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 
 	var tab interface{}
-	// Convert response body to Todo struct
+	// Convert response body to tab interface
 	json.Unmarshal(bodyBytes, &tab)
 	for key, value := range tab.([]interface{})[0].(map[string]interface{}) {
-		fmt.Println(key, " :", value)
+		fmt.Println(key, " : ", value)
 	}
 }
 
@@ -67,7 +55,6 @@ func main() {
 
 	/////////////////////////////////
 
-	fmt.Println("le serveur est en cours d'éxécution a l'adresse localhost:3000")
+	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
-
 }
