@@ -1,0 +1,17 @@
+{{define artistes}}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Groupie Tracker - {{ .name }}</title>
+    </head>
+    <body>
+            name : "{{ .name }}"
+            members : "{{ .members }}"
+            creationDate : "{{ .creationDate }}"
+            firstAlbum : "{{ .firstAlbum }}"
+            locations : "{{ .locations}}"
+            concertDates : "{{ .concertDates}}"
+            relations : "{{ .relations}}"
+    </body>
+</html>
+{{end}}
