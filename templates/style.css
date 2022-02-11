@@ -13,6 +13,13 @@ footer p {
     text-align: center;
     color: white;
     padding-top: 30px;
+    margin-top: -90px;
+}
+footer img {
+    width: 80px;
+    height: 80px;
+    padding-top: 10px;
+    padding-left: 30px;
 }
 .menu {
     background-color: #FF661F;
@@ -54,6 +61,21 @@ li a {
 li a:hover {
     color: #1FFFE8;
 }
+.recherche {
+    background-color: #B3400B;
+    border: 3px solid black;
+    height: 25px;
+}
+.recherche:hover, .recherche:active {
+    background-color: #ED5209
+}
+.btnrecherche {
+    background-color: #ED5209;
+    border: 3px solid black;
+}
+.btnrecherche:hover, .btnrecherche:active {
+    background-color: #B3400B;
+}
 .active {
     background-color: #B3400B;
     margin-left: 10px;
@@ -62,14 +84,6 @@ li a:hover {
 h1 {
     text-align: center;
     color: white;
-}
-.queen {
-   background-color: #00B3A0; 
-   width: 400px;
-   padding: 20px;
-   margin-bottom: 50px;
-   margin-top: 170px;
-   margin-left: 30px;
 }
 .button {
     background-color: #FF661F;
@@ -84,45 +98,131 @@ h1 {
     background-color: #B3400B;
     transition: 0.5s;
 }
-.pinkfloyd {
-    background-color: #00B3A0; 
-    width: 400px;
-    padding: 20px;
-    margin-bottom: 200px;
-    margin-top: -480px;
-    margin-left: 520px;
-}
-.katyperry {
-    background-color: #00B3A0; 
-    width: 400px;
-    padding: 20px;
-    margin-bottom: 200px;
-    margin-top: -632px;
-    margin-left: 1010px;
+/* Première ligne */
+.queen {
+   background-color: #00B3A0;
+   border-radius: 20px; 
+   width: 400px;
+   padding: 20px;
+   -moz-transition: all 2 ease;
 }
 
-/* Remplacer le nom des artistes par les class suivantes */
-.droite {
-    background-color: #00B3A0; 
+.queen:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
+}
+
+.pinkfloyd {
+    background-color: #00B3A0;
+    border-radius: 20px;  
     width: 400px;
     padding: 20px;
-    margin-bottom: 200px;
-    margin-top: -150px;
-    margin-left: 30px;
+    -moz-transition: all 2 ease;
 }
+
+.pinkfloyd:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
+}
+
+.katyperry {
+    background-color: #00B3A0; 
+    border-radius: 20px;
+    width: 400px;
+    padding: 20px;
+    -moz-transition: all 2 ease;
+}
+
+.katyperry:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
+}
+
+/* Fin première ligne */
+
+/* Flexbox */
+
+#cart {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: center;
+    margin-top: 180px;
+    margin-bottom: auto;
+}
+/*  */
+
+/* Flexbox lignes milieu */
+
+#cart2 {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: center;
+    margin-top: 50px;
+}
+
+/*  */
+
+/* Flexbox dernière ligne */
+
+#cart3 {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: center;
+    margin-top: 200px;
+    margin-bottom: 150px;
+}
+
+/*  */
+.droite {
+    background-color: #00B3A0;
+    border-radius: 20px; 
+    width: 400px;
+    padding: 20px;
+    -moz-transition: all 2 ease;
+}
+
+.droite:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
+}
+
 .milieu {
     background-color: #00B3A0; 
+    border-radius: 20px; 
     width: 400px;
     padding: 20px;
-    margin-bottom: 200px;
-    margin-top: -635px;
-    margin-left: 520px;
+    -moz-transition: all 2 ease;
 }
+
+.milieu:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
+}
+
 .gauche {
-    background-color: #00B3A0; 
+    background-color: #00B3A0;
+    border-radius: 20px; 
     width: 400px;
     padding: 20px;
-    margin-bottom: 200px;
-    margin-top: -635px;
-    margin-left: 1010px;
+    -moz-transition: all 2 ease;
+}
+
+.gauche:hover {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 7px 7px 10px grey;
 }
