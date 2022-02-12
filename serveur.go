@@ -21,6 +21,7 @@ type Page struct {
 
 func get(adress string) interface{} {
 	fmt.Println("1. Performing Http Get...")
+	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
@@ -66,17 +67,17 @@ func get(adress string) interface{} {
 }
 
 func main() {
-	lien := "https://groupietrackers.herokuapp.com/api"
-	data := get(lien + "/artists")
+	// lien := "https://groupietrackers.herokuapp.com/api"
+	// data := get(lien + "/artists")
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
-	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
-	tmpl, err := template.ParseFiles("./templates/index.gohtml")
+	tmpl, err := template.ParseFiles("index.gohtml")
 
 	if err != nil {
 	}
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "index", data)
+		tmpl.Execute(w, "index")
 	})
 
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
