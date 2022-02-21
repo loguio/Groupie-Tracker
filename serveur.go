@@ -7,10 +7,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type Page struct {
 	Name         string
+	Image 		 string
 	Members      string
 	CreationDate string
 	FirstAlbum   string
@@ -18,6 +20,52 @@ type Page struct {
 	ConcertDates string
 	Relations    string
 }
+type Page2 struct {
+	Name 	[]string
+	Image	[]string
+}
+
+type Todo struct {
+	Id int `json:"id"`
+	Image string `json:"image"`
+	Name string `json:"name"`
+	Members []string `json:"members"`
+	CreationDate int `json:"creationDate"`
+	FirstAlbum string `json:"firstAlbum"`
+	Location string `json:"locations"`
+	ConcertDates string `json:"concertDates"`
+	Relations string `json:"relations"`
+}
+
+func HomePage(adress string) interface{} {
+	fmt.Println("1. Performing Http Get...")
+	var id = 1
+	var test = ""
+	var name []string
+	var image []string
+	var tab Todo
+	for id!=0 {
+		test = "/"+strconv.Itoa(id)
+		resp, err := http.Get(adress+test)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		defer resp.Body.Close()
+		bodyBytes, _ := ioutil.ReadAll(resp.Body)
+		json.Unmarshal(bodyBytes, &tab)
+		name = append(name,tab.Name)
+		image = append(image,tab.Image)
+		id = tab.Id 
+		if id == 0 {
+			break
+		}
+		id++
+		fmt.Println(id)
+	}
+	data := Page2{name,image}
+	return data
+}
+
 
 func get(adress string) interface{} {
 	fmt.Println("1. Performing Http Get...")
@@ -33,6 +81,7 @@ func get(adress string) interface{} {
 	json.Unmarshal(bodyBytes, &tab)
 	var name string
 	var members string
+	var image string
 	var creationDate string
 	var firstAlbum string
 	var location string
@@ -60,18 +109,21 @@ func get(adress string) interface{} {
 		if key == "relations" {
 			relations = fmt.Sprint(value)
 		}
+		if key == "image" {
+			image = fmt.Sprint(value)
+		}
 	}
-	data := Page{name, members, creationDate, firstAlbum, location, concertDates, relations}
+	data := Page{name, image,members, creationDate, firstAlbum, location, concertDates, relations}
 	return data
 }
 
 func main() {
 	lien := "https://groupietrackers.herokuapp.com/api"
-	data := get(lien + "/artists")
+	data := HomePage(lien + "/artists")
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	// affiche l'html
-	tmpl, err := template.ParseFiles("./templates/index.gohtml")
+	tmpl, err := template.ParseFiles("./templates/navPage.gohtml")
 
 	if err != nil {
 	}
