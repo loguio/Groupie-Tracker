@@ -2,11 +2,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Groupie Tracker - {{ .name }}</title>
-        <!-- <link rel="stylesheet" href="stylegohtml.css" /> -->
+        <title>Groupie Tracker - {{ .Name }}</title>
+        <link rel="stylesheet" href="assets/stylegohtml.css" />
     </head>
     <body>
+    <!-- Remettre le bandeau de menu -->
         
+        <section id="">
+            <div>
+                <h1>{{.Name}}</h1>
+                <img src={{.Image}} />
+            </div>
+        </section>
     </body>
 </html>
 {{end}}
