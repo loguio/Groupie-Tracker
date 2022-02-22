@@ -1,5 +1,3 @@
-{{define "index"}}
-<style>
 body {
     background-color: bisque;
     margin: 0;
@@ -28,29 +26,33 @@ footer img {
     top: 0;
     position: fixed;
     width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: stretch;
     margin-top: -20px;
     padding-top: 50px;
-    height: 80px;
+    z-index: 999;
 }
 .menu input {
     float: right;
-    margin-right: 140px;
-    margin-top: -60px;
-
+    margin-right: 0px;
 }
 .menu button {
     float: right;
     margin-right: 55px;
-    margin-top: -60px;
 }
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 li {
     float: left;
+    display: inline;    
 }
 li a {
     display: block;
@@ -61,7 +63,10 @@ li a {
     font-size: 25px;
 }
 li a:hover {
-    color: #1FFFE8;
+    color: black;
+    background-color: #00B09E;
+    border-radius: 20px;
+    border: 0;
 }
 .recherche {
     background-color: #B3400B;
@@ -78,11 +83,6 @@ li a:hover {
 .btnrecherche:hover, .btnrecherche:active {
     background-color: #B3400B;
 }
-.active {
-    background-color: #B3400B;
-    margin-left: 10px;
-    height: 52px;
-}
 h1 {
     text-align: center;
     color: white;
@@ -96,10 +96,12 @@ h1 {
     border: 0;
     margin-top: 20px;
 }
+
 .button:hover {
     background-color: #B3400B;
-    transition: 0.5s;
+    transition: 0.3s;
 }
+
 /* Première ligne */
 .queen {
    background-color: #00B3A0;
@@ -111,7 +113,7 @@ h1 {
 
 .queen:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
 
@@ -125,7 +127,7 @@ h1 {
 
 .pinkfloyd:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
 
@@ -139,7 +141,7 @@ h1 {
 
 .katyperry:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
 
@@ -197,7 +199,7 @@ h1 {
 
 .droite:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
 
@@ -211,7 +213,7 @@ h1 {
 
 .milieu:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
 
@@ -225,40 +227,34 @@ h1 {
 
 .gauche:hover {
     -moz-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
-</style>
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <title>Groupie Tracker</title>
-        <link rel="shortcut icon" href="img/logo2.png"/>
-    </head>
-    <body>
-    <nav class="menu">
-        <ul>
-            <li><a class="active" href="index.html">Accueil</a></li>
-            <!--<li><a href="#">Artistes</a></li>-->
-            <li><a href="#">Calendrier</a></li>
-            <li><a href="Villes.html">Villes</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <input class="recherche" type="search" placeholder="Recherche..." value="search" name="q"
-       aria-label="Search through site content" size="30">
-       <button class="btnrecherche">Recherche</button>
-    </nav>
-    <!-- Créer ne section pour faire le flexbox -->
-    <section id="cart">
-        <div class="queen">
-            <img src="https://groupietrackers.herokuapp.com/api/images/queen.jpeg" style="width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>{{.Name}}</h1></button></center>
-        </div>
-    </section>
-    </body>
-    <footer>
-        <img src="img/git.png" href="https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git" />
-        <p>&copy | Marius BOURSE - Flavio CORMERAIS - Jules OUTIN - B1 Informatique 2021/2022</br> | Groupie_Tracker 2022 | Mentions Légales</p>
-    </footer>
-</html>
-{{end}}
+
+/* Essaie */
+@media screen and (min-width: 0px) and (max-width: 880px){
+    #cart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #cart2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #cart3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .queen, .pinkfloyd, .droite, .milieu, .gauche {
+        margin-bottom: 50px;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 1320px) {
+    .katyperry, .gauche {
+        margin-top: 50px;
+    }
+}
+
