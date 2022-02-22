@@ -55,6 +55,9 @@ func HomePage(adress string, nbPage int) interface{} {
 		json.Unmarshal(bodyBytes, &oneartist)
 		idArtist = oneartist.Id 
 		artists = append(artists,oneartist)
+		if idArtist == 0 {
+			break
+		}
 		idArtist++
 	}
 	return artists
@@ -130,12 +133,12 @@ func main() {
 		if codeError == 500 {
 
 		}
-		tmpl.ExecuteTemplate(w, "pagemain", data)
+		tmpl.ExecuteTemplate(w, "index", data)
 	})
 
 	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			tmpl, err = template.ParseFiles("./assets/index.gohtml")
+			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
 		nbpage ,er := strconv.Atoi(r.FormValue("page"))
@@ -143,18 +146,18 @@ func main() {
 			fmt.Println(3)
 		}
 		data := HomePage(lien+"/artists",nbpage+1)
-		tmpl.ExecuteTemplate(w, "pagemain", data)
+		tmpl.ExecuteTemplate(w, "index", data)
 
 	})
 
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			tmpl, err = template.ParseFiles("./assets/index.gohtml")
+			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
 		data := HomePage(lien+"/artists",1)
-		tmpl.ExecuteTemplate(w, "pagemain", data)
+		tmpl.ExecuteTemplate(w, "index", data)
 	})
 
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
