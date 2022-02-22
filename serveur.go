@@ -29,7 +29,6 @@ func get(adress string, nbArtist int) (interface{}, int) {
 		log.Fatalln(err)
 		valreturn = 500
 	}
-
 	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	var tab interface{}
