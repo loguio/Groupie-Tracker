@@ -1,9 +1,0 @@
-#Groupie Tracker
-
-
-## Développeur
-
-- Marius
-
-
-##

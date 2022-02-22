@@ -26,30 +26,31 @@ footer img {
     top: 0;
     position: fixed;
     width: 100%;
-    margin-top: -20px;
-    padding-top: 50px;
-    height: 80px;
+    height: 100px;
     z-index: 999;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: stretch;
 }
 .menu input {
     float: right;
-    margin-right: 140px;
-    margin-top: -60px;
-
+    margin-right: 0px;
 }
 .menu button {
     float: right;
     margin-right: 55px;
-    margin-top: -60px;
 }
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 li {
     float: left;
+    display: inline;    
 }
 li a {
     display: block;
@@ -60,7 +61,10 @@ li a {
     font-size: 25px;
 }
 li a:hover {
-    color: #1FFFE8;
+    color: black;
+    background-color: #00B09E;
+    border-radius: 20px;
+    border: 0;
 }
 .recherche {
     background-color: #B3400B;
@@ -77,11 +81,6 @@ li a:hover {
 .btnrecherche:hover, .btnrecherche:active {
     background-color: #B3400B;
 }
-.active {
-    background-color: #B3400B;
-    margin-left: 10px;
-    height: 52px;
-}
 h1 {
     text-align: center;
     color: white;
@@ -95,12 +94,10 @@ h1 {
     border: 0;
     margin-top: 20px;
 }
-
 .button:hover {
     background-color: #B3400B;
-    transition: 0.3s;
+    transition: 0.5s;
 }
-
 /* Première ligne */
 .queen {
    background-color: #00B3A0;
@@ -114,7 +111,7 @@ h1 {
     -moz-transform: scale(1.05);
     transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
-}5314
+}
 
 .pinkfloyd {
     background-color: #00B3A0;
@@ -229,3 +226,31 @@ h1 {
     transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
+
+/* Essaie */
+@media screen and (min-width: 0px) and (max-width: 880px){
+    #cart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #cart2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #cart3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .queen, .pinkfloyd, .droite, .milieu, .gauche {
+        margin-bottom: 50px;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 1320px) {
+    .katyperry, .gauche {
+        margin-top: 50px;
+    }
+}
+
