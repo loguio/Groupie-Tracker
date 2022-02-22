@@ -24,6 +24,7 @@ type Page struct {
 func get(adress string, nbArtist int) (interface{}, int) {
 	valreturn := 0
 	fmt.Println("1. Performing Http Get...")
+	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
@@ -71,7 +72,7 @@ func get(adress string, nbArtist int) (interface{}, int) {
 func main() {
 	lien := "https://groupietrackers.herokuapp.com/api"
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
-	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
 	tmpl, err := template.ParseFiles("./templates/navPage.gohtml")
 	if err != nil {
