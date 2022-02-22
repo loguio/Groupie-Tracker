@@ -60,9 +60,9 @@ func HomePage(adress string) interface{} {
 			break
 		}
 		id++
-		fmt.Println(id)
 	}
 	data := Page2{name,image}
+	fmt.Println(data)
 	return data
 }
 

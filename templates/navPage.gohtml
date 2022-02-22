@@ -249,12 +249,12 @@ h1 {
        <button class="btnrecherche">Recherche</button>
     </nav>
     <!-- Créer ne section pour faire le flexbox -->
-    {%for i in range(data):%}
+    <section id="cart">
         <div class="queen">
-            <img src={{.Image}} style="width: 300px;padding-left: 50px;" />
+            <img src="https://groupietrackers.herokuapp.com/api/images/queen.jpeg" style="width: 300px;padding-left: 50px;" />
             <center><button class="button"><h1>{{.Name}}</h1></button></center>
         </div>
-    {{end}}
+    </section>
     </body>
     <footer>
         <img src="img/git.png" href="https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git" />
