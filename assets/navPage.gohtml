@@ -1,4 +1,4 @@
-{{define "index"}}
+{{define "pagemain"}}
 <style>
 body {
     background-color: bisque;
@@ -233,17 +233,13 @@ h1 {
 <html lang="fr">
     <head>
         <title>Groupie Tracker</title>
-<<<<<<< HEAD
-        <link rel="shortcut icon" href="img/logo2.png"/>
-=======
         <link rel="stylesheet" href="assets/style.css" />
         <link rel="shortcut icon" href="img/logo2.png" style="height: 16px;width: 16px;"/>
->>>>>>> 2fd0e9f94282efa013c8b203e6d9fbbc5b19e5a2
     </head>
     <body>
     <nav class="menu">
         <ul>
-            <li><a class="active" href="index.html">Accueil</a></li>
+            <li><a class="active" href="/Groupie-tracker/artist">Accueil</a></li>
             <!--<li><a href="#">Artistes</a></li>-->
             <li><a href="#">Calendrier</a></li>
             <li><a href="Villes.html">Villes</a></li>
@@ -255,267 +251,18 @@ h1 {
     </nav>
     <!-- Une section contient trois artistes -->
     <!-- Créer une section pour faire le flexbox -->
+    {{range $}}
     <section id="cart">
         <div class="queen">
-            <img src="https://groupietrackers.herokuapp.com/api/images/queen.jpeg" style="width: 300px;padding-left: 50px;" />
-            <center> <form action="/Groupie-tracker/artist" method="post"><button class="button"><h1>Queen</h1></button><input type="hidden" name="nombre" value="0"></form></center>
-        </div>
-        <div class="pinkfloyd">
-            <img src="https://groupietrackers.herokuapp.com/api/images/pinkfloyd.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Pink Floyd</h1></button></center>
-        </div>
-        <div class="katyperry">
-            <img src="https://groupietrackers.herokuapp.com/api/images/katyperry.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Katy Perry</h1></button></center>
+            <img src={{.Image}} style="width: 300px;padding-left: 50px;" />
+            <center> <form action="/Groupie-tracker/artist" method="post"><button class="button"><h1>{{.Name}}</h1></button><input type="hidden" name="nombre" value="0"></form></center>
         </div>
     </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/soja.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Soja</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/scorpions.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Scorpions</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/xxxtentacion.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>XXXTentacion</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/macmiller.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>MacMiller</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/joynerlucas.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Joyner Lucas</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/kencricklamar.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Kendrick Lamar</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/acdc.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>ACDC</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/pearljam.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Pearl Jam</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/rihanna.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Rihanna</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/genesis.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Genesis</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/philcollins.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Phil Collins</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/ledzeppelin.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Led Zeppelin</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/jimihendrix.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>The Jimi Hendrix Experience</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/beegees.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Bee Gees</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/deeppurple.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Deep Purple</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/aerosmith.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Aerosmith</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/direstraits.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Dire Straits</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/mamonasassassinas.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Mamonas Assassinas</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">        
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/30.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Thirty Seconds to Mars</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/imagineDragons.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Imagine Dragons</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/juiceWrld.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Juice World</h1></button></center>
-        </div>
-    </section> 
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/logic.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Logic</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/alecBeenjamin.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Alec Benjamin</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/bobbyMcFerrin.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Bobby MacFerrins</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/R3HAB.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>R3HAB</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/postmalone.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Post Malone</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/travisScott.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Travis Scott</h1></button></center>
-        </div>
-    </section>    
-<!---->    
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/jCole.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>J. Cole</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/nickelback.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Nickelback</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/mobbDeep.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Mobbe Deep</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/gunsNRoses.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Guns N' Roses</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/nwa.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>NWA</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/u2.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>U2</h1></button></center>
-        </div>
-    </section>    
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/arcticmonkeys.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Artic Monkeys</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/fallOutBoy.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Fall Out Boys</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/gorillaz.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Gorillaz</h1></button></center>
-        </div>
-    </section>    
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/eagles.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Eagles</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/linkinpark.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Linkin Parks</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/redhotchilipeppers.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Red Hot Chili Peppers</h1></button></center>
-        </div>
-    </section>    
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/eminem.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Eminem</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/greenday.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Green Day</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/metallica.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Metallica</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/coldplay.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Coldplay</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/maroon5.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Maroon 5</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/twentyonepilots.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Twenty One Pilots</h1></button></center>
-        </div>
-    </section>
-<!---->        
-    <section id="cart2">
-        <div class="droite">
-            <img src="https://groupietrackers.herokuapp.com/api/images/twentyonepilots.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>The Rolling Stones</h1></button></center>
-        </div>
-        <div class="milieu">
-            <img src="https://groupietrackers.herokuapp.com/api/images/muse.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Muse</h1></button></center>
-        </div>
-        <div class="gauche">
-            <img src="https://groupietrackers.herokuapp.com/api/images/foofighters.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>Foo Fighters</h1></button></center>
-        </div>
-    </section>
-<!---->
-    <section id="cart3">
-        <div class="milieu" style="margin-top:-150px;">
-            <img src="https://groupietrackers.herokuapp.com/api/images/thechainsmokers.jpeg" style="width: 300px;width: 300px;padding-left: 50px;" />
-            <center><button class="button"><h1>The Chainsmokers</h1></button></center>
-        </div>
-    </section>
+    {{end}}
+    <form action="artist" method="POST">
+        <button type="submit" name="suivant"> > </button>
+        <input type="hidden" value="1" name="page">
+    </form>
     <!-- Créer un bouton pour revenir tout en haut de la page -->
     </body>
     <footer>

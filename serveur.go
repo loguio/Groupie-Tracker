@@ -26,7 +26,7 @@ type Page2 struct {
 	Image	[]string
 }
 
-type Todo struct {
+type ArtistAPI struct {
 	Id int `json:"id"`
 	Image string `json:"image"`
 	Name string `json:"name"`
@@ -38,33 +38,26 @@ type Todo struct {
 	Relations string `json:"relations"`
 }
 
-func HomePage(adress string) interface{} {
+func HomePage(adress string, nbPage int) interface{} {
 	fmt.Println("1. Performing Http Get...")
-	var id = 1
-	var test = ""
-	var name []string
-	var image []string
-	var tab Todo
-	for id!=0 {
-		test = "/"+strconv.Itoa(id)
-		resp, err := http.Get(adress+test)
+	var idArtist = (nbPage-1)*12 +1
+	var url = ""
+	var artists []ArtistAPI
+	var oneartist ArtistAPI
+	for idArtist != nbPage*12 + 1 {
+		url = "/"+strconv.Itoa(idArtist)
+		resp, err := http.Get(adress+url)
 		if err != nil {
 			log.Fatalln(err)
 		}
 		defer resp.Body.Close()
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
-		json.Unmarshal(bodyBytes, &tab)
-		name = append(name,tab.Name)
-		image = append(image,tab.Image)
-		id = tab.Id 
-		if id == 0 {
-			break
-		}
-		id++
+		json.Unmarshal(bodyBytes, &oneartist)
+		idArtist = oneartist.Id 
+		artists = append(artists,oneartist)
+		idArtist++
 	}
-	data := Page2{name,image}
-	fmt.Println(data)
-	return data
+	return artists
 }
 
 
@@ -137,16 +130,31 @@ func main() {
 		if codeError == 500 {
 
 		}
-		tmpl.ExecuteTemplate(w, "index", data)
+		tmpl.ExecuteTemplate(w, "pagemain", data)
 	})
+
+	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			tmpl, err = template.ParseFiles("./assets/index.gohtml")
+			nb, _ = strconv.Atoi(r.FormValue("nombre"))
+		}
+		nbpage ,er := strconv.Atoi(r.FormValue("page"))
+		if er != nil {
+			fmt.Println(3)
+		}
+		data := HomePage(lien+"/artists",nbpage+1)
+		tmpl.ExecuteTemplate(w, "pagemain", data)
+
+	})
+
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			tmpl, err = template.ParseFiles("./templates/index.gohtml")
+			tmpl, err = template.ParseFiles("./assets/index.gohtml")
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
-		data := HomePage(lien+"/artists")
-		tmpl.ExecuteTemplate(w, "index", data)
+		data := HomePage(lien+"/artists",1)
+		tmpl.ExecuteTemplate(w, "pagemain", data)
 	})
 
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
