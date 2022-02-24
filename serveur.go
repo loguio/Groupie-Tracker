@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Page struct {
@@ -49,7 +50,9 @@ type Dates struct {
 
 type Relation struct {
 	Id int `json:"id"`
-	// DatesLocations {}interface `json:"datesLocations"`
+	DatesLocations struct {
+
+	}
 }
 
 func HomePage(adress string, nbPage int) interface{} {
@@ -78,7 +81,6 @@ func HomePage(adress string, nbPage int) interface{} {
 		artists = append(artists,oneartist)
 		idArtist++
 	}
-	fmt.Println(artists)
 	return artists
 }
 func concertdate(adress string) []string{
@@ -89,20 +91,25 @@ func concertdate(adress string) []string{
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &dates)
-	fmt.Println(dates)
 	return dates.Dates
 }
 
 func location(adress string) []string {
-	var location Location
+	var locations Location
+	var location string
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
-	json.Unmarshal(bodyBytes, &location)
-	fmt.Println(location)
-	return location.Location
+	json.Unmarshal(bodyBytes, &locations)
+	for i := 0 ; i< len(locations.Location);i++ {
+		location = locations.Location[i]
+		location = strings.Replace(location, "_", " ", -1)
+		location = strings.Replace(location, "-", " ", -1)
+		locations.Location[i] = location
+	}
+	return locations.Location
 }
 
 func main() {
