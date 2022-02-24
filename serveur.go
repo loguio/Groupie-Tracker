@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 type Page struct {
@@ -21,103 +20,89 @@ type Page struct {
 	ConcertDates string
 	Relations    string
 }
-type Page2 struct {
-	Name 	[]string
-	Image	[]string
-}
 
-type Todo struct {
+type ArtistAPI struct {
 	Id int `json:"id"`
 	Image string `json:"image"`
 	Name string `json:"name"`
 	Members []string `json:"members"`
 	CreationDate int `json:"creationDate"`
 	FirstAlbum string `json:"firstAlbum"`
-	Location string `json:"locations"`
-	ConcertDates string `json:"concertDates"`
-	Relations string `json:"relations"`
+	AddressLocation string `json:"locations"`
+	ConcertDatesaddress string `json:"concertDates"`
+	RelationsAdress string `json:"relations"`
+	Location []string
+	ConcertDates []string
+	Relations []string
 }
 
-func HomePage(adress string) interface{} {
+type Location struct {
+	Id int `json:"id"`
+	Location []string `json:"locations"`
+	Dates string `json:"dates"`
+}
+
+type Dates struct {
+	Id int `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+type Relation struct {
+	Id int `json:"id"`
+	// DatesLocations {}interface `json:"datesLocations"`
+}
+
+func HomePage(adress string, nbPage int) interface{} {
 	fmt.Println("1. Performing Http Get...")
-	var id = 1
-	var test = ""
-	var name []string
-	var image []string
-	var tab Todo
-	for id!=0 {
-		test = "/"+strconv.Itoa(id)
-		resp, err := http.Get(adress+test)
+	var idArtist = (nbPage-1)*12 +1
+	var url = ""
+	var artists []ArtistAPI
+	var oneartist ArtistAPI
+	fmt.Println("1. Performing Http Get...")
+	fmt.Println("2. Le serveur est lancé sur le port 3000")
+	for idArtist != nbPage*12 + 1 {
+		url = "/"+strconv.Itoa(idArtist)
+		resp, err := http.Get(adress+url)
 		if err != nil {
 			log.Fatalln(err)
 		}
 		defer resp.Body.Close()
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
-		json.Unmarshal(bodyBytes, &tab)
-		name = append(name,tab.Name)
-		image = append(image,tab.Image)
-		id = tab.Id 
-		if id == 0 {
+		json.Unmarshal(bodyBytes, &oneartist)
+		idArtist = oneartist.Id 
+		if idArtist == 0 {
 			break
 		}
-		id++
+		oneartist.Location = location(oneartist.AddressLocation)
+		oneartist.ConcertDates = concertdate(oneartist.ConcertDatesaddress)
+		artists = append(artists,oneartist)
+		idArtist++
 	}
-	data := Page2{name,image}
-	fmt.Println(data)
-	return data
+	fmt.Println(artists)
+	return artists
 }
-
-
-func get(adress string, nbArtist int) (interface{}, int) {
-	valreturn := 0
-	fmt.Println("1. Performing Http Get...")
-	fmt.Println("2. Le serveur est lancé sur le port 3000")
+func concertdate(adress string) []string{
+	var dates Dates
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
-		valreturn = 500
 	}
-	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
-	var tab interface{}
-	// Convert response body to tab interface
-	json.Unmarshal(bodyBytes, &tab)
-	var name string
-	var image string
-	var members []string
-	var creationDate string
-	var firstAlbum string
-	var location string
-	var concertDates string
-	var relations string
-	for key, value := range tab.([]interface{})[nbArtist].(map[string]interface{}) {
-		if key == "name" {
-			name = fmt.Sprint(value)
-		}
-		if key == "members" {
-			members = strings.Split(fmt.Sprint(value), " ")
-		}
-		if key == "creationDate" {
-			creationDate = fmt.Sprint(value)
-		}
-		if key == "firstAlbum" {
-			firstAlbum = fmt.Sprint(value)
-		}
-		if key == "locations" {
-			location = fmt.Sprint(value)
-		}
-		if key == "concertDates" {
-			concertDates = fmt.Sprint(value)
-		}
-		if key == "relations" {
-			relations = fmt.Sprint(value)
-		}
-		if key == "image" {
-			image = fmt.Sprint(value)
-		}
+	json.Unmarshal(bodyBytes, &dates)
+	fmt.Println(dates)
+	return dates.Dates
+}
+
+func location(adress string) []string {
+	var location Location
+	resp, err := http.Get(adress)
+	if err != nil {
+		log.Fatalln(err)
 	}
-	data := Page{name, image,members, creationDate, firstAlbum, location, concertDates, relations}
-	return data,valreturn
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(bodyBytes, &location)
+	fmt.Println(location)
+	return location.Location
 }
 
 func main() {
@@ -128,24 +113,28 @@ func main() {
 	tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
 	if err != nil {
 	}
-	nb := 4
-	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			nb, _ = strconv.Atoi(r.FormValue("nombre"))
-		}
-		data, codeError := get(lien+"/artists", nb)
-		if codeError == 500 {
+	page := 1
 
-		}
+	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
+		data := HomePage(lien+"/artists", page)
 		tmpl.ExecuteTemplate(w, "index", data)
 	})
 
-	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			tmpl, err = template.ParseFiles("./templates/index.gohtml")
-			nb, _ = strconv.Atoi(r.FormValue("nombre"))
+			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
 		}
-		data := HomePage(lien+"/artists")
+		page+=1
+		data := HomePage(lien+"/artists",page)
+		tmpl.ExecuteTemplate(w, "index", data)
+	})
+
+	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
+		}
+		page-=1
+		data := HomePage(lien+"/artists",page)
 		tmpl.ExecuteTemplate(w, "index", data)
 	})
 
