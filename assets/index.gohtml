@@ -6,25 +6,25 @@
         {{/* <link rel="stylesheet" href="stylegohtml.css" /> */}}
     </head>
     <style>
-        body {
-        padding: 0;
-        margin: 0;
-        background-color: bisque;
+        body, html {
+            padding: 0;
+            margin: 0;
+            background-color: white;
         }
         .menu {
             background-color: #FF661F;
             top: 0;
             position: fixed;
             width: 100%;
-            height: 100px;
+            height: 120px;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-evenly;
             align-items: center;
             align-content: stretch;
-            margin-top: -20px;
-            padding-top: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             z-index: 900;
         }
         .menu input {
@@ -47,10 +47,10 @@
         li a {
             display: block;
             text-align: center;
-            padding: 14px 25px;
+            padding: 25px;
             text-decoration: none;
             color: white;
-            font-size: 25px;
+            font-size: 40px;
         }
         li a:hover {
             color: black;
@@ -94,6 +94,31 @@
             z-index: 901;
         }
 
+        {{/*  */}}
+        #btn_retour {
+            margin-top: 160px;
+        }
+        #btn_retour button {
+            border: 3px solid black;
+            background-color: grey;
+            width: 80px;
+            height: 50px;
+            border-radius: 30px;
+            margin-left: 30px;
+        }
+        #btn_retour button:hover{
+            background-color: lightgrey;
+        }
+        #btn_retour p {
+            color: white;
+            font-size: 12px;
+        }
+        #btn_retour p:hover {
+            color: black;
+            font-size: 14px;
+        }
+        {{/*  */}}
+
         #blocks {
             display: flex;
             flex-direction: row;
@@ -101,6 +126,7 @@
             justify-content: space-evenly;
             align-items: center;
             align-content: stretch;
+            margin-top: 25px;
         }
 
 
@@ -108,7 +134,6 @@
             background-color: lightgreen;
             width: 100%;
             height: 500px;
-            margin-top: 100px;
         }
         .artist {
             display: flex;
@@ -130,13 +155,13 @@
 
         #info {
             background-color: lightyellow;
-            border-radius: 15px 15px;
+            border-radius: 15px;
             width: 400px;
             height: 300px;
             float: left;
             padding: 15px;
             margin-top: -80px;
-            margin-left: 100px;
+            margin-left: 50px;
         }
         .info p {
             text-align: center;
@@ -193,24 +218,26 @@
             color: white;
             padding-top: 30px;
             margin-top: -90px;
+            font-size: 20px;
         }
     </style>
     <body>
     <nav class="menu">
         <ul>
-            <li><a class="active" href="index.html">Accueil</a></li>
+            <li><a class="active" href="http://localhost:3000/Groupie-tracker">Artistes</a></li>
             <!--<li><a href="#">Artistes</a></li>-->
-            <li><a href="#">Calendrier</a></li>
-            <li><a href="Villes.html">Villes</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Concert</a></li>
+            <li><a href="#">Villes</a></li>
         </ul>
-        <input class="recherche" type="search" placeholder="Recherche..." name="q"
+        {{/* <input class="recherche" type="search" placeholder="Recherche..." name="q"
        aria-label="Search through site content" size="30">
-       <button class="btnrecherche">Recherche</button>
+       <button class="btnrecherche">Recherche</button> */}}
     </nav>
-        <form class="retour" action="/Groupie-tracker" method="post">
-        <button type="submit">Retour</button> 
-        </form>
+        <section id="btn_retour">
+            <form class="retour" action="/Groupie-tracker" method="post">
+            <button type="submit"><p><- Retour</p></button> 
+            </form>
+        </section>
         <section id="blocks">
             <section id="artist">
                 <div class="artist">
@@ -228,17 +255,19 @@
             </section>
             <section id="members">
                 <div class="members">
-                    <h3>{{.Members}}</h3>
+                    <ul>
+                        <h3>{{.Members}}</h3>
+                    </ul>
                 </div>
             </section>
 
 
             <!-- En cours de création -->
-            <section id="relation">
+            {{/* <section id="relation">
                 <div class="relation">
                     <h3>{{.Relations}}</h3>
                 </div>
-            </section>
+            </section> */}}
         </section>
     </body>
     <footer>
