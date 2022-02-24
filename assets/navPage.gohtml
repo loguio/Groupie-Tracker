@@ -228,6 +228,10 @@ h1 {
     transform: scale(1.05);
     box-shadow: 7px 7px 10px grey;
 }
+.changementpage{
+    display:flex;
+}
+
 </style>
 <!DOCTYPE html>
 <html lang="fr">
@@ -259,10 +263,16 @@ h1 {
         </div>
     </section>
     {{end}}
-    <form action="PageSuivante" method="POST">
-        <button type="submit" name="suivant"> > </button>
-        <input type="hidden" value="1" name="page">
-    </form>
+    <div class="changementpage">
+        <form action="PagePrecedente" method="POST">
+            <button type="submit" name="suivant"> < </button>
+            <input type="hidden" name="page">
+        </form>
+        <form action="PageSuivante" method="POST">
+            <button type="submit" name="suivant"> > </button>
+            <input type="hidden" name="page">
+        </form>
+    </div>
     <!-- Créer un bouton pour revenir tout en haut de la page -->
     </body>
     <footer>

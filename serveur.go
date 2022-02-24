@@ -20,10 +20,7 @@ type Page struct {
 	Locations    string
 	ConcertDates string
 	Relations    string
-}
-type Page2 struct {
-	Name 	[]string
-	Image	[]string
+	Page int
 }
 
 type ArtistAPI struct {
@@ -36,6 +33,7 @@ type ArtistAPI struct {
 	Location string `json:"locations"`
 	ConcertDates string `json:"concertDates"`
 	Relations string `json:"relations"`
+	Page int
 }
 
 func HomePage(adress string, nbPage int) interface{} {
@@ -86,6 +84,7 @@ func get(adress string, nbArtist int) (interface{}, int) {
 	var location string
 	var concertDates string
 	var relations string
+	var page = 0
 	for key, value := range tab.([]interface{})[nbArtist].(map[string]interface{}) {
 		if key == "name" {
 			name = fmt.Sprint(value)
@@ -112,7 +111,7 @@ func get(adress string, nbArtist int) (interface{}, int) {
 			image = fmt.Sprint(value)
 		}
 	}
-	data := Page{name, image,members, creationDate, firstAlbum, location, concertDates, relations}
+	data := Page{name, image,members, creationDate, firstAlbum, location, concertDates, relations, page}
 	return data,valreturn
 }
 
@@ -125,6 +124,8 @@ func main() {
 	if err != nil {
 	}
 	nb := 4
+	page := 1
+
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
@@ -139,24 +140,27 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
-			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
-		nbpage ,er := strconv.Atoi(r.FormValue("page"))
-		if er != nil {
-			fmt.Println(3)
-		}
-		data := HomePage(lien+"/artists",nbpage+1)
+		page+=1
+		data := HomePage(lien+"/artists",page)
 		tmpl.ExecuteTemplate(w, "index", data)
-
 	})
 
+	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
+		}
+		page-=1
+		data := HomePage(lien+"/artists",page)
+		tmpl.ExecuteTemplate(w, "index", data)
+	})
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
-		data := HomePage(lien+"/artists",1)
+		data := HomePage(lien+"/artists",page)
 		tmpl.ExecuteTemplate(w, "index", data)
 	})
 
