@@ -34,7 +34,7 @@ type ArtistAPI struct {
 	RelationsAdress string `json:"relations"`
 	Location []string
 	ConcertDates []string
-	Relations interface{}
+	Relations	map[string][]string
 }
 
 type Location struct {
@@ -50,7 +50,7 @@ type Dates struct {
 
 type Relation struct {
 	Id int `json:"id"`
-	DatesLocations interface{} `json:"datesLocations"`
+	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
 func HomePage(adress string, nbPage int) interface{} {
@@ -75,14 +75,14 @@ func HomePage(adress string, nbPage int) interface{} {
 		oneartist.Location = location(oneartist.AddressLocation)
 		oneartist.ConcertDates = concertdate(oneartist.ConcertDatesaddress)
 		oneartist.Relations = relation(oneartist.RelationsAdress)
-		fmt.Println(oneartist.Relations)
 		artists = append(artists,oneartist)
+		fmt.Println(oneartist.Relations)
 		idArtist++
 	}
 	return artists
 }
 
-func relation(adress string) interface{} {
+func relation(adress string) map[string][]string {
 	var relation Relation
 	resp, err := http.Get(adress)
 	if err != nil {
@@ -106,6 +106,7 @@ func concertdate(adress string) []string{
 	}
 	return dates.Dates
 }
+
 func gooddate(mois string) string {
 	var date string
 	tempo := strings.Split(mois, "-")
