@@ -35,6 +35,7 @@ type ArtistAPI struct {
 	Location []string
 	ConcertDates []string
 	Relations	map[string][]string
+	RelaitonsDate [][]string
 }
 
 type Location struct {
@@ -62,6 +63,7 @@ func HomePage(adress string, nbPage int) interface{} {
 	fmt.Println("1. Performing Http Get...")
 	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	for idArtist != nbPage*12 + 1 {
+		var relationdate [][]string
 		url = "/"+strconv.Itoa(idArtist)
 		resp, err := http.Get(adress+url)
 		if err != nil {
@@ -75,8 +77,12 @@ func HomePage(adress string, nbPage int) interface{} {
 		oneartist.Location = location(oneartist.AddressLocation)
 		oneartist.ConcertDates = concertdate(oneartist.ConcertDatesaddress)
 		oneartist.Relations = relation(oneartist.RelationsAdress)
+		for i:=0;i<len(oneartist.Location);i++ {
+			relationdate=append(relationdate,oneartist.Relations[oneartist.Location[i]])
+		}
+		oneartist.RelaitonsDate = relationdate
 		artists = append(artists,oneartist)
-		fmt.Println(oneartist.Relations)
+		fmt.Println(oneartist)
 		idArtist++
 	}
 	return artists
@@ -130,19 +136,12 @@ func gooddate(mois string) string {
 
 func location(adress string) []string {
 	var locations Location
-	var location string
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &locations)
-	for i := 0 ; i< len(locations.Location);i++ {
-		location = locations.Location[i]
-		location = strings.Replace(location, "_", " ", -1)
-		location = strings.Replace(location, "-", " ", -1)
-		locations.Location[i] = location
-	}
 	return locations.Location
 }
 
