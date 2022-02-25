@@ -34,7 +34,7 @@ type ArtistAPI struct {
 	RelationsAdress string `json:"relations"`
 	Location []string
 	ConcertDates []string
-	Relations []string
+	Relations interface{}
 }
 
 type Location struct {
@@ -50,9 +50,7 @@ type Dates struct {
 
 type Relation struct {
 	Id int `json:"id"`
-	DatesLocations struct {
-
-	}
+	DatesLocations interface{} `json:"datesLocations"`
 }
 
 func HomePage(adress string, nbPage int) interface{} {
@@ -73,21 +71,30 @@ func HomePage(adress string, nbPage int) interface{} {
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
 		json.Unmarshal(bodyBytes, &oneartist)
 		idArtist = oneartist.Id 
-		if idArtist == 0 {
-			break
-		}
+		if idArtist == 0 {break}
 		oneartist.Location = location(oneartist.AddressLocation)
 		oneartist.ConcertDates = concertdate(oneartist.ConcertDatesaddress)
+		oneartist.Relations = relation(oneartist.RelationsAdress)
+		fmt.Println(oneartist.Relations)
 		artists = append(artists,oneartist)
 		idArtist++
-		fmt.Println(oneartist)
 	}
 	return artists
 }
+
+func relation(adress string) interface{} {
+	var relation Relation
+	resp, err := http.Get(adress)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(bodyBytes, &relation)
+	return relation.DatesLocations
+}
+
 func concertdate(adress string) []string{
 	var dates Dates
-	var mois []string
-	var date string
 	resp, err := http.Get(adress)
 	if err != nil {
 		log.Fatalln(err)
@@ -95,25 +102,29 @@ func concertdate(adress string) []string{
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &dates)
 	for i := 0 ; i< len(dates.Dates);i++ {
-		mois = strings.Split(dates.Dates[i], "-")
-		if mois[1] == "01" {date = strings.Replace(mois[1],"01","Janvier", -1)
-		}else if mois[1] == "02" {date = strings.Replace(mois[1],"02","Fevrier", -1)
-		}else if mois[1] == "03" {date = strings.Replace(mois[1],"03","Mars", -1)
-		}else if mois[1] == "04" {date = strings.Replace(mois[1],"04","Avril", -1)
-		}else if mois[1] == "05" {date = strings.Replace(mois[1],"05","Mai", -1)
-		}else if mois[1] == "06" {date = strings.Replace(mois[1],"06","Juin", -1)
-		}else if mois[1] == "07" {date = strings.Replace(mois[1],"07","Juillet", -1)
-		}else if mois[1] == "08" {date = strings.Replace(mois[1],"08","Aout", -1)
-		}else if mois[1] == "09" {date = strings.Replace(mois[1],"09","Septembre", -1)
-		}else if mois[1] == "10" {date = strings.Replace(mois[1],"10","Octobre", -1)
-		}else if mois[1] == "11" {date = strings.Replace(mois[1],"11","Novembre", -1)
-		}else if mois[1] == "12" {date = strings.Replace(mois[1],"12","Decembre", -1)}
-		mois[1] = date
-		date = strings.Join(mois, " ")
-		date = strings.Replace(date,"*","",-1)
-		dates.Dates[i] = date
+		dates.Dates[i] = gooddate(dates.Dates[i])
 	}
 	return dates.Dates
+}
+func gooddate(mois string) string {
+	var date string
+	tempo := strings.Split(mois, "-")
+	if tempo[1] == "01" {date = strings.Replace(tempo[1],"01","Janvier", -1)
+	}else if tempo[1] == "02" {date = strings.Replace(tempo[1],"02","Fevrier", -1)
+	}else if tempo[1] == "03" {date = strings.Replace(tempo[1],"03","Mars", -1)
+	}else if tempo[1] == "04" {date = strings.Replace(tempo[1],"04","Avril", -1)
+	}else if tempo[1] == "05" {date = strings.Replace(tempo[1],"05","Mai", -1)
+	}else if tempo[1] == "06" {date = strings.Replace(tempo[1],"06","Juin", -1)
+	}else if tempo[1] == "07" {date = strings.Replace(tempo[1],"07","Juillet", -1)
+	}else if tempo[1] == "08" {date = strings.Replace(tempo[1],"08","Aout", -1)
+	}else if tempo[1] == "09" {date = strings.Replace(tempo[1],"09","Septembre", -1)
+	}else if tempo[1] == "10" {date = strings.Replace(tempo[1],"10","Octobre", -1)
+	}else if tempo[1] == "11" {date = strings.Replace(tempo[1],"11","Novembre", -1)
+	}else if tempo[1] == "12" {date = strings.Replace(tempo[1],"12","Decembre", -1)}
+	tempo[1] = date
+	date = strings.Join(tempo, " ")
+	date = strings.Replace(date,"*","",-1)
+	return date
 }
 
 func location(adress string) []string {
