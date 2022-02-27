@@ -45,28 +45,18 @@
                 float: right;
                 margin-right: 55px;
             }
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
+            .page {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                align-items: center;
+                align-content: stretch;
             }
-            li {
-                float: left;
-                display: inline;    
-            }
-            li a {
-                display: block;
-                text-align: center;
-                padding: 25px;
+            .page p {
                 text-decoration: none;
-                color: white;
-                font-size: 40px;
-            }
-            li a:hover {
-                color: black;
-                background-color: #00B09E;
-                border-radius: 20px;
-                border: 0;
+                list-style-type: none;
+                color: page;
             }
             .recherche {
                 background-color: #B3400B;
@@ -172,7 +162,7 @@
                 font-size: 20px;
             }
             .retour {
-                margin-top: 200px;
+                
             }
         </style>
 
@@ -180,17 +170,20 @@
             <nav class="menu">
                 <h1>Groupie Tracker</h1>
                 <ul>
-                    <li><a class="active" href="localhost:3000/Groupie-tracker">Home</a></li>
-                    <li><a href="localhost:3000/Groupie-tracker/artist">Artistes</a></li>
-                    <li><a href="#">Villes</a></li>
+                    <form class="page" action="/Groupie-tracker" method="post">
+                    <button type="submit"><p>Home</p></button>
+                    </form>
+                    {{/* <li><a class="active" href="localhost:3000/Groupie-tracker">Home</a></li> */}}
+                    <form class="page" action="/Groupie-tracker/artist" method="post">
+                    <button type="submit"><p>Artistes</p></button>
+                    </form>
+                    {{/* <li><a href="localhost:3000/Groupie-tracker/artist">Artistes</a></li> */}}
+                    {{/* */}}
                 </ul>
                 <input class="recherche" type="search" placeholder="Recherche..." name="search"
             aria-label="Search through site content" size="30">
             <button class="btnrecherche">Recherche</button>
             </nav>
-            <form class="retour" action="/Groupie-tracker/artist" method="post">
-            <button type="submit"><p>artistes</p></button> 
-            </form>
         <section id="presentation">
             <div class="text_presentation">
                 <h1>Groupie Tracker</h1>
@@ -208,27 +201,23 @@
             </div>
         </section>
 
-            <section id="">
-
-            </section>
-
-            <section id="presentation_person">
-                <div class="person">
-                    <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
-                    <h1>Flavio CORMERAIS</h1>
-                    <p>Gestion de projet et liaison api/Go</p>
-                </div>
-                <div class="person">
-                    <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
-                    <h1>Marius BOURSE</h1>
-                    <p>Gestion des erreurs et liaison api/Go</p>
-                </div>
-                <div class="person">
-                    <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
-                    <h1>Jules OUTIN</h1>
-                    <p>Gestion du code Html/Css</p>
-                </div>
-            </section>
+        <section id="presentation_person">
+            <div class="person">
+                <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
+                <h1>Flavio CORMERAIS</h1>
+                <p>Gestion de projet et liaison api/Go</p>
+            </div>
+            <div class="person">
+                <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
+                <h1>Marius BOURSE</h1>
+                <p>Gestion des erreurs et liaison api/Go</p>
+            </div>
+            <div class="person">
+                <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
+                <h1>Jules OUTIN</h1>
+                <p>Gestion du code Html/Css</p>
+            </div>
+        </section>
         <body>
         <footer>
             <p>&copy | Marius BOURSE - Flavio CORMERAIS - Jules OUTIN - B1 Informatique 2021/2022 | Groupie_Tracker 2022 | Mentions Légales</p>

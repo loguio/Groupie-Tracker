@@ -129,7 +129,7 @@ func main() {
 	tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
 	if err != nil {
 	}
-	nb := 4
+	nb := 0
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
@@ -147,6 +147,17 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			tmpl, err = template.ParseFiles("./assets/index.gohtml")
+			nb, _ = strconv.Atoi(r.FormValue("nombre"))
+		}
+		data, codeError := get(lien+"/artists", nb)
+		if codeError == 500 {
+		}
+		tmpl.ExecuteTemplate(w, "index", data)
+	})
+
+	http.HandleFunc("/Groupie-tracker/artist=", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			tmpl, err = template.ParseFiles("./assets/artistes.gohtml")
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))
 		}
 		data, codeError := get(lien+"/artists", nb)
