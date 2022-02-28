@@ -166,9 +166,11 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) { // fonct
 }
 
 func main() {
+	var fs = http.FileServer(http.Dir("assets/"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	lien := "https://groupietrackers.herokuapp.com/api"
-	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
-	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
+	// fileServer := http.FileServer(http.Dir("assets/")) //Envoie des fichiers aux serveurs (CSS, sons, images)
+	// http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
 	page := 1
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) { // lancement de la fonction handle a l'adresse "/Groupie-tracker"

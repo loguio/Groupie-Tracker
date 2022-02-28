@@ -1,0 +1,286 @@
+{{define "index"}}
+    <!DOCTYPE html>
+    <html lang="fr">
+        <head>
+        <title>Groupie-Tracker Accueil</title>
+        </head>
+        
+        <style>
+        body, html {
+        padding: 0;
+        margin: 0;
+        background-color: white;
+        }
+        .menu {
+            background-color: #FF661F;
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            align-content: stretch;
+            padding-top: 10px;
+            padding-bottom: 20px;
+            z-index: 900;
+        }
+        .menu h1 {
+            font-size: 50px;
+            color: white;
+            margin-right: 250px;
+        }
+        .menu input {
+            float: right;
+            margin-right: 0px;
+        }
+        .menu button {
+            float: right;
+            margin-right: 55px;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            float: left;
+            display: inline;    
+        }
+        li a {
+            display: block;
+            text-align: center;
+            padding: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 40px;
+        }
+        li a:hover {
+            color: black;
+            background-color: #00B09E;
+            border-radius: 20px;
+            border: 0;
+        }
+        .recherche {
+            background-color: #B3400B;
+            border: 3px solid black;
+            height: 40px;
+        }
+        .recherche:hover, .recherche:active {
+            background-color: #ED5209
+        }
+        .btnrecherche {
+            background-color: #ED5209;
+            border: 3px solid black;
+        }
+        .btnrecherche:hover, .btnrecherche:active {
+            background-color: #B3400B;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+        }
+        .button {
+            background-color: #FF661F;
+            text-align: center;
+            height: 70px;
+            width: auto;
+            border-radius: 50px;
+            border: 0;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #B3400B;
+            transition: 0.3s;
+        }
+        .retour {
+            z-index: 901;
+        }
+
+        /*  */
+        #btn_retour {
+            margin-top: 170px;
+        }
+        #btn_retour button {
+            border: 3px solid black;
+            background-color: grey;
+            width: 80px;
+            height: 50px;
+            border-radius: 30px;
+            margin-left: 30px;
+        }
+        #btn_retour button:hover{
+            background-color: lightgrey;
+        }
+        #btn_retour p {
+            color: white;
+            font-size: 12px;
+        }
+        #btn_retour p:hover {
+            color: black;
+            font-size: 14px;
+        }
+        /*  */
+
+        #blocks {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: stretch;
+            margin-top: 25px;
+        }
+
+
+        #artist {
+            background-color: lightgreen;
+            width: 100%;
+            height: 500px;
+        }
+        .artist {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+            padding-top: 60px;
+        }
+        .artist h1 {
+            color: black;
+            font-size: 100px;
+        }
+        .artist img {
+            border-radius: 15px;
+            width: 400px;
+            height: 400px;
+        }
+
+
+        #info {
+            background-color: lightyellow;
+            border-radius: 15px;
+            width: 400px;
+            height: 300px;
+            float: left;
+            padding: 15px;
+            margin-top: -50px;
+            margin-left: 50px;
+        }
+        .info p {
+            text-align: center;
+            color: black;
+            font-size: 25px;
+        }
+        .info h2 {
+            color: black;
+            text-align: center;
+            padding: 5px;
+            margin: auto;
+            background-color: lightpink;
+            border-radius: 15px;
+        }
+
+
+        #members {
+            background-color: lightblue;
+            border-radius: 15px 15px;
+            width: 600px;
+            height: 150px;
+            float: right;
+            padding: 5px;
+            margin-top: -50px;
+            margin-right: 500px;
+        }
+        .members h3 {
+            text-align: center;
+            color: black;
+            font-size: 25px;
+        }
+        #relation {
+            background-color: lightgrey;
+            border-radius: 15px 15px;
+            width: 400px;
+            height: 200px;
+            float: right;
+            padding-top: 20px;
+            margin-top: 200px;
+            margin-right: 600px;
+        }
+        .relation h3 {
+            text-align: center;
+            color: black;
+            font-size: 25px;
+        }
+        footer {
+            background-color: black;
+            width: 100%;
+            height: 100px;
+            margin-top: 700px;
+        }
+        footer p {
+            text-align: center;
+            color: white;
+            padding-top: 30px;
+            margin-top: -90px;
+            font-size: 20px;
+        }
+        </style>
+        <body>
+            <nav class="menu">
+                    <h1>Groupie Tracker</h1>
+                    <ul>
+                        <form class="page" action="/Groupie-tracker" method="post">
+                        <button type="submit"><p>Home</p></button>
+                        </form>
+                        {{/* <li><a class="active" href="localhost:3000/Groupie-tracker">Home</a></li> */}}
+                        <form class="page" action="/Groupie-tracker/artist" method="post">
+                        <button type="submit"><p>Artistes</p></button>
+                        </form>
+                        {{/* <li><a href="localhost:3000/Groupie-tracker/artist">Artistes</a></li> */}}
+                        {{/* */}}
+                    </ul>
+                    <input class="recherche" type="search" placeholder="Recherche..." name="search"
+                aria-label="Search through site content" size="30">
+                <button class="btnrecherche">Recherche</button>
+                </nav>
+            <section id="blocks">
+                <section id="artist">
+                    <div class="artist">
+                        <h1>{{.Name}}</h1>
+                        <img src="{{.Image}}" />
+                    </div>
+                </section> 
+                <section id="info">
+                    <div class="info">
+                        <p>Date de création de groupe :</p>
+                        <h2>{{.CreationDate}}</h2>
+                        <p>Date du premier album :</p>
+                        <h2>{{.FirstAlbum}}</h2>
+                    </div>
+                </section>
+                <section id="members">
+                    <div class="members">
+                        <ul>
+                            <h3>{{.Members}}</h3>
+                        </ul>
+                    </div>
+                </section>
+
+
+                <!-- En cours de création -->
+                <section id="relation">
+                    <div class="relation">
+                        <h3>{{.Relations}}</h3>
+                    </div>
+                </section>
+            </section>
+        </body>
+        <footer>
+            <p>&copy | Marius BOURSE - Flavio CORMERAIS - Jules OUTIN - B1 Informatique 2021/2022 | Groupie_Tracker 2022 | Mentions Légales</p>
+        </footer>
+    </html>
+{{ end }}
