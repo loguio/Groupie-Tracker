@@ -36,6 +36,11 @@ type ArtistAPI struct {
 	ConcertDates []string
 	Relations	map[string][]string
 	RelationDate [][]string
+	Test []Machin
+}
+type Machin struct {
+	Location string
+	Dates []string
 }
 
 type Location struct {
@@ -85,6 +90,12 @@ func HomePage(adress string, nbPage int) interface{} {
 			relationdate=append(relationdate,oneartist.Relations[oneartist.Location[i]])
 		}
 		oneartist.RelationDate = relationdate
+		for i:=0; i < len(oneartist.Location);i++ {
+			var Test50 Machin
+			Test50.Location = oneartist.Location[i]
+			Test50.Dates = oneartist.RelationDate[i]
+			oneartist.Test = append(oneartist.Test,Test50)
+		}
 		artists = append(artists,oneartist)
 		fmt.Println(oneartist)
 		idArtist++
