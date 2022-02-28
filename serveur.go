@@ -126,13 +126,13 @@ func main() {
 	// fileServer := http.FileServer(http.Dir("assets/")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	// http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
-	tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
+	tmpl, err := template.ParseFiles("./assets/layout.html", "./assets/header.html", "./assets/footer.html")
 	if err != nil {
 	}
 	nb := 0
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
-			tmpl, err = template.ParseFiles("./assets/navPage.gohtml")
+			tmpl, err = template.ParseFiles("./assets/layout.html")
 			if err != nil {
 			}
 			nb, _ = strconv.Atoi(r.FormValue("nombre"))

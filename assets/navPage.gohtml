@@ -45,7 +45,7 @@
                 float: right;
                 margin-right: 55px;
             }
-            .page {
+            ul {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -53,10 +53,20 @@
                 align-items: center;
                 align-content: stretch;
             }
-            .page p {
-                text-decoration: none;
-                list-style-type: none;
-                color: page;
+            .btn_page {
+                border: 0;
+                background: none;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .btn_page:hover {
+                border-radius: 15px;
+                background-color: blue;
+                box-shadow: 5px 5px 20px lightgrey;
+            }
+            .btn_page p {
+                color: black;
+                font-size: 30px;
             }
             .recherche {
                 background-color: #B3400B;
@@ -170,12 +180,12 @@
             <nav class="menu">
                 <h1>Groupie Tracker</h1>
                 <ul>
-                    <form class="page" action="/Groupie-tracker" method="post">
-                    <button type="submit"><p>Home</p></button>
+                    <form action="/Groupie-tracker" method="post">
+                    <button class="btn_page" type="submit"><p>Home</p></button>
                     </form>
                     {{/* <li><a class="active" href="localhost:3000/Groupie-tracker">Home</a></li> */}}
-                    <form class="page" action="/Groupie-tracker/artist" method="post">
-                    <button type="submit"><p>Artistes</p></button>
+                    <form action="/Groupie-tracker/artist" method="post">
+                    <button class="btn_page"type="submit"><p>Artistes</p></button>
                     </form>
                     {{/* <li><a href="localhost:3000/Groupie-tracker/artist">Artistes</a></li> */}}
                     {{/* */}}
@@ -189,7 +199,7 @@
                 <h1>Groupie Tracker</h1>
                 <p>
                 Le but de ce projet est de réaliser un site web regroupant des artistes. 
-                Vous pouvez parcourir les différentes pages du site web pour découvrir les artistes, leurs dates de concerts et les lieux de leur concerts.
+                Vous pouvez parcourir les différentes pages du site web pour découvrir les artistes, leurs dates et lieux de concerts.
                 </p>
             </div>
         </section>
@@ -197,7 +207,9 @@
             <img class="img_but_projet" src="https://c0.lestechnophiles.com/www.madmoizelle.com/wp-content/uploads/2021/07/festival-francofolies.jpeg" />
             <div class="but">
                 <h1>But du projet :</h1>
-                <p>Le but de ce projet est de pouvoir avoir des informations sur les artistes et les groupes de musique du monde entier.</p>
+                <p>Le but du projet est d'avoir des informations sur les artistes et les groupes de musique du monde entier. Grâce à l'Api nous récuperons des informations
+                que l'ont mets en page pour que tout le monde puissent y avoir accès.
+                </p>
             </div>
         </section>
 
@@ -215,7 +227,7 @@
             <div class="person">
                 <img src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" />
                 <h1>Jules OUTIN</h1>
-                <p>Gestion du code Html/Css</p>
+                <p>Gestion du code Html/Css, mise en page des diférents éléments de l'Api</p>
             </div>
         </section>
         <body>
