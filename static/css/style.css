@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(90deg, orange, orangered, red);
+    position: relative;
+    min-height: 1000px;
+    overflow-x: hidden;
+}
+h1 {
+    color: blue;
+}
+
+
+
+/* Barre de navigation */
+header {  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 100px;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0,5;
+}
+#nav {
+    position: relative;
+    display: flex;
+}
+
+.navbar__links { 
+    color: white;
+    background-color: black;
+    font-size: 20px;
+    margin-top: 50px;
+    border-radius: 12px;
+    padding:15px 40px;
+    text-decoration: none;
+    margin-left: 150px;
+ } 
+
+.navbar__links:hover {
+    color: black;
+    background-color: white;
+} 

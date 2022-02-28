@@ -1,0 +1,51 @@
+{{ define "navbar" }}
+<style>
+    a {
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    header {  
+        background-color: lightblue;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        padding: 40px 100px;
+        z-index: 900;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: stretch;
+    }
+    .navbar__header p {
+        color: white;
+        font-size: 40px;
+    }
+    .navbar__links { 
+        color: white;
+        background-color: black;
+        font-size: 20px;
+        margin-top: 50px;
+        border-radius: 12px;
+        padding: 20px;
+        text-decoration: none;
+    } 
+
+    .navbar__links:hover {
+        color: black;
+        background-color: white;
+    } 
+</style>
+<header>
+    <p>Groupie Tracker</p>
+        <div class="navbar_header">
+            <a class="nav_links" href="Groupie-tracker/">Home</a>
+            <a class="nav_links" href="Groupie-tracker/artist">Artistes</a>
+            <a class="nav_links" href="Groupie-tracker/cart">Cartes</a>
+        </div>
+</header>
+{{ end }}
