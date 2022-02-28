@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -54,7 +55,6 @@ type Relation struct {
 }
 
 func HomePage(adress string, nbPage int) (interface{}, error) {
-	fmt.Println("1. Performing Http Get...")
 	var idArtist = (nbPage-1)*12 + 1
 	var url = ""
 	var artists []ArtistAPI
@@ -73,7 +73,9 @@ func HomePage(adress string, nbPage int) (interface{}, error) {
 			json.Unmarshal(bodyBytes, &oneartist)
 			idArtist = oneartist.Id
 			if idArtist == 0 {
-				break
+				fmt.Println("Error : API vide")
+				err = errors.New("Invalid API Id")
+				return artists, err
 			}
 			oneartist.Location, err = location(oneartist.AddressLocation)
 			if err != nil {
@@ -156,36 +158,24 @@ func location(adress string) ([]string, error) {
 	return locations.Location, err
 }
 
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+	w.WriteHeader(status)
+	if status == http.StatusNotFound {
+		fmt.Fprint(w, "custom 404")
+	}
+}
+
 func main() {
 	lien := "https://groupietrackers.herokuapp.com/api"
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
 	page := 1
-
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		data, err := HomePage(lien+"/artists", page)
-		if err != nil {
-			tmpl, err := template.ParseFiles("./Error500.gohtml")
-			if err != nil {
-			}
-			tmpl.ExecuteTemplate(w, "index", data)
+		if r.URL.Path != "/Groupie-tracker" {
+			fmt.Fprintln(w, "uwu")
+			errorHandler(w, r, http.StatusNotFound)
 		} else {
-			tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
-			if err != nil {
-				tmpl, err = template.ParseFiles("./Error500.gohtml")
-				if err != nil {
-				}
-				tmpl.ExecuteTemplate(w, "index", data)
-			} else {
-				tmpl.ExecuteTemplate(w, "index", data)
-			}
-		}
-	})
-
-	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			page += 1
 			data, err := HomePage(lien+"/artists", page)
 			if err != nil {
 				tmpl, err := template.ParseFiles("./Error500.gohtml")
@@ -205,6 +195,34 @@ func main() {
 			}
 		}
 
+	})
+
+	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/Groupie-tracker/PageSuivante" {
+			fmt.Fprintln(w, "uwusgsg")
+			errorHandler(w, r, http.StatusNotFound)
+		} else {
+			if r.Method == "POST" {
+				page += 1
+				data, err := HomePage(lien+"/artists", page)
+				if err != nil {
+					tmpl, err := template.ParseFiles("./Error500.gohtml")
+					if err != nil {
+					}
+					tmpl.ExecuteTemplate(w, "index", data)
+				} else {
+					tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
+					if err != nil {
+						tmpl, err = template.ParseFiles("./Error500.gohtml")
+						if err != nil {
+						}
+						tmpl.ExecuteTemplate(w, "index", data)
+					} else {
+						tmpl.ExecuteTemplate(w, "index", data)
+					}
+				}
+			}
+		}
 	})
 
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) {
