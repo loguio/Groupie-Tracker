@@ -50,6 +50,39 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 } // cette strcture nous permet de recuperer les donnée du lien API Relation
 
+func clicked(id string) interface{}{
+	var oneArtist ArtistAPI		
+	var relationdate [][]string
+	var nettoyage []DateLocation
+	url := "https://groupietrackers.herokuapp.com/api/artists/"+id
+	resp, err := http.Get(url) // on recupère les données qui sont stockés dans resp
+	if err != nil {
+		log.Fatalln(err) // si il y a une erreur donc erreur
+	}
+	defer resp.Body.Close() 
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(bodyBytes, &oneArtist) // on implémente les données contenus dans bodyBytes dans oneArtist cela va nous permettre de recupérer les données
+	oneArtist.FirstAlbum = gooddate(oneArtist.FirstAlbum)//on passe la donnée FirstAlbum dans la fonction gooddate pour avoir une date plus explicite
+	oneArtist.Location = location(oneArtist.AddressLocation)// on Récupere les données qui nous interesse grace a la fonction Location car AddressLocation est un lien API
+	oneArtist.ConcertDates = concertdate(oneArtist.ConcertDatesaddress) // ConcertDatesaddress est aussi un lien API donc on tri les données pur avoir celle qui nous intéresse 
+	oneArtist.Relations = relation(oneArtist.RelationsAdress)// on fait la meme chose pour RelationsAdress
+	for i:=0;i<len(oneArtist.Location);i++ {
+		for k := 0; k< len(oneArtist.Relations[oneArtist.Location[i]]);k++ {
+			oneArtist.Relations[oneArtist.Location[i]][k]  = gooddate(oneArtist.Relations[oneArtist.Location[i]][k])//on change aussi la date des concert our avoir une date plus joli
+		}
+		relationdate=append(relationdate,oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
+	}
+	oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans 
+	oneArtist.DateLocation = nettoyage // on vide notre liste
+	for i:=0; i < len(oneArtist.Location);i++ {
+		var tempo DateLocation
+		tempo.Location = bonLieu(oneArtist.Location[i])
+		tempo.Dates = oneArtist.RelationDate[i]
+		oneArtist.DateLocation = append(oneArtist.DateLocation,tempo) // on ajoute les valeurs utile dans DateLocation
+	}
+	return oneArtist
+}
+
 func ArtistPage(adress string, Page int) interface{} { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes 
 	fmt.Println("1. Performing Http Get...")
 	var idArtist = (Page-1)*12 +1// on prend le première identifiant de l'artiste que l'utilisateur veut afficher
@@ -164,6 +197,7 @@ func location(adress string) []string {
 }
 
 func main() {
+	fmt.Println(clicked("1"))
 	lien := "https://groupietrackers.herokuapp.com/api"
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
