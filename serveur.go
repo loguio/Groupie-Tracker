@@ -91,6 +91,7 @@ func ArtistPage(adress string, Page int) interface{} { //Cette fonction se lance
 		}
 		artists = append(artists,oneArtist)// on ajoute un artiste par un dans artists 
 		idArtist++// on incremente idArtists pour avoir l'artiste suivant avec l'URL
+		fmt.Println(oneArtist)
 	}
 	return artists // on renvois notre liste avec 12 artistes et les données 
 }

@@ -260,8 +260,8 @@ h1 {
         <div class="queen">
             <img src={{.Image}} style="width: 300px;padding-left: 50px;" />
             <center> <form action="/Groupie-tracker/artist" method="post"><button class="button"><h1>{{.Name}}</h1></button><input type="hidden" name="nombre" value="0"></form></center>
-            {{range .Test}}
-                {{.Location}} : 
+            {{range .DateLocation}}
+                {{.Location}} :
                 {{range .Dates}}
                     {{.}}
                 {{end}}
