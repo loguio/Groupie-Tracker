@@ -1,0 +1,80 @@
+/* Page Header.html */
+html {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+.menu {
+    background-color: #FF661F;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    z-index: 900;
+}
+.menu h1 {
+    font-size: 50px;
+    color: white;
+    margin-right: 250px;
+}
+.menu input {
+    float: right;
+    margin-right: 0px;
+}
+.menu button {
+    float: right;
+    margin-right: 55px;
+}
+ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+}
+.btn_page {
+    border: 0;
+    background: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.btn_page:hover {
+    border-radius: 15px;
+    background-color: blue;
+    box-shadow: 5px 5px 20px lightgrey;
+}
+.btn_page p {
+    color: black;
+    font-size: 30px;
+}
+.recherche {
+    background-color: #B3400B;
+    border: 3px solid black;
+    height: 40px;
+}
+.recherche:hover, .recherche:active {
+    background-color: #ED5209
+}
+.btnrecherche {
+    background-color: #ED5209;
+    border: 3px solid black;
+}
+.btnrecherche:hover, .btnrecherche:active {
+    background-color: #B3400B;
+}
+
+
+/* Fin de la page Header.html */
