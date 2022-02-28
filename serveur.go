@@ -64,7 +64,7 @@ func HomePage(adress string, nbPage int) (interface{}, error) {
 	for idArtist != nbPage*12+1 {
 		url = "/" + strconv.Itoa(idArtist)
 		resp, err := http.Get(adress + url)
-		if err != nil {
+		if err != nil { // renvoie d'une erreur si l'adresse de l'api est fausse
 			fmt.Println(err)
 			return artists, err
 		} else {
@@ -72,7 +72,7 @@ func HomePage(adress string, nbPage int) (interface{}, error) {
 			bodyBytes, _ := ioutil.ReadAll(resp.Body)
 			json.Unmarshal(bodyBytes, &oneartist)
 			idArtist = oneartist.Id
-			if idArtist == 0 {
+			if idArtist == 0 { // renvoie d'une erreur si l'adresse de l'api est vide
 				fmt.Println("Error : API vide")
 				err = errors.New("Invalid API Id")
 				return artists, err
@@ -97,7 +97,7 @@ func concertdate(adress string) ([]string, error) {
 	var dates Dates
 	var mois []string
 	var date string
-	resp, err := http.Get(adress)
+	resp, err := http.Get(adress) // renvoie d'une erreur si l'adresse de l'api est fausse
 	if err != nil {
 		fmt.Println(err)
 		return mois, err
@@ -142,7 +142,7 @@ func concertdate(adress string) ([]string, error) {
 func location(adress string) ([]string, error) {
 	var locations Location
 	var location string
-	resp, err := http.Get(adress)
+	resp, err := http.Get(adress) // renvoie d'une erreur si l'adresse de l'api est fausse
 	if err != nil {
 		fmt.Println(err)
 		return locations.Location, err
@@ -158,7 +158,7 @@ func location(adress string) ([]string, error) {
 	return locations.Location, err
 }
 
-func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) { // fonction Error 404
 	w.WriteHeader(status)
 	if status == http.StatusNotFound {
 		fmt.Fprint(w, "custom 404")
@@ -171,79 +171,84 @@ func main() {
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
 	page := 1
-	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/Groupie-tracker" {
+	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) { // lancement de la fonction handle a l'adresse "/Groupie-tracker"
+		if r.URL.Path != "/Groupie-tracker" { // vérification de l'url sinon afficher error 404
 			fmt.Fprintln(w, "uwu")
-			errorHandler(w, r, http.StatusNotFound)
+			errorHandler(w, r, http.StatusNotFound) // fonction errorhandler
 		} else {
-			data, err := HomePage(lien+"/artists", page)
-			if err != nil {
-				tmpl, err := template.ParseFiles("./Error500.gohtml")
+			data, err := HomePage(lien+"/artists", page) // récupération des donnée a envoyer sur la page
+			if err != nil {                              // afficher erreur 500
+				tmpl, err := template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
 				if err != nil {
 				}
-				tmpl.ExecuteTemplate(w, "index", data)
+				tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 			} else {
-				tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
-				if err != nil {
-					tmpl, err = template.ParseFiles("./Error500.gohtml")
+				tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage sur la page
+				if err != nil {                                             //si le fichier n'éxiste pas afficher erreur 500
+					tmpl, err = template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
 					if err != nil {
 					}
-					tmpl.ExecuteTemplate(w, "index", data)
+					tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 				} else {
-					tmpl.ExecuteTemplate(w, "index", data)
+					tmpl.ExecuteTemplate(w, "index", data) //éxécution de la page
 				}
 			}
 		}
 
 	})
 
-	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/Groupie-tracker/PageSuivante" {
+	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) { // lancement de la fonction handle a l'adresse "/Groupie-tracker/PageSuivante"
+		if r.URL.Path != "/Groupie-tracker/PageSuivante" { // vérification de l'url sinon afficher error 404
 			fmt.Fprintln(w, "uwusgsg")
-			errorHandler(w, r, http.StatusNotFound)
+			errorHandler(w, r, http.StatusNotFound) // fonction erreurhandler
 		} else {
 			if r.Method == "POST" {
 				page += 1
-				data, err := HomePage(lien+"/artists", page)
-				if err != nil {
-					tmpl, err := template.ParseFiles("./Error500.gohtml")
+				data, err := HomePage(lien+"/artists", page) // récupération des donnée a envoyer sur la page
+				if err != nil {                              // afficher erreur 500
+					tmpl, err := template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
 					if err != nil {
 					}
-					tmpl.ExecuteTemplate(w, "index", data)
+					tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 				} else {
-					tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
-					if err != nil {
-						tmpl, err = template.ParseFiles("./Error500.gohtml")
+					tmpl, err := template.ParseFiles("./assets/navPage.gohtml") //utilisation du fichier navPage sur la page
+					if err != nil {                                             // si le fichier n'éxiste pas afficher erreur 500
+						tmpl, err = template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
 						if err != nil {
 						}
-						tmpl.ExecuteTemplate(w, "index", data)
+						tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 					} else {
-						tmpl.ExecuteTemplate(w, "index", data)
+						tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 					}
 				}
 			}
 		}
 	})
 
-	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-		}
-		page -= 1
-		data, err := HomePage(lien+"/artists", page)
-		if err != nil {
-			tmpl, err := template.ParseFiles("./Error500.gohtml")
-			if err != nil {
-			}
-			tmpl.ExecuteTemplate(w, "index", data)
+	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) { // lancement de la fonction handle a l'adresse "/Groupie-tracker/PagePrecedente"
+		if r.URL.Path != "/Groupie-tracker/PagePrecedente" { // vérification de l'url sinon afficher error 404
+			fmt.Fprintln(w, "uwusgsg")
+			errorHandler(w, r, http.StatusNotFound) //fonction errorHandler
 		} else {
-			tmpl, err := template.ParseFiles("./assets/navPage.gohtml")
-			if err != nil {
-				tmpl, err = template.ParseFiles("./Error500.gohtml")
+			if r.Method == "POST" {
+			}
+			page -= 1
+			data, err := HomePage(lien+"/artists", page) // récupération des donnée a envoyer sur la page
+			if err != nil {                              // afficher erreur 500
+				tmpl, err := template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
 				if err != nil {
 				}
-				tmpl.ExecuteTemplate(w, "index", data)
+				tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
 			} else {
-				tmpl.ExecuteTemplate(w, "index", data)
+				tmpl, err := template.ParseFiles("./assets/navPage.gohtml") //utilisation de la page navPage sur la page
+				if err != nil {                                             //si le fichier n'éxiste pas afficher erreur 500
+					tmpl, err = template.ParseFiles("./Error500.gohtml") // utilisation du fichier error501 sur la page
+					if err != nil {
+					}
+					tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
+				} else {
+					tmpl.ExecuteTemplate(w, "index", data) // éxécution de la page
+				}
 			}
 		}
 	})
