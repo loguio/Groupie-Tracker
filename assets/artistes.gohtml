@@ -269,6 +269,16 @@
                         </ul>
                     </div>
                 </section>
+                <section id="date">
+                    <div class="date">
+                        {{range .DateLocation}}
+                            {{.Location}} :
+                            {{range .Dates}}
+                                {{.}}
+                            {{end}}
+                        {{end}}
+                    </div>
+                </section>
 
 
                 <!-- En cours de création -->

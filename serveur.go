@@ -53,7 +53,7 @@ type Relation struct {
 func clicked(id string) interface{}{
 	var oneArtist ArtistAPI		
 	var relationdate [][]string
-	var nettoyage []DateLocation
+	var clean []DateLocation
 	url := "https://groupietrackers.herokuapp.com/api/artists/"+id
 	resp, err := http.Get(url) // on recupère les données qui sont stockés dans resp
 	if err != nil {
@@ -73,7 +73,7 @@ func clicked(id string) interface{}{
 		relationdate=append(relationdate,oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 	}
 	oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans 
-	oneArtist.DateLocation = nettoyage // on vide notre liste
+	oneArtist.DateLocation = clean // on vide notre liste
 	for i:=0; i < len(oneArtist.Location);i++ {
 		var tempo DateLocation
 		tempo.Location = bonLieu(oneArtist.Location[i])
@@ -89,7 +89,7 @@ func ArtistPage(adress string, Page int) interface{} { //Cette fonction se lance
 	var url = ""
 	var artists []ArtistAPI// nos artistes seront stockés dans cette variables
 	var oneArtist ArtistAPI //on stock les données de un artiste danc cette variable
-	var nettoyage []DateLocation
+	var clean []DateLocation
 	fmt.Println("1. Performing Http Get...")
 	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	for idArtist != Page*12 + 1 { // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
@@ -115,7 +115,7 @@ func ArtistPage(adress string, Page int) interface{} { //Cette fonction se lance
 			relationdate=append(relationdate,oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 		}
 		oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans 
-		oneArtist.DateLocation = nettoyage // on vide notre liste
+		oneArtist.DateLocation = clean // on vide notre liste
 		for i:=0; i < len(oneArtist.Location);i++ {
 			var tempo DateLocation
 			tempo.Location = bonLieu(oneArtist.Location[i])
