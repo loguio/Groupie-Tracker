@@ -199,7 +199,7 @@ func main() {
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 	// affiche l'html
-	tmpl, err := template.ParseFiles("./assets/navPaezrtgzge.gohtml") // utilisation du fichier navPage.gohtml pour le template
+	tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 	if err != nil {
 		fmt.Println(err, "UWU1")
 		tmpl, err = template.ParseFiles("./assets/Error500.gohtml")
@@ -207,8 +207,8 @@ func main() {
 	page := 1
 
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		data, err := ArtistPage(lien+"/artists", page)                    //récupération des donnée a envoyer sur la page html
-		tmpl, err := template.ParseFiles("./assets/navPaezrtgzge.gohtml") // utilisation du fichier navPage.gohtml pour le template
+		data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
+		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml")
