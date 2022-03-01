@@ -226,7 +226,6 @@ func location(adress string) ([]string, error) {
 }
 
 func main() {
-	// fmt.Println(clicked("1"))
 	lien := "https://groupietrackers.herokuapp.com/api"
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
@@ -246,6 +245,17 @@ func main() {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
+	})
+
+	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
+		id_artiste := r.FormValue("id")
+		data, err := clicked(id_artiste)              //récupération des donnée a envoyer sur la page html
+		tmpl, err := template.ParseFiles("./assets/artistes.gohtml") // utilisation du fichier navPage.gohtml pour le template
+		if err != nil {
+			fmt.Println(err, "UWU")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		}
+		tmpl.ExecuteTemplate(w, "artiste", data) //exécution du template
 	})
 
 	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {

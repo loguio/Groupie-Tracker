@@ -1,4 +1,4 @@
-{{define "index"}}
+{{define "artiste"}}
     <!DOCTYPE html>
     <html lang="fr">
         <head>
@@ -265,26 +265,24 @@
                 <section id="members">
                     <div class="members">
                         <ul>
-                            <h3>{{.Members}}</h3>
+                            <h3>
+                            {{range .Members}}
+                            {{.}}
+                            {{end}}
+                            </h3>
                         </ul>
                     </div>
                 </section>
-                <section id="date">
-                    <div class="date">
+                <!-- En cours de création -->
+                <section id="relation">
+                    <div class="relation">
                         {{range .DateLocation}}
                             {{.Location}} :
                             {{range .Dates}}
                                 {{.}}
                             {{end}}
+                            </br>
                         {{end}}
-                    </div>
-                </section>
-
-
-                <!-- En cours de création -->
-                <section id="relation">
-                    <div class="relation">
-                        <h3>{{.Relations}}</h3>
                     </div>
                 </section>
             </section>
