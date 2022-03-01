@@ -197,7 +197,7 @@ func location(adress string) []string {
 }
 
 func main() {
-	fmt.Println(clicked("1"))
+	// fmt.Println(clicked("1"))
 	lien := "https://groupietrackers.herokuapp.com/api"
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
