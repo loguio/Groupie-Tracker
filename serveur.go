@@ -184,14 +184,19 @@ func main() {
 	fileServer := http.FileServer(http.Dir("static/")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	// affiche l'html
-	tmpl, err := template.ParseFiles("./templates/navPage.html", "./templates/body.html", "./templates/navbar.html", "./templates/footer.html")
+	tmpl, err := template.ParseFiles("./templates/home.html", "./templates/artist.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pageartists.html")
 	if err != nil {
 	}
 	page := 1
 
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		data := ArtistPage(lien+"/artists", page)
-		tmpl.ExecuteTemplate(w, "body", data)
+		tmpl.ExecuteTemplate(w, "home", data)
+	})
+
+	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
+		data := ArtistPage(lien+"/artists", page)
+		tmpl.ExecuteTemplate(w, "artist", data)
 	})
 
 	http.HandleFunc("/Groupie-tracker/PageSuivante", func(w http.ResponseWriter, r *http.Request) {
@@ -200,7 +205,7 @@ func main() {
 		}
 		page += 1
 		data := ArtistPage(lien+"/artists", page)
-		tmpl.ExecuteTemplate(w, "index", data)
+		tmpl.ExecuteTemplate(w, "artist", data)
 	})
 
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", func(w http.ResponseWriter, r *http.Request) {
@@ -209,7 +214,7 @@ func main() {
 		}
 		page -= 1
 		data := ArtistPage(lien+"/artists", page)
-		tmpl.ExecuteTemplate(w, "index", data)
+		tmpl.ExecuteTemplate(w, "artist", data)
 	})
 
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3500/Groupie-tracker")

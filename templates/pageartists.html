@@ -1,0 +1,23 @@
+{{ define "pageartists" }}
+<div class="cart_cart">
+    {{range $}}
+    <section id="cart">
+        <div class="cart_artists">
+            <img class="img_artist" src={{.Image}} />
+            <center><form action="/Groupie-tracker/artist" method="post"><button class="button" name="{{.Id}}"><h1>{{.Name}}</h1></button><input type="hidden" name="nombre" value="0"><input type="hidden" name="id" value="{{.Id}}"></form></center>
+            </section>
+    {{end}}
+</div>
+<div>
+    <div class="changementpage">
+        <form action="/Groupie-tracker/PagePrecedente" method="POST">
+            <button type="submit" name="suivant">  </button>
+            <input type="hidden" name="page">
+        </form>
+        <form action="/Groupie-tracker/PageSuivante" method="POST">
+            <button type="submit" name="suivant"> > </button>
+            <input type="hidden" name="page">
+        </form>
+    </div>
+</div>
+{{ end }}
