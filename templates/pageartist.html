@@ -1,0 +1,46 @@
+{{ define "pageartist" }}
+<section id="blocks">
+    <section id="artist">
+        <div class="artist">
+            <h1>{{.Name}}</h1>
+            <img src="{{.Image}}" />
+        </div>
+    </section> 
+    <section id="info">
+        <div class="info">
+            <p>Date de création de groupe :</p>
+            <h2>{{.CreationDate}}</h2>
+            <p>Date du premier album :</p>
+            <h2>{{.FirstAlbum}}</h2>
+        </div>
+    </section>
+    <section id="members">
+        <div class="members">
+            <ul>
+                <h3>
+                    {{range .Members}}
+                    {{.}}
+                    {{end}}
+                </h3>
+            </ul>
+        </div>
+    </section>
+
+
+    <!-- En cours de création -->
+    <section id="relation">
+        <div class="relation">
+            <h3>{{range .DateLocation}}
+            </br>
+                    {{.Location}} : 
+                    {{range .Dates}}
+                        {{.}}
+                    {{end}}
+                </br>
+                {{end}}
+            </h3>
+        </div>
+    </section>
+</section>
+
+{{ end }}

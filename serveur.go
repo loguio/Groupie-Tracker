@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -53,16 +52,16 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 } // cette strcture nous permet de recuperer les donnée du lien API Relation
 
+//on Importe toute les bibliothèques que l'on a besoin
 func clicked(id string) (interface{}, error) {
 	var oneArtist ArtistAPI
 	var relationdate [][]string
-	var nettoyage []DateLocation
+	var clean []DateLocation
 	url := "https://groupietrackers.herokuapp.com/api/artists/" + id
 	resp, err := http.Get(url) // on recupère les données qui sont stockés dans resp
 	if err != nil {
 		log.Fatalln(err) // si il y a une erreur donc erreur
 	}
-	defer resp.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &oneArtist)                         // on implémente les données contenus dans bodyBytes dans oneArtist cela va nous permettre de recupérer les données
 	oneArtist.FirstAlbum = gooddate(oneArtist.FirstAlbum)         //on passe la donnée FirstAlbum dans la fonction gooddate pour avoir une date plus explicite
@@ -85,7 +84,7 @@ func clicked(id string) (interface{}, error) {
 		relationdate = append(relationdate, oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 	}
 	oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans
-	oneArtist.DateLocation = nettoyage    // on vide notre liste
+	oneArtist.DateLocation = clean        // on vide notre liste
 	for i := 0; i < len(oneArtist.Location); i++ {
 		var tempo DateLocation
 		tempo.Location = bonLieu(oneArtist.Location[i])
@@ -101,7 +100,8 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 	var url = ""
 	var artists []ArtistAPI // nos artistes seront stockés dans cette variables
 	var oneArtist ArtistAPI //on stock les données de un artiste danc cette variable
-	var nettoyage []DateLocation
+	var clean []DateLocation
+	fmt.Println("1. Performing Http Get...")
 	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	for idArtist != Page*12+1 { // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
 		var relationdate [][]string
@@ -117,8 +117,7 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 		idArtist = oneArtist.Id
 		if idArtist == 0 {
 			fmt.Println("erreur : L'API est vide")
-			err = errors.New("L'api est vide")
-			return artists, err
+			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		oneArtist.FirstAlbum = gooddate(oneArtist.FirstAlbum)         //on passe la donnée FirstAlbum dans la fonction gooddate pour avoir une date plus explicite
 		oneArtist.Location, err = location(oneArtist.AddressLocation) // on Récupere les données qui nous interesse grace a la fonction Location car AddressLocation est un lien API
@@ -140,7 +139,7 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 			relationdate = append(relationdate, oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 		}
 		oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans
-		oneArtist.DateLocation = nettoyage    // on vide notre liste
+		oneArtist.DateLocation = clean        // on vide notre liste
 		for i := 0; i < len(oneArtist.Location); i++ {
 			var tempo DateLocation
 			tempo.Location = bonLieu(oneArtist.Location[i])
@@ -252,7 +251,7 @@ func main() {
 	http.HandleFunc("/Groupie-tracker", groupieTracker)
 	http.HandleFunc("/Groupie-tracker/PageSuivante", PageSuivante)
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", PagePrecedente)
-
+	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
@@ -264,15 +263,38 @@ func groupieTracker(w http.ResponseWriter, r *http.Request) {
 	} else {
 		lien := "https://groupietrackers.herokuapp.com/api"
 		page := 1
-		data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
-		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
+		data, err := ArtistPage(lien+"/artists", page)                                                                                                                                      //récupération des donnée a envoyer sur la page html
+		tmpl, err := template.ParseFiles("./templates/home.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pagelistartists.html") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			print(err)
 		}
-		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
+		tmpl.ExecuteTemplate(w, "artist", data) //exécution du template
+	}
+}
+func listartist(w http.ResponseWriter, r *http.Request) {
+	lien := "https://groupietrackers.herokuapp.com/api"
+	page, err := strconv.Atoi(r.FormValue("page"))
+	if err != nil {
+		fmt.Println("erreur page")
+		tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		if err != nil {
+		}
+		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
 		return
 	}
+	data, err := ArtistPage(lien+"/artists", page)
+	print(err)
+	tmpl, err := template.ParseFiles("./templates/home.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template // utilisation du fichier navPage.gohtml pour le template
+	if err != nil {
+		fmt.Println(err, "/")
+		tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		print(err)
+	}
+	tmpl.ExecuteTemplate(w, "index", data) //exécution du template
+	return
 }
 
 func PageSuivante(w http.ResponseWriter, r *http.Request) {
@@ -295,7 +317,8 @@ func PageSuivante(w http.ResponseWriter, r *http.Request) {
 			tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 			if err != nil {
 				fmt.Println(err, "UWU")
-				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				print(err)
 			}
 			page += 1
 			fmt.Println(page)
@@ -329,16 +352,16 @@ func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 			tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 			if err != nil {
 				fmt.Println(err, "UWU")
-				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				print(err)
 			}
 			page -= 1
-			fmt.Println(page)
 			data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 			if err != nil {
-				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				print(err)
 			}
-			tmpl.ExecuteTemplate(w, "index", data) //exécution du template
-			return
+			tmpl.ExecuteTemplate(w, "listartist", data) //exécution du template
 		}
 	}
 }
