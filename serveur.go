@@ -12,7 +12,6 @@ import (
 )
 
 //on Importe toute les bibliothèques que l'on a besoin
-
 type ArtistAPI struct {
 	Id                  int      `json:"id"`
 	Image               string   `json:"image"`
@@ -29,28 +28,23 @@ type ArtistAPI struct {
 	RelationDate        [][]string
 	DateLocation        []DateLocation
 } // on créer une structure qui contient toutes les données pouvant etre utile a notre site cela va nous permettre d'afficher chaque groupe avec leur données respectives
-
 type DateLocation struct {
 	Location string
 	Dates    []string
 } //Cette structure nous permet d'afficher les lieu ainsi que les dates des spectacles
-
 type Location struct {
 	Id       int      `json:"id"`
 	Location []string `json:"locations"`
 	Dates    string   `json:"dates"`
 } // cette strcture nous permet de recuperer les donnée du lien API Location
-
 type Dates struct {
 	Id    int      `json:"id"`
 	Dates []string `json:"dates"`
 } // cette strcture nous permet de recuperer les donnée du lien API Dates
-
 type Relation struct {
 	Id             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 } // cette strcture nous permet de recuperer les donnée du lien API Relation
-
 //on Importe toute les bibliothèques que l'on a besoin
 func clicked(id string) (interface{}, error) {
 	var oneArtist ArtistAPI
@@ -99,11 +93,9 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 	var url = ""
 	var artists []ArtistAPI // nos artistes seront stockés dans cette variables
 	var oneArtist ArtistAPI //on stock les données de un artiste danc cette variable
-	var clean []DateLocation
 	fmt.Println("1. Performing Http Get...")
 	fmt.Println("2. Le serveur est lancé sur le port 3000")
 	for idArtist != Page*12+1 { // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
-		var relationdate [][]string
 		url = "/" + strconv.Itoa(idArtist)  // On recupère un URL equivalent a afficher les données avec l'ID d'un artiste
 		resp, err := http.Get(adress + url) // on recupère les données qui sont stockés dans resp
 		if err != nil {
@@ -123,31 +115,8 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 		if err != nil {
 			return artists, err
 		}
-		oneArtist.ConcertDates, err = concertdate(oneArtist.ConcertDatesaddress) // ConcertDatesaddress est aussi un lien API donc on tri les données pur avoir celle qui nous intéresse
-		if err != nil {
-			return artists, err
-		}
-		oneArtist.Relations, err = relation(oneArtist.RelationsAdress) // on fait la meme chose pour RelationsAdress
-		if err != nil {
-			return artists, err
-		}
-		for i := 0; i < len(oneArtist.Location); i++ {
-			for k := 0; k < len(oneArtist.Relations[oneArtist.Location[i]]); k++ {
-				oneArtist.Relations[oneArtist.Location[i]][k] = gooddate(oneArtist.Relations[oneArtist.Location[i]][k]) //on change aussi la date des concert our avoir une date plus joli
-			}
-			relationdate = append(relationdate, oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
-		}
-		oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans
-		oneArtist.DateLocation = clean        // on vide notre liste
-		for i := 0; i < len(oneArtist.Location); i++ {
-			var tempo DateLocation
-			tempo.Location = bonLieu(oneArtist.Location[i])
-			tempo.Dates = oneArtist.RelationDate[i]
-			oneArtist.DateLocation = append(oneArtist.DateLocation, tempo) // on ajoute les valeurs utile dans DateLocation
-		}
-		artists = append(artists, oneArtist) // on ajoute un artiste par un dans artists
-		idArtist++                           // on incremente idArtists pour avoir l'artiste suivant avec l'URL
-		fmt.Println(oneArtist)
+		artists = append(artists, oneArtist)
+		idArtist++
 	}
 	var err error
 	return artists, err // on renvois notre liste avec 12 artistes et les données
