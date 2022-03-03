@@ -29,6 +29,7 @@ type ArtistAPI struct {
 	Relations           map[string][]string
 	RelationDate        [][]string
 	DateLocation        []DateLocation
+	Page                int
 } // on créer une structure qui contient toutes les données pouvant etre utile a notre site cela va nous permettre d'afficher chaque groupe avec leur données respectives
 
 type DateLocation struct {
@@ -146,6 +147,7 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 			tempo.Dates = oneArtist.RelationDate[i]
 			oneArtist.DateLocation = append(oneArtist.DateLocation, tempo) // on ajoute les valeurs utile dans DateLocation
 		}
+		oneArtist.Page = Page
 		artists = append(artists, oneArtist) // on ajoute un artiste par un dans artists
 		idArtist++                           // on incremente idArtists pour avoir l'artiste suivant avec l'URL
 	}
@@ -233,19 +235,20 @@ func location(adress string) ([]string, error) {
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &locations)
+	for i := 0; i < len(locations.Location); i++ {
+		for k := 0; k < len(locations.Location); k++ {
+			if locations.Location[i] == locations.Location[k] && i != k {
+				locations.Location[i] = ""
+			}
+		}
+	}
 	return locations.Location, err
 }
 
 func main() {
-	// fmt.Println(clicked("1"))
 	fileServer := http.FileServer(http.Dir("assets")) //Envoie des fichiers aux serveurs (CSS, sons, images)
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
-	// affiche l'html
-	/*tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
-	if err != nil {
-		fmt.Println(err, "UWU1")
-		tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-	}*/
+
 	http.HandleFunc("/Groupie-tracker", groupieTracker)
 	http.HandleFunc("/Groupie-tracker/PageSuivante", PageSuivante)
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", PagePrecedente)
@@ -269,15 +272,24 @@ func groupieTracker(w http.ResponseWriter, r *http.Request) {
 
 func PageSuivante(w http.ResponseWriter, r *http.Request) {
 	lien := "https://groupietrackers.herokuapp.com/api"
-	page := 1
+	page, err := strconv.Atoi(r.FormValue("page"))
+	if err != nil {
+		fmt.Println("erreur page")
+		tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		if err != nil {
+		}
+		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+		return
+	}
 	if r.Method == "POST" {
 		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-
 		}
 		page += 1
+		fmt.Println(page)
 		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
@@ -290,7 +302,15 @@ func PageSuivante(w http.ResponseWriter, r *http.Request) {
 
 func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 	lien := "https://groupietrackers.herokuapp.com/api"
-	page := 1
+	page, err := strconv.Atoi(r.FormValue("page"))
+	if err != nil {
+		tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		if err != nil {
+		}
+		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+		return
+	}
 	if r.Method == "POST" {
 		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
