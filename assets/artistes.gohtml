@@ -234,11 +234,11 @@
                     <h1>Groupie Tracker</h1>
                     <ul>
                         <form class="page" action="/Groupie-tracker" method="post">
-                        <button type="submit"><p>Home</p></button>
+                        <button type="submit"><p>Artistes</p></button>
                         </form>
                         {{/* <li><a class="active" href="localhost:3000/Groupie-tracker">Home</a></li> */}}
-                        <form class="page" action="/Groupie-tracker/artist" method="post">
-                        <button type="submit"><p>Artistes</p></button>
+                        <form class="page" action="/Groupie-tracker/Home" method="post">
+                        <button type="submit"><p>Acceuil</p></button>
                         </form>
                         {{/* <li><a href="localhost:3000/Groupie-tracker/artist">Artistes</a></li> */}}
                         {{/* */}}
@@ -267,7 +267,7 @@
                         <ul>
                             <h3>
                             {{range .Members}}
-                            {{.}}
+                            {{.}},
                             {{end}}
                             </h3>
                         </ul>
@@ -277,9 +277,14 @@
                 <section id="relation">
                     <div class="relation">
                         {{range .DateLocation}}
+                            </br>
                             {{.Location}} :
                             {{range .Dates}}
-                                {{.}}
+                                <ul>
+                                    <li>
+                                         {{.}} ; 
+                                    </li>
+                                </ul>
                             {{end}}
                             </br>
                         {{end}}

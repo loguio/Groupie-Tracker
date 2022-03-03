@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -11,8 +10,6 @@ import (
 	"strconv"
 	"strings"
 )
-
-//on Importe toute les bibliothèques que l'on a besoin
 
 type ArtistAPI struct {
 	Id                  int      `json:"id"`
@@ -52,11 +49,12 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 } // cette strcture nous permet de recuperer les donnée du lien API Relation
 
+//on Importe toute les bibliothèques que l'on a besoin
 func clicked(id string) (interface{}, error) {
 	var oneArtist ArtistAPI
 	var relationdate [][]string
 	var clean []DateLocation
-	url := "https://groupietrackers.herokuapp.com/api/artists/"+id
+	url := "https://groupietrackers.herokuapp.com/api/artists/" + id
 	resp, err := http.Get(url) // on recupère les données qui sont stockés dans resp
 	if err != nil {
 		log.Fatalln(err) // si il y a une erreur donc erreur
@@ -83,9 +81,9 @@ func clicked(id string) (interface{}, error) {
 		}
 		relationdate = append(relationdate, oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 	}
-	oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans 
-	oneArtist.DateLocation = clean // on vide notre liste
-	for i:=0; i < len(oneArtist.Location);i++ {
+	oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans
+	oneArtist.DateLocation = clean        // on vide notre liste
+	for i := 0; i < len(oneArtist.Location); i++ {
 		var tempo DateLocation
 		tempo.Location = bonLieu(oneArtist.Location[i])
 		tempo.Dates = oneArtist.RelationDate[i]
@@ -117,8 +115,7 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 		idArtist = oneArtist.Id
 		if idArtist == 0 {
 			fmt.Println("erreur : L'API est vide")
-			err = errors.New("L'api est vide")
-			return artists, err
+			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		oneArtist.FirstAlbum = gooddate(oneArtist.FirstAlbum)         //on passe la donnée FirstAlbum dans la fonction gooddate pour avoir une date plus explicite
 		oneArtist.Location, err = location(oneArtist.AddressLocation) // on Récupere les données qui nous interesse grace a la fonction Location car AddressLocation est un lien API
@@ -139,9 +136,9 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 			}
 			relationdate = append(relationdate, oneArtist.Relations[oneArtist.Location[i]]) // on rajoute les valeurs des dates dans l'index de la villes correspondante
 		}
-		oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans 
-		oneArtist.DateLocation = clean // on vide notre liste
-		for i:=0; i < len(oneArtist.Location);i++ {
+		oneArtist.RelationDate = relationdate // on stock les valeurs des dates dans
+		oneArtist.DateLocation = clean        // on vide notre liste
+		for i := 0; i < len(oneArtist.Location); i++ {
 			var tempo DateLocation
 			tempo.Location = bonLieu(oneArtist.Location[i])
 			tempo.Dates = oneArtist.RelationDate[i]
@@ -194,18 +191,31 @@ func concertdate(adress string) ([]string, error) {
 func gooddate(mois string) string {
 	// cette fonction nous permet de changer les mois de l'année pour les avoir en texte et on enleve les caractères qui servent a rien
 	tempo := strings.Split(mois, "-")
-	if tempo[1] == "01" {mois = strings.Replace(tempo[1], "01", "Janvier", -1)
-	} else if tempo[1] == "02" {mois = strings.Replace(tempo[1], "02", "Fevrier", -1)
-	} else if tempo[1] == "03" {mois = strings.Replace(tempo[1], "03", "Mars", -1)
-	} else if tempo[1] == "04" {mois = strings.Replace(tempo[1], "04", "Avril", -1)
-	} else if tempo[1] == "05" {mois = strings.Replace(tempo[1], "05", "Mai", -1)
-	} else if tempo[1] == "06" {mois = strings.Replace(tempo[1], "06", "Juin", -1)
-	} else if tempo[1] == "07" {mois = strings.Replace(tempo[1], "07", "Juillet", -1)
-	} else if tempo[1] == "08" {mois = strings.Replace(tempo[1], "08", "Aout", -1)
-	} else if tempo[1] == "09" {mois = strings.Replace(tempo[1], "09", "Septembre", -1)
-	} else if tempo[1] == "10" {mois = strings.Replace(tempo[1], "10", "Octobre", -1)
-	} else if tempo[1] == "11" {mois = strings.Replace(tempo[1], "11", "Novembre", -1)
-	} else if tempo[1] == "12" {mois = strings.Replace(tempo[1], "12", "Decembre", -1)}
+	if tempo[1] == "01" {
+		mois = strings.Replace(tempo[1], "01", "Janvier", -1)
+	} else if tempo[1] == "02" {
+		mois = strings.Replace(tempo[1], "02", "Fevrier", -1)
+	} else if tempo[1] == "03" {
+		mois = strings.Replace(tempo[1], "03", "Mars", -1)
+	} else if tempo[1] == "04" {
+		mois = strings.Replace(tempo[1], "04", "Avril", -1)
+	} else if tempo[1] == "05" {
+		mois = strings.Replace(tempo[1], "05", "Mai", -1)
+	} else if tempo[1] == "06" {
+		mois = strings.Replace(tempo[1], "06", "Juin", -1)
+	} else if tempo[1] == "07" {
+		mois = strings.Replace(tempo[1], "07", "Juillet", -1)
+	} else if tempo[1] == "08" {
+		mois = strings.Replace(tempo[1], "08", "Aout", -1)
+	} else if tempo[1] == "09" {
+		mois = strings.Replace(tempo[1], "09", "Septembre", -1)
+	} else if tempo[1] == "10" {
+		mois = strings.Replace(tempo[1], "10", "Octobre", -1)
+	} else if tempo[1] == "11" {
+		mois = strings.Replace(tempo[1], "11", "Novembre", -1)
+	} else if tempo[1] == "12" {
+		mois = strings.Replace(tempo[1], "12", "Decembre", -1)
+	}
 	tempo[1] = mois
 	mois = strings.Join(tempo, " ")
 	mois = strings.Replace(mois, "*", "", -1)
@@ -222,6 +232,13 @@ func location(adress string) ([]string, error) {
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bodyBytes, &locations)
+	for i := 0; i < len(locations.Location); i++ {
+		for k := 0; k < len(locations.Location); k++ {
+			if locations.Location[i] == locations.Location[k] && i != k {
+				locations.Location[i] = ""
+			}
+		}
+	}
 	return locations.Location, err
 }
 
@@ -238,6 +255,10 @@ func main() {
 	page := 1
 
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
+		if err != nil {
+			fmt.Println(err, "UWU")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		}
 		data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
 		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
@@ -249,7 +270,11 @@ func main() {
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		id_artiste := r.FormValue("id")
-		data, err := clicked(id_artiste)              //récupération des donnée a envoyer sur la page html
+		data, err := clicked(id_artiste) //récupération des donnée a envoyer sur la page html
+		if err != nil {
+			fmt.Println(err, "UWU")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+		}
 		tmpl, err := template.ParseFiles("./assets/artistes.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
@@ -270,6 +295,10 @@ func main() {
 		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			if err != nil {
+				fmt.Println(err, "UWU")
+				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			}
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 	})
@@ -286,6 +315,10 @@ func main() {
 		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			if err != nil {
+				fmt.Println(err, "UWU")
+				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			}
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 	})
