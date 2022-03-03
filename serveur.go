@@ -258,65 +258,47 @@ func main() {
 }
 
 func groupieTracker(w http.ResponseWriter, r *http.Request) {
-	lien := "https://groupietrackers.herokuapp.com/api"
-	page := 1
-	data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
-	tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
-	if err != nil {
-		fmt.Println(err, "UWU")
-		tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-	}
-	tmpl.ExecuteTemplate(w, "index", data) //exécution du template
-	return
-}
-
-func PageSuivante(w http.ResponseWriter, r *http.Request) {
-	lien := "https://groupietrackers.herokuapp.com/api"
-	page, err := strconv.Atoi(r.FormValue("page"))
-	if err != nil {
-		fmt.Println("erreur page")
-		tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-		if err != nil {
-		}
-		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
-		tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+	if r.URL.Path != "/Groupie-tracker" {
+		errorHandler(w, r, http.StatusNotFound)
 		return
-	}
-	if r.Method == "POST" {
+	} else {
+		lien := "https://groupietrackers.herokuapp.com/api"
+		page := 1
+		data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
 		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-		}
-		page += 1
-		fmt.Println(page)
-		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
-		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 		return
 	}
-
 }
 
-func PagePrecedente(w http.ResponseWriter, r *http.Request) {
-	lien := "https://groupietrackers.herokuapp.com/api"
-	page, err := strconv.Atoi(r.FormValue("page"))
-	if err != nil {
-		tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-		if err != nil {
-		}
-		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
-		tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
-		return
-	}
+func PageSuivante(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
-		if err != nil {
-			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			page -= 1
+		if r.URL.Path != "" {
+			errorHandler(w, r, http.StatusNotFound)
+			return
+		} else {
+			lien := "https://groupietrackers.herokuapp.com/api"
+			page, err := strconv.Atoi(r.FormValue("page"))
+			if err != nil {
+				fmt.Println("erreur page")
+				tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				if err != nil {
+				}
+				data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+				tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+				return
+			}
+			tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
+			if err != nil {
+				fmt.Println(err, "UWU")
+				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			}
+			page += 1
+			fmt.Println(page)
 			data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 			if err != nil {
 				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
@@ -325,5 +307,45 @@ func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+}
 
+func PagePrecedente(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		if r.URL.Path != "" {
+			errorHandler(w, r, http.StatusNotFound)
+			return
+		} else {
+			lien := "https://groupietrackers.herokuapp.com/api"
+			page, err := strconv.Atoi(r.FormValue("page"))
+			if err != nil {
+				fmt.Println("erreur page")
+				tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				if err != nil {
+				}
+				data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+				tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+				return
+			}
+			tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
+			if err != nil {
+				fmt.Println(err, "UWU")
+				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			}
+			page -= 1
+			fmt.Println(page)
+			data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+			if err != nil {
+				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			}
+			tmpl.ExecuteTemplate(w, "index", data) //exécution du template
+			return
+		}
+	}
+}
+
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+	w.WriteHeader(status)
+	if status == http.StatusNotFound {
+		fmt.Fprint(w, "custom 404")
+	}
 }
