@@ -255,10 +255,6 @@ func main() {
 	page := 1
 
 	http.HandleFunc("/Groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		if err != nil {
-			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-		}
 		data, err := ArtistPage(lien+"/artists", page)              //récupération des donnée a envoyer sur la page html
 		tmpl, err := template.ParseFiles("./assets/navPage.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
@@ -270,11 +266,7 @@ func main() {
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
 		id_artiste := r.FormValue("id")
-		data, err := clicked(id_artiste) //récupération des donnée a envoyer sur la page html
-		if err != nil {
-			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-		}
+		data, err := clicked(id_artiste)                             //récupération des donnée a envoyer sur la page html
 		tmpl, err := template.ParseFiles("./assets/artistes.gohtml") // utilisation du fichier navPage.gohtml pour le template
 		if err != nil {
 			fmt.Println(err, "UWU")
@@ -295,10 +287,6 @@ func main() {
 		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			if err != nil {
-				fmt.Println(err, "UWU")
-				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			}
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 	})
@@ -315,10 +303,6 @@ func main() {
 		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			if err != nil {
-				fmt.Println(err, "UWU")
-				tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			}
 		}
 		tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 	})
