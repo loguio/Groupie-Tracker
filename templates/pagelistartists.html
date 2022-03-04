@@ -12,12 +12,16 @@
 <div>
     <div class="changementpage">
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
-            <button type="submit" name="suivant">  </button>
-            <input type="hidden" name="page">
+            <button type="submit" name="suivant"> < </button>
+            {{range $}}
+            <input type="hidden" name="page" value="{{.Page}}">
+            {{end}}
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">
             <button type="submit" name="suivant"> > </button>
-            <input type="hidden" name="page">
+        {{range $}}
+            <input type="hidden" name="page" value="{{.Page}}">
+            {{end}}
         </form>
     </div>
 </div>
