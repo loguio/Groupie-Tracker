@@ -17,7 +17,11 @@
     <section id="members">
         <div class="members">
             <ul>
-                <h3>{{.Members}}</h3>
+                <h3>
+                    {{range .Members}}
+                    {{.}}
+                    {{end}}
+                </h3>
             </ul>
         </div>
     </section>
@@ -26,7 +30,16 @@
     <!-- En cours de création -->
     <section id="relation">
         <div class="relation">
-            <h3>{{.Relations}}</h3>
+            <h3>
+            {{range .DateLocation}}
+            </br>
+                    {{.Location}} : 
+                    {{range .Dates}}
+                        {{.}}
+                    {{end}}
+                </br>
+                {{end}}
+            </h3>
         </div>
     </section>
 </section>
