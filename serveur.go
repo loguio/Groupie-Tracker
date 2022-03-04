@@ -230,18 +230,20 @@ func main() {
 	})
 
 	http.HandleFunc("/Groupie-tracker/artist", func(w http.ResponseWriter, r *http.Request) {
-		id_artiste := r.FormValue("id")
-		data, err := clicked(id_artiste) //récupération des donnée a envoyer sur la page html
-		if err != nil {
-			fmt.Println(err, "UWU")
+		if r.Method == "POST" {
+			id_artiste := r.FormValue("id")
+			data, err := clicked(id_artiste) //récupération des donnée a envoyer sur la page html
+			if err != nil {
+				fmt.Println(err, "UWU")
+			}
+			tmpl, err := template.ParseFiles("./templates/artist.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageartist.html") // utilisation du fichier navPage.gohtml pour le template
+			if err != nil {
+				fmt.Println(err, "UWU")
+				tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				print(err)
+			}
+			tmpl.ExecuteTemplate(w, "artist", data) //exécution du template
 		}
-		tmpl, err := template.ParseFiles("./templates/artist.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageartist.html") // utilisation du fichier navPage.gohtml pour le template
-		if err != nil {
-			fmt.Println(err, "UWU")
-			tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
-			print(err)
-		}
-		tmpl.ExecuteTemplate(w, "artist", data) //exécution du template
 	})
 
 	http.HandleFunc("/Groupie-tracker/listartist", func(w http.ResponseWriter, r *http.Request) {
