@@ -1,8 +1,14 @@
+/* 
+Feuille de style qui permet de mettre en forme les différentes pages qui composent notre site web
+
+*/
+
 body {
     background-color: #8ad8f2;
 }
 
 /* Navbar */
+/* navbar.html */
 a {
     text-align: center;
     text-decoration: none;
@@ -42,6 +48,8 @@ header p {
     color: black;
     background-color: white;
 } 
+
+
 
 
 /* Page accueil */
@@ -97,7 +105,7 @@ header p {
 .person {
     background: linear-gradient(to bottom, lightyellow, lightblue);
     width: 400px;
-    height: 400px;
+    height: 450px;
     border: 0;
     border-radius: 15px;
     text-align: center;
