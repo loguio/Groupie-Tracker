@@ -14,7 +14,7 @@
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
             <button type="submit" name="précédent"> < </button>
             {{range $}}
-            <input type="hidden" name="page">
+            <input type="hidden" name="page"  value="{{.Page}}">
             {{end}}
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">

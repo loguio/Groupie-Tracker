@@ -36,6 +36,7 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 		if err != nil {
 			return artists, err
 		}
+		oneArtist.Page = Page
 		artists = append(artists, oneArtist)
 		idArtist++
 	}

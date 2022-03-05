@@ -70,7 +70,6 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	} //récupération des donnée a envoyer sur la page html
 	tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
-	return
 }
 
 func PageSuivante(w http.ResponseWriter, r *http.Request) {
@@ -83,11 +82,15 @@ func PageSuivante(w http.ResponseWriter, r *http.Request) {
 			page, err := strconv.Atoi(r.FormValue("page"))
 			if err != nil {
 				fmt.Println("erreur page")
-				tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+				tmpl, err := template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 				if err != nil {
+					fmt.Println("error 501")
 				}
 				data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
-				tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+				if err != nil {
+					fmt.Println("error data")
+				}
+				tmpl.ExecuteTemplate(w, "index", data) //exécution du template
 				return
 			}
 			tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template

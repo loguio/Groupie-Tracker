@@ -16,6 +16,7 @@ type ArtistAPI struct {
 	Relations           map[string][]string
 	RelationDate        [][]string
 	DateLocation        []DateLocation
+	Page                int
 } // on créer une structure qui contient toutes les données pouvant etre utile a notre site cela va nous permettre d'afficher chaque groupe avec leur données respectives
 type DateLocation struct {
 	Location string
