@@ -17,22 +17,20 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/PageSuivante", PageSuivante)
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", PagePrecedente)
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
+	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
 
-func groupieTracker(w http.ResponseWriter, r *http.Request) {
-	lien := "https://groupietrackers.herokuapp.com/api"
-	page := 1
-	data, err := ArtistPage(lien+"/artists", page)                                                                                                                                      //récupération des donnée a envoyer sur la page html
+func groupieTracker(w http.ResponseWriter, r *http.Request) { //récupération des donnée a envoyer sur la page html
 	tmpl, err := template.ParseFiles("./templates/home.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pagelistartists.html") // utilisation du fichier navPage.gohtml pour le template
 	if err != nil {
 		fmt.Println(err)
 		tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		print(err)
 	}
-	tmpl.ExecuteTemplate(w, "home", data) //exécution du template
+	tmpl.ExecuteTemplate(w, "home", "") //exécution du template
 }
 
 func artist(w http.ResponseWriter, r *http.Request) {
@@ -52,9 +50,24 @@ func artist(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func nbArtist(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		page := 1
+		lien := "https://groupietrackers.herokuapp.com/api"
+		nbArtist, errr := strconv.Atoi(r.FormValue("Artists"))
+		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+		if errr != nil || err != nil {
+		}
+		fmt.Println(page, nbArtist)
+		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "listartists", data)             //exécution du template
+	}
+}
+
 func listartist(w http.ResponseWriter, r *http.Request) {
 	lien := "https://groupietrackers.herokuapp.com/api"
 	page := 1
+	nbArtist := 12
 	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
 	if err != nil {
 		fmt.Println(err, "/")
@@ -63,7 +76,7 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 	}
-	data, err := ArtistPage(lien+"/artists", page)
+	data, err := ArtistPage(lien+"/artists", page, nbArtist)
 	if err != nil {
 		fmt.Println(err, "/")
 		tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
@@ -74,16 +87,18 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 
 func PageSuivante(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-
 		lien := "https://groupietrackers.herokuapp.com/api"
 		page, err := strconv.Atoi(r.FormValue("page"))
+		nbArtist, errr := strconv.Atoi(r.FormValue("Artists"))
+		if errr != nil {
+		}
 		if err != nil {
 			fmt.Println("erreur page")
 			tmpl, err := template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 			if err != nil {
 				fmt.Println("error 501")
 			}
-			data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+			data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
 			if err != nil {
 				fmt.Println("error data")
 			}
@@ -97,8 +112,7 @@ func PageSuivante(w http.ResponseWriter, r *http.Request) {
 			print(err)
 		}
 		page += 1
-		fmt.Println(page)
-		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		}
@@ -110,16 +124,18 @@ func PageSuivante(w http.ResponseWriter, r *http.Request) {
 
 func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-
 		lien := "https://groupietrackers.herokuapp.com/api"
 		page, err := strconv.Atoi(r.FormValue("page"))
+		nbArtist, errr := strconv.Atoi(r.FormValue("Artists"))
+		if errr != nil {
+		}
 		if err != nil {
 			fmt.Println("erreur page")
 			tmpl, err := template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 			if err != nil {
 			}
-			data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
-			tmpl.ExecuteTemplate(w, "index", data)         //exécution du template
+			data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
+			tmpl.ExecuteTemplate(w, "index", data)                   //exécution du template
 			return
 		}
 		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
@@ -129,13 +145,11 @@ func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 			print(err)
 		}
 		page -= 1
-		fmt.Println(page)
-		data, err := ArtistPage(lien+"/artists", page) //récupération des donnée a envoyer sur la page html
+		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		}
 		tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
 		return
 	}
-
 }

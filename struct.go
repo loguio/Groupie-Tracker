@@ -1,6 +1,13 @@
 package main
 
 //on Importe toute les bibliothèques que l'on a besoin
+
+type Page2 struct {
+	Noyau    []ArtistAPI
+	Page     int
+	NbArtist int
+}
+
 type ArtistAPI struct {
 	Id                  int      `json:"id"`
 	Image               string   `json:"image"`
@@ -16,7 +23,6 @@ type ArtistAPI struct {
 	Relations           map[string][]string
 	RelationDate        [][]string
 	DateLocation        []DateLocation
-	Page                int
 } // on créer une structure qui contient toutes les données pouvant etre utile a notre site cela va nous permettre d'afficher chaque groupe avec leur données respectives
 type DateLocation struct {
 	Location string

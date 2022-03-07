@@ -8,15 +8,16 @@ import (
 	"strconv"
 )
 
-func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes
+func ArtistPage(adress string, Page int, nbArtist int) (interface{}, error) { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes
 	fmt.Println("1. Performing Http Get...")
-	var idArtist = (Page-1)*12 + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
+	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
+	var page Page2
 	var artists []ArtistAPI // nos artistes seront stockés dans cette variables
 	var oneArtist ArtistAPI //on stock les données de un artiste danc cette variable
 	fmt.Println("1. Performing Http Get...")
 	fmt.Println("2. Le serveur est lancé sur le port 3000")
-	for idArtist != Page*12+1 { // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
+	for idArtist != Page*nbArtist+1 { // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
 		url = "/" + strconv.Itoa(idArtist)  // On recupère un URL equivalent a afficher les données avec l'ID d'un artiste
 		resp, err := http.Get(adress + url) // on recupère les données qui sont stockés dans resp
 		if err != nil {
@@ -36,10 +37,13 @@ func ArtistPage(adress string, Page int) (interface{}, error) { //Cette fonction
 		if err != nil {
 			return artists, err
 		}
-		oneArtist.Page = Page
 		artists = append(artists, oneArtist)
 		idArtist++
 	}
 	var err error
-	return artists, err // on renvois notre liste avec 12 artistes et les données
+	page.Noyau = artists
+	page.Page = Page
+	page.NbArtist = nbArtist
+	fmt.Println(nbArtist)
+	return page, err // on renvois notre liste avec 12 artistes et les données
 }

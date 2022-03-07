@@ -1,7 +1,7 @@
 {{ define "pagelistartists" }}
 
 <div class="cart_cart">
-    {{range $}}
+    {{range .Noyau}}
     <section id="cart">
         <div class="cart_artists">
             <img class="img_artist" src={{.Image}} />
@@ -10,18 +10,18 @@
     {{end}}
 </div>
 <div>
+    <form action="/Groupie-tracker/nbArtist" method="POST">
+        <input type="text" name="Artists" value="{{.NbArtist}}">
+        <input type="hidden" name="nbArtist"  value="{{.NbArtist}}">
+    </form>
     <div class="changementpage">
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
             <button type="submit" name="précédent"> < </button>
-            {{range $}}
             <input type="hidden" name="page"  value="{{.Page}}">
-            {{end}}
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">
             <button type="submit" name="suivant">></button>
-            {{range $}}
             <input type="hidden" name="page" value="{{.Page}}">
-            {{end}}
         </form>
     </div>
 </div>
