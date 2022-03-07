@@ -164,11 +164,11 @@ footer p {
 .cart_cart {
     margin-top: 170px;
     display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	align-items: center;
-	align-content: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: stretch;
 }
 
 .cart_artists {
@@ -192,11 +192,11 @@ footer p {
 
 #cart {
     display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: stretch;
-	align-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: space-between;
     margin-bottom: 20px;
 }
 
