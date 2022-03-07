@@ -12,16 +12,17 @@
 <div>
     <form action="/Groupie-tracker/nbArtist" method="POST">
         <input type="text" name="Artists" value="{{.NbArtist}}">
-        <input type="hidden" name="nbArtist"  value="{{.NbArtist}}">
     </form>
     <div class="changementpage">
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
             <button type="submit" name="précédent"> < </button>
             <input type="hidden" name="page"  value="{{.Page}}">
+            <input type="hidden" name="Artists" value="{{.NbArtist}}">
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">
             <button type="submit" name="suivant">></button>
             <input type="hidden" name="page" value="{{.Page}}">
+            <input type="hidden" name="Artists" value="{{.NbArtist}}">
         </form>
     </div>
 </div>
