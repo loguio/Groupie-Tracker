@@ -128,7 +128,7 @@ func trieSolo(adress string, Page int) (interface{}, error) {
 	var url = ""
 	var page Page5
 	var artists []TrieMembers // nos artistes seront stockés dans cette variables
-	var oneArtist TrieMembers    //on stock les données de un artiste danc cette variable
+	var oneArtist TrieMembers //on stock les données de un artiste danc cette variable
 	for idArtist != 0 {       // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
 		url = "/" + strconv.Itoa(idArtist)  // On recupère un URL equivalent a afficher les données avec l'ID d'un artiste
 		resp, err := http.Get(adress + url) // on recupère les données qui sont stockés dans resp
