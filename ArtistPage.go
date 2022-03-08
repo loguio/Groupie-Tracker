@@ -32,8 +32,6 @@ func ArtistPage(adress string, Page int, nbArtist int) (interface{}, error) { //
 			fmt.Println("erreur : L'API est vide")
 			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
-		oneArtist.FirstAlbum = gooddate(oneArtist.FirstAlbum)         //on passe la donnée FirstAlbum dans la fonction gooddate pour avoir une date plus explicite
-		oneArtist.Location, err = location(oneArtist.AddressLocation) // on Récupere les données qui nous interesse grace a la fonction Location car AddressLocation est un lien API
 		if err != nil {
 			return artists, err
 		}

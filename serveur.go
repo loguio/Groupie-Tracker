@@ -19,9 +19,24 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
+	// http.HandleFunc("/Groupie-tracker/Recherche", recherche)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
+
+// func recherche(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method == "POST" {
+// 		page := 1
+// 		lien := "https://groupietrackers.herokuapp.com/api"
+// 		nbArtist, errr := strconv.Atoi(r.FormValue("Artists"))
+// 		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+// 		if errr != nil || err != nil {
+// 		}
+// 		fmt.Println(page, nbArtist)
+// 		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
+// 		tmpl.ExecuteTemplate(w, "listartists", data)             //exécution du template
+// 	}
+// }
 
 func groupieTracker(w http.ResponseWriter, r *http.Request) { //récupération des donnée a envoyer sur la page html
 	tmpl, err := template.ParseFiles("./templates/home.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pagelistartists.html") // utilisation du fichier navPage.gohtml pour le template
@@ -144,7 +159,9 @@ func PagePrecedente(w http.ResponseWriter, r *http.Request) {
 			tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 			print(err)
 		}
-		page -= 1
+		if page < 1 {
+			page -= 1
+		}
 		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
 		if err != nil {
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
