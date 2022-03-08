@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 //on Importe toute les bibliothèques que l'on a besoin
@@ -19,7 +20,7 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
-	http.HandleFunc("/Groupie-tracker/Recherche", recherche)
+	http.HandleFunc("/Groupie-tracker/Recherche", rechercher)
 	http.HandleFunc("/Groupie-tracker/listartistA-Z", FiltreAlpha)
 	http.HandleFunc("/Groupie-tracker/listartistDate", FiltreDate)
 	http.HandleFunc("/Groupie-tracker/listartistSolo", FiltreSolo)
@@ -29,9 +30,18 @@ func main() {
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
 
-func recherche(w http.ResponseWriter, r *http.Request) {
+func rechercher(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		fmt.Println(r.FormValue("recherche"))
+		recherche := r.FormValue("recherche")
+		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(recherche), ""))
+		if errr != nil {
+			print(errr)
+		}
+		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+		if err != nil {
+			print(err)
+		}
+		tmpl.ExecuteTemplate(w, "listartists", data)
 	}
 }
 

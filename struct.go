@@ -77,3 +77,6 @@ type TrieMembers struct {
 	Members []string `json:"members"`
 	Page    int
 }
+type Page3 struct {
+	Noyau []TrieName
+}
