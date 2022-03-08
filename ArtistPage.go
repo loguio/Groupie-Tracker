@@ -42,6 +42,5 @@ func ArtistPage(adress string, Page int, nbArtist int) (interface{}, error) { //
 	page.Noyau = artists
 	page.Page = Page
 	page.NbArtist = nbArtist
-	fmt.Println(nbArtist)
 	return page, err // on renvois notre liste avec 12 artistes et les données
 }

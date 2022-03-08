@@ -47,3 +47,6 @@ type TrieName struct {
 	Id    int    `json:"id"`
 	Page  int
 }
+type Page3 struct {
+	Noyau []TrieName
+}
