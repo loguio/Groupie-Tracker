@@ -14,7 +14,7 @@ func rechercheFind(adress string, nom []string) (interface{}, error) {
 	var url = ""
 	var tempo []string
 	var artists []TrieName // nos artistes seront stockés dans cette variables
-	var pageRecherche Page3
+	var pageRecherche PageRecherche
 	var oneArtist TrieName //on stock les données de un artiste danc cette variable
 	for idArtist != 0 {    // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
 		url = "/" + strconv.Itoa(idArtist)  // On recupère un URL equivalent a afficher les données avec l'ID d'un artiste
