@@ -21,6 +21,9 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/artist", artist)
 	http.HandleFunc("/Groupie-tracker/Recherche", recherche)
 	http.HandleFunc("/Groupie-tracker/listartistA-Z", FiltreAlpha)
+	http.HandleFunc("/Groupie-tracker/listartistDate", FiltreDate)
+	http.HandleFunc("/Groupie-tracker/listartistSolo", FiltreSolo)
+	http.HandleFunc("/Groupie-tracker/listartistGroups", FiltreGroups)
 
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
@@ -182,7 +185,72 @@ func FiltreAlpha(w http.ResponseWriter, r *http.Request) {
 				fmt.Println(err)
 			}
 		}
-		data, err := trie(lien+"/artists", page)
+		data, err := trieAlpha(lien+"/artists", page)
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			fmt.Println(err)
+		} //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
+	}
+}
+
+func FiltreDate(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		lien := "https://groupietrackers.herokuapp.com/api"
+		page := 1
+		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		data, err := trieDate(lien+"/artists", page)
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			fmt.Println(err)
+		} //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
+	}
+}
+
+func FiltreGroups(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		lien := "https://groupietrackers.herokuapp.com/api"
+		page := 1
+		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		data, err := trieGroups(lien+"/artists", page)
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			fmt.Println(err)
+		} //récupération des donnée a envoyer sur la page html
+		tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
+	}
+}
+func FiltreSolo(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		lien := "https://groupietrackers.herokuapp.com/api"
+		page := 1
+		tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html") // utilisation du fichier navPage.gohtml pour le template
+		if err != nil {
+			fmt.Println(err, "/")
+			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		data, err := trieSolo(lien+"/artists", page)
 		if err != nil {
 			fmt.Println(err, "/")
 			tmpl, err = template.ParseFiles("./assets/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
