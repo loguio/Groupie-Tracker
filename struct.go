@@ -35,3 +35,9 @@ type Relation struct {
 	Id             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 } // cette strcture nous permet de recuperer les donnée du lien API Relation
+type TrieName struct {
+	Name  string `json:"name"`
+	Image string `json:"image"`
+	Id    int    `json:"id"`
+	Page  int
+}

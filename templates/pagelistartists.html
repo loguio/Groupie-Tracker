@@ -1,5 +1,4 @@
 {{ define "pagelistartists" }}
-
 <div class="cart_cart">
     {{range $}}
     <section id="cart">
@@ -8,6 +7,11 @@
             <center><form action="/Groupie-tracker/artist" method="post"><button class="button" name="{{.Id}}"><h1>{{.Name}}</h1></button><input type="hidden" name="nombre" value="0"><input type="hidden" name="id" value="{{.Id}}"></form></center>
             </section>
     {{end}}
+</div>
+<div class="trie">
+    <form action="/Groupie-tracker/listartistA-Z" method="POST">
+        <button type="submit" name="alphabet">A-Z</button>
+    </form>
 </div>
 <div>
     <div class="changementpage">
