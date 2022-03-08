@@ -1,16 +1,25 @@
+<!--  -->
 {{ define "home" }}
+<!DOCTYPE html>
+<html>
 <head>
     <title>Groupie Tracker - Home </title>
     <link rel="icon" href="../static/css/img/logo2.png">
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<body>
     <div>
         {{ template "navbar" . }}
     </div>
     <div>
         {{ template "pageaccueil" . }}
     </div>
+    
+</body>
+<footer>
     <div>
         {{ template "footer" . }}
     </div>
+</footer>
+</html>
 {{ end }}

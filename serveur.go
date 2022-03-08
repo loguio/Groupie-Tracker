@@ -18,9 +18,20 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/PagePrecedente", PagePrecedente)
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
+	// http.HandleFunc("/Groupie-trackere", Handle404)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
+
+var templates = template.Must(template.ParseFiles("./templates/Error404.html"))
+
+// func Handle404(w http.ResponseWriter, r *http.Request, status int) {
+// 	w.WriteHeader(status)
+// 	if status == http.StatusNotFound {
+// 		fmt.Fprint(w, "custom 404")
+// 		template.ExecuteTemplate(w)
+// 	}
+// }
 
 func groupieTracker(w http.ResponseWriter, r *http.Request) {
 	lien := "https://groupietrackers.herokuapp.com/api"
@@ -32,6 +43,10 @@ func groupieTracker(w http.ResponseWriter, r *http.Request) {
 		tmpl, err = template.ParseFiles("./templates/Error500.gohtml") //utilisation du fichier Error500.gohtml pour le template
 		print(err)
 	}
+	// if r.URL.Path != "/" {
+	// 	Handle404(w, r, http.StatusNotFound)
+	// 	return
+	// }
 	tmpl.ExecuteTemplate(w, "home", data) //exécution du template
 }
 

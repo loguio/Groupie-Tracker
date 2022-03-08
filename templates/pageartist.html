@@ -1,22 +1,27 @@
 {{ define "pageartist" }}
+<!-- Section qui permet de mettre le nom de l'artiste et la photo du groupe -->
 <section id="blocks">
     <section id="artist">
         <div class="artist">
             <h1>{{.Name}}</h1>
             <img src="{{.Image}}" />
         </div>
-    </section> 
+    </section>
+     <!--Section qui permet d'afficher les différentes informations sur l'artistes ou le groupe  -->
     <section id="info">
         <div class="info">
+            <h2>Informations</h2>
             <p>Date de création de groupe :</p>
             <h2>{{.CreationDate}}</h2>
             <p>Date du premier album :</p>
             <h2>{{.FirstAlbum}}</h2>
         </div>
     </section>
+    <!-- Section qui permet d'afficher le nom des membres du groupe -->
     <section id="members">
         <div class="members">
             <ul>
+                <h2>Membres du groupe</h2>
                 <h3>
                     {{range .Members}}
                     {{.}}
@@ -25,11 +30,10 @@
             </ul>
         </div>
     </section>
-
-
-    <!-- En cours de création -->
+    <!-- Section qui permet de mettre les lieux et les dates des concerts du groupe ou de l'artiste -->
     <section id="relation">
         <div class="relation">
+            <h2>Lieux et dates de concerts</h2>
             <h3>
             {{range .DateLocation}}
             </br>

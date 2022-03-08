@@ -3,7 +3,7 @@ Feuille de style qui permet de mettre en forme les différentes pages qui compos
 
 */
 
-body {
+html {
     background-color: #8ad8f2;
 }
 
@@ -37,22 +37,19 @@ header p {
     font-size: 40px;
     padding-right: 500px;
 }
-.navbar__links { 
+.navbar_links { 
     color: white;
-    background-color: black;
-    font-size: 20px;
+    font-size: 35px;
     text-decoration: none;
 } 
 
-.navbar__links:hover {
-    color: black;
-    background-color: white;
+.navbar_links:hover {
+    color: yellow;
 } 
 
 
-
-
 /* Page accueil */
+/* pageaccueil.html */
 #presentation {
     margin-top: 180px;
     width: 100%;
@@ -127,8 +124,8 @@ header p {
 }
 
 
-
 /* Footer */
+/* footer.html */
 footer {
     background-color: #1e5c70;
     position: sticky;
@@ -151,12 +148,6 @@ footer p {
     color: white;
     font-size: 15px;
 }
-
-
-
-
-
-
 
 
 /* Page listartistes */
@@ -219,9 +210,6 @@ footer p {
 }
 
 
-
-
-
 /* Page artistes */
 
 #blocks {
@@ -233,8 +221,6 @@ footer p {
     align-content: stretch;
     margin-top: 150px;
 }
-
-
 #artist {
     background-color: #1e5c70;
     width: 100%;
@@ -258,8 +244,6 @@ footer p {
     width: 400px;
     height: 400px;
 }
-
-
 #info {
     background-color: #41c4f0;
     border-radius: 15px;
@@ -282,8 +266,6 @@ footer p {
     background-color: #406470;
     border-radius: 15px;
 }
-
-
 #members {
     background-color: lightblue;
     border-radius: 15px 15px;
@@ -298,9 +280,6 @@ footer p {
     color: black;
     font-size: 25px;
 }
-
-
-
 #relation {
     background-color: lightgrey;
     border-radius: 15px 15px;
@@ -314,4 +293,24 @@ footer p {
     text-align: center;
     color: black;
     font-size: 25px;
+}
+
+
+/* Bouton page suivante et pécédente */
+.btn_travel_page {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.btn_travel {
+    border: 0;
+    border-radius: 15px;
+    background-color: #1e5c70;
+}
+.btn_travel p {
+    color: white;
+    text-align: center;
 }

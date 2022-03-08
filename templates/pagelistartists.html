@@ -12,13 +12,17 @@
 <div>
     <div class="changementpage">
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
-            <button type="submit" name="précédent"> < </button>
+            <div class="btn_travel_page">
+                <button class="btn_travel" type="submit" name="précédent"><p> < </p></button>
+            </div>
             {{range $}}
             <input type="hidden" name="page"  value="{{.Page}}">
             {{end}}
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">
-            <button type="submit" name="suivant">></button>
+            <div class="btn_travel_page">
+                <button class="btn_travel" type="submit" name="suivant"><p> > </p></button>
+            </div>
             {{range $}}
             <input type="hidden" name="page" value="{{.Page}}">
             {{end}}
