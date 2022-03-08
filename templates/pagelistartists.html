@@ -1,9 +1,7 @@
 {{ define "pagelistartists" }}
-
-<div class="cart_cart">
+<div class="cart_cart"> 
     <form action="/Groupie-tracker/Recherche" method="POST">
-        <input type="text" name="Artists" placeholder="Rentrez un nombre d'artistes a voir">   
-        <input type="hidden" value="{{.NbArtist}}"> 
+        <input type="text" name="recherche" placeholder="Entrez un nom d'artiste">   
     </form>
     {{range .Noyau}}
     <section id="cart">
@@ -12,6 +10,11 @@
             <center><form action="/Groupie-tracker/artist" method="post"><button class="button" name="{{.Id}}"><h1>{{.Name}}</h1></button><input type="hidden" name="nombre" value="0"><input type="hidden" name="id" value="{{.Id}}"></form></center>
             </section>
     {{end}}
+</div>
+<div class="trie">
+    <form action="/Groupie-tracker/listartistA-Z" method="POST">
+        <button type="submit" name="alphabet">A-Z</button>
+    </form>
 </div>
 <div>
     <form action="/Groupie-tracker/nbArtist" method="POST">
