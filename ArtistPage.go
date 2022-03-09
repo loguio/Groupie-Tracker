@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func ArtistPage(adress string, Page int, nbArtist int) (interface{}, error) { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes
+func ArtistPage(adress string, Page int, nbArtist int, function string) (interface{}, error) { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes
 	fmt.Println("1. Performing Http Get...")
 	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
@@ -42,5 +42,6 @@ func ArtistPage(adress string, Page int, nbArtist int) (interface{}, error) { //
 	page.Noyau = artists
 	page.Page = Page
 	page.NbArtist = nbArtist
+	page.Function = function
 	return page, err // on renvois notre liste avec 12 artistes et les données
 }
