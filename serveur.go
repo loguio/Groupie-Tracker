@@ -147,14 +147,17 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.FormValue("pageSuivante") == "TRUE" {
 		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+		fmt.Println("nb artist apres page suivante :", nbArtist)
 		if err != nil {
 			fmt.Println(err)
 		}
 		page, err = strconv.Atoi(r.FormValue("page"))
+		fmt.Println("page apres page suivante :", page)
 		if err != nil {
 			fmt.Println(err)
 		}
 		page += 1
+		fmt.Println("page apres page suivante  +1 :", page)
 		if r.FormValue("Function") == "trieSolo" {
 			function := r.FormValue("Function")
 			data, err = trieSolo(lien+"/artists", page, nbArtist, function)

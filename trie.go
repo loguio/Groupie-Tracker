@@ -37,7 +37,7 @@ func trieAlpha(adress string, Page int, nbArtist int, function string) (interfac
 		names = append(names, oneArtist.Name)
 	}
 	sort.Strings(names)
-	for i := 0; i != len(names); i++ {
+	for i := (Page-1)*nbArtist + 1; i != len(names); i++ {
 		for j := 1; j != len(names); j++ {
 			if names[i] == tempartists[j].Name {
 				artists = append(artists, tempartists[j])
@@ -51,6 +51,8 @@ func trieAlpha(adress string, Page int, nbArtist int, function string) (interfac
 	var err error
 	page.Noyau = artists
 	page.Function = function
+	page.Page = Page
+	page.NbArtist = nbArtist
 	return page, err
 }
 
@@ -97,6 +99,8 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 	var err error
 	page.Noyau = artists
 	page.Function = function
+	page.Page = Page
+	page.NbArtist = nbArtist
 	return page, err
 }
 
@@ -132,6 +136,8 @@ func trieGroups(adress string, Page int, nbArtist int, function string) (interfa
 	var err error
 	page.Noyau = artists
 	page.Function = function
+	page.Page = Page
+	page.NbArtist = nbArtist
 	return page, err
 }
 
@@ -167,5 +173,7 @@ func trieSolo(adress string, Page int, nbArtist int, function string) (interface
 	var err error
 	page.Noyau = artists
 	page.Function = function
+	page.Page = Page
+	page.NbArtist = nbArtist
 	return page, err
 }
