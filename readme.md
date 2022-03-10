@@ -3,13 +3,19 @@
                                 | |  _|  \/|| / \|| | |||  \/|| ||  \      / \  |  \/|| / \||  /  |   / |  \  |  \/|
                                 | |_//|    /| \_/|| \_/||  __/| ||  /_     | |  |    /| |-|||  \_ |   \ |  /_ |    /
                                 \____\\_/\_\\____/\____/\_/   \_/\____\    \_/  \_/\_\\_/ \|\____/\_|\_\\____\\_/\_\
-                                                                                    
+
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo2.png" alt="Logo" width="80" height="80">
+  </a>
+</div>
+
 # Groupie Tracker
 ***
 Le projet Groupie-Tracker consiste à créer une ou plusieurs pages web qui est agrémenté par une API. 
 Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux de concerts et la liste des membres des différents groupes. 
 
-
+<!-- Les exigences -->
 ## Les exigences
 ***
 - Réaliser le backend en Golang.
@@ -31,9 +37,9 @@ $ go run .
 
 ## Développeur
 ***
-- Marius BOURSE
-- Flavio CORMERAIS
-- Jules OUTIN
+- Marius BOURSE (B1 Informatique)
+- Flavio CORMERAIS (B1 Informatique)
+- Jules OUTIN (B1 Informatique)
 
 ## Droits d'auteur et licenses
 ***
