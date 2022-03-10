@@ -6,14 +6,20 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 
 ## Les exigences
 ***
-- 
-
+- Réaliser le backend en Golang.
+- Que le site et le serveur ne crash pas dans.
+- Que les pages ne rencontre pas d'erreurs.
+- utiliser les bonnes partiquent de programmations.
 
 ## Technologies utilisés
 ***
 - Lecture de l'API avec le langage Golang
 - Affichage des différentes informations récupérer en Golang en Html/Css
 
+## Installation et utilisation
+***
+$ git clone https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git
+$ go run .
 
 ## Développeur
 ***
@@ -23,6 +29,8 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 
 ## Droits d'auteur et licenses
 ***
+Ce projet appartient à :
+
 - Marius BOURSE
 - Flavio CORMERAIS
 - Jules OUTIN
