@@ -44,13 +44,14 @@ func trieAlpha(adress string, Page int, nbArtist int, function string) (interfac
 				break
 			}
 		}
-		if len(artists) > nbArtist {
+		if len(artists) == nbArtist {
 			break
 		}
 	}
 	var err error
 	page.Noyau = artists
 	page.Function = function
+	fmt.Println(page.Function)
 	page.Page = Page
 	page.NbArtist = nbArtist
 	return page, err
@@ -82,7 +83,7 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 		tempartists = append(tempartists, oneArtist)
 		idArtist++
 		creationDate = append(creationDate, oneArtist.CreationDate)
-		if len(tempartists) > nbArtist {
+		if len(tempartists) == nbArtist {
 			break
 		}
 	}
@@ -129,7 +130,7 @@ func trieGroups(adress string, Page int, nbArtist int, function string) (interfa
 			artists = append(artists, oneArtist)
 		}
 		idArtist++
-		if len(artists) > nbArtist {
+		if len(artists) == nbArtist {
 			break
 		}
 	}
@@ -166,7 +167,7 @@ func trieSolo(adress string, Page int, nbArtist int, function string) (interface
 			artists = append(artists, oneArtist)
 		}
 		idArtist++
-		if len(artists) > nbArtist {
+		if len(artists) == nbArtist {
 			break
 		}
 	}

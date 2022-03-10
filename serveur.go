@@ -152,32 +152,30 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 		page, err = strconv.Atoi(r.FormValue("page"))
-		fmt.Println("page apres page suivante :", page)
 		if err != nil {
 			fmt.Println(err)
 		}
 		page += 1
-		fmt.Println("page apres page suivante  +1 :", page)
-		if r.FormValue("Function") == "trieSolo" {
-			function := r.FormValue("Function")
+		if r.FormValue("function") == "trieSolo" {
+			function := r.FormValue("function")
 			data, err = trieSolo(lien+"/artists", page, nbArtist, function)
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("Function") == "trieGroups" {
-			function := r.FormValue("Function")
+		} else if r.FormValue("function") == "trieGroups" {
+			function := r.FormValue("function")
 			data, err = trieGroups(lien+"/artists", page, nbArtist, function)
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("Function") == "trieAlpha" {
-			function := r.FormValue("Function")
+		} else if r.FormValue("function") == "trieAlpha" {
+			function := r.FormValue("function")
 			data, err = trieAlpha(lien+"/artists", page, nbArtist, function)
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("Function") == "trieDate" {
-			function := r.FormValue("Function")
+		} else if r.FormValue("function") == "trieDate" {
+			function := r.FormValue("function")
 			data, err = trieDate(lien+"/artists", page, nbArtist, function)
 			if err != nil {
 				fmt.Println(err)
@@ -191,16 +189,45 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.FormValue("pagePrecedente") == "TRUE" {
 		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+		fmt.Println("nb artist apres page suivante :", nbArtist)
 		if err != nil {
 			fmt.Println(err)
 		}
 		page, err = strconv.Atoi(r.FormValue("page"))
+		fmt.Println("page apres page suivante :", page)
 		if err != nil {
 			fmt.Println(err)
 		}
 		page -= 1
-		function := "normal"
-		data, err = ArtistPage(lien+"/artists", page, nbArtist, function)
+		fmt.Println("page apres page suivante  +1 :", page)
+		if r.FormValue("function") == "trieSolo" {
+			function := r.FormValue("function")
+			data, err = trieSolo(lien+"/artists", page, nbArtist, function)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else if r.FormValue("function") == "trieGroups" {
+			function := r.FormValue("function")
+			data, err = trieGroups(lien+"/artists", page, nbArtist, function)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else if r.FormValue("function") == "trieAlpha" {
+			function := r.FormValue("function")
+			data, err = trieAlpha(lien+"/artists", page, nbArtist, function)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else if r.FormValue("function") == "trieDate" {
+			function := r.FormValue("function")
+			data, err = trieDate(lien+"/artists", page, nbArtist, function)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else {
+			function := "normal"
+			data, err = ArtistPage(lien+"/artists", page, nbArtist, function)
+		}
 		if err != nil {
 			fmt.Println(err)
 		}
