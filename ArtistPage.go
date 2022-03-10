@@ -9,7 +9,6 @@ import (
 )
 
 func ArtistPage(adress string, Page int, nbArtist int, function string) (interface{}, error) { //Cette fonction se lance lorsque l'utilisateur est sur la page des artistes
-	fmt.Println("1. Performing Http Get...")
 	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	var page PageListArtist

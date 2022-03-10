@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -99,4 +100,14 @@ func location(adress string) ([]string, error) {
 		}
 	}
 	return locations.Location, err
+}
+
+func error500(err error, w http.ResponseWriter) {
+	var data interface{}
+	fmt.Println(err)
+	tmpl, err := template.ParseFiles("./templates/Error500.html") // utilisation du fichier navPage.gohtml pour le template
+	if err != nil {
+		fmt.Println(err)
+	}
+	tmpl.ExecuteTemplate(w, "error500", data) // exécute le template sur la page html
 }
