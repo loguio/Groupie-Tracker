@@ -28,6 +28,7 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 $ git clone https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git
 $ go run .
 ```
+- Si les boutons ne s'affichent pas correctement, changer de navigateur.
 
 ## Développeur
 ***
