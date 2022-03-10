@@ -58,7 +58,7 @@ func trieAlpha(adress string, Page int, nbArtist int, function string) (interfac
 }
 
 func trieDate(adress string, Page int, nbArtist int, function string) (interface{}, error) {
-	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
+	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	var page Page4
 	var creationDate []int
@@ -83,22 +83,29 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 		tempartists = append(tempartists, oneArtist)
 		idArtist++
 		creationDate = append(creationDate, oneArtist.CreationDate)
-		if len(tempartists) == nbArtist {
-			break
-		}
+
 	}
 	sort.Ints(creationDate)
 	for i := 0; i != len(creationDate); i++ {
 		for j := 0; j != len(tempartists); j++ {
 			if creationDate[i] == tempartists[j].CreationDate {
 				artists = append(artists, tempartists[j])
+				fmt.Println(tempartists[j].CreationDate)
 				tempartists = remove(tempartists, j)
 				break
 			}
 		}
+		// if len(artists) == nbArtist {
+		// 	break
+		// }
+	}
+	var tempo2 []TrieDate
+	tempo := nbArtist * (Page - 1)
+	for i := tempo; i < nbArtist*Page; i++ {
+		tempo2 = append(tempo2, artists[i])
 	}
 	var err error
-	page.Noyau = artists
+	page.Noyau = tempo2
 	page.Function = function
 	page.Page = Page
 	page.NbArtist = nbArtist
@@ -106,8 +113,9 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 }
 
 func trieGroups(adress string, Page int, nbArtist int, function string) (interface{}, error) {
-	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
+	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
+	point := 0
 	var page Page5
 	var artists []TrieMembers // nos artistes seront stockés dans cette variables
 	var oneArtist TrieMembers //on stock les données de un artiste danc cette variable
@@ -127,7 +135,11 @@ func trieGroups(adress string, Page int, nbArtist int, function string) (interfa
 			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		if len(oneArtist.Members) > 1 {
-			artists = append(artists, oneArtist)
+			if point > (Page-1)*nbArtist {
+				artists = append(artists, oneArtist)
+			} else {
+				point++
+			}
 		}
 		idArtist++
 		if len(artists) == nbArtist {
@@ -143,8 +155,9 @@ func trieGroups(adress string, Page int, nbArtist int, function string) (interfa
 }
 
 func trieSolo(adress string, Page int, nbArtist int, function string) (interface{}, error) {
-	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
+	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
+	point := 1
 	var page Page5
 	var artists []TrieMembers // nos artistes seront stockés dans cette variables
 	var oneArtist TrieMembers //on stock les données de un artiste danc cette variable
@@ -164,7 +177,13 @@ func trieSolo(adress string, Page int, nbArtist int, function string) (interface
 			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		if len(oneArtist.Members) == 1 {
-			artists = append(artists, oneArtist)
+			fmt.Println(point)
+
+			if point > (Page-1)*nbArtist {
+				artists = append(artists, oneArtist)
+			} else {
+				point++
+			}
 		}
 		idArtist++
 		if len(artists) == nbArtist {
