@@ -25,14 +25,14 @@ func main() {
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
 
-func error404(w http.ResponseWriter, r *http.Request) {
+func error404(w http.ResponseWriter, r *http.Request) { // affichage de l'erreur 404
 	fmt.Fprintln(w, "error 404 custom lets go c win")
 }
 
-func rechercher(w http.ResponseWriter, r *http.Request) {
+func rechercher(w http.ResponseWriter, r *http.Request) { //fonction pour afficher les artists recherché
 	if r.Method == "POST" {
 		recherche := r.FormValue("recherche")
-		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(recherche), ""))
+		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(recherche), "")) // récupération des artiste pour les artists recherché
 		if errr != nil {
 			print(errr)
 		}
@@ -80,7 +80,6 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 		if errr != nil || err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(page, nbArtist)
 		function := r.FormValue("function")
 		data, err := ArtistPage(lien+"/artists", page, nbArtist, function) //récupération des donnée a envoyer sur la page html
 		if err != nil {
@@ -103,51 +102,50 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 	}
-	if r.FormValue("trieAlpha") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+	if r.FormValue("trieAlpha") == "TRUE" { // récupération de la variable qui nous indique quelle filtre on utilise
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		if err != nil {
 			fmt.Println(err)
 		}
 		function := "trieAlpha"
-		data, err = trieAlpha(lien+"/artists", page, nbArtist, function)
+		data, err = trieAlpha(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		if err != nil {
 			fmt.Println(err)
 		}
-	} else if r.FormValue("trieDate") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+	} else if r.FormValue("trieDate") == "TRUE" { // récupération de la variable qui nous indique quelle filtre on utilise
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		if err != nil {
 			fmt.Println(err)
 		}
 		function := "trieDate"
-		data, err = trieDate(lien+"/artists", page, nbArtist, function)
+		data, err = trieDate(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		if err != nil {
 			fmt.Println(err)
 		}
-	} else if r.FormValue("trieSolo") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+	} else if r.FormValue("trieSolo") == "TRUE" { // récupération de la variable qui nous indique quelle filtre on utilise
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		fmt.Println(nbArtist)
 		if err != nil {
 			fmt.Println(err)
 		}
 		function := "trieSolo"
-		data, err = trieSolo(lien+"/artists", page, nbArtist, function)
+		data, err = trieSolo(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		if err != nil {
 			fmt.Println(err)
 		}
-	} else if r.FormValue("trieGroups") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+	} else if r.FormValue("trieGroups") == "TRUE" { // récupération de la variable qui nous indique quelle filtre on utilise
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		fmt.Println(nbArtist)
 		function := "trieGroups"
 		if err != nil {
 			fmt.Println(err)
 		}
-		data, err = trieGroups(lien+"/artists", page, nbArtist, function)
+		data, err = trieGroups(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		if err != nil {
 			fmt.Println(err)
 		}
-	} else if r.FormValue("pageSuivante") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
-		fmt.Println("nb artist apres page suivante :", nbArtist)
+	} else if r.FormValue("pageSuivante") == "TRUE" { // avancé a la page suivante en gardant les filtre si utilisé grâce a la variable function
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -156,39 +154,39 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 		page += 1
-		if r.FormValue("function") == "trieSolo" {
+		if r.FormValue("function") == "trieSolo" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieSolo(lien+"/artists", page, nbArtist, function)
+			data, err = trieSolo(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieGroups" {
+		} else if r.FormValue("function") == "trieGroups" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieGroups(lien+"/artists", page, nbArtist, function)
+			data, err = trieGroups(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieAlpha" {
+		} else if r.FormValue("function") == "trieAlpha" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieAlpha(lien+"/artists", page, nbArtist, function)
+			data, err = trieAlpha(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieDate" {
+		} else if r.FormValue("function") == "trieDate" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieDate(lien+"/artists", page, nbArtist, function)
+			data, err = trieDate(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
 		} else {
 			function := "normal"
-			data, err = ArtistPage(lien+"/artists", page, nbArtist, function)
+			data, err = ArtistPage(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		}
 		if err != nil {
 			fmt.Println(err)
 		}
-	} else if r.FormValue("pagePrecedente") == "TRUE" {
-		nbArtist, err = strconv.Atoi(r.FormValue("Artists"))
+	} else if r.FormValue("pagePrecedente") == "TRUE" { // avancé a la page précédente en gardant les filtre si utilisé grâce a la variable function
+		nbArtist, err = strconv.Atoi(r.FormValue("Artists")) // récupération du nombre d'artists à afficher
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -197,40 +195,40 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 		page -= 1
-		if r.FormValue("function") == "trieSolo" {
+		if r.FormValue("function") == "trieSolo" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieSolo(lien+"/artists", page, nbArtist, function)
+			data, err = trieSolo(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieGroups" {
+		} else if r.FormValue("function") == "trieGroups" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieGroups(lien+"/artists", page, nbArtist, function)
+			data, err = trieGroups(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieAlpha" {
+		} else if r.FormValue("function") == "trieAlpha" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieAlpha(lien+"/artists", page, nbArtist, function)
+			data, err = trieAlpha(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
-		} else if r.FormValue("function") == "trieDate" {
+		} else if r.FormValue("function") == "trieDate" { // récupération de la variable qui nous indique quelle filtre on utilise
 			function := r.FormValue("function")
-			data, err = trieDate(lien+"/artists", page, nbArtist, function)
+			data, err = trieDate(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 			if err != nil {
 				fmt.Println(err)
 			}
 		} else {
 			function := "normal"
-			data, err = ArtistPage(lien+"/artists", page, nbArtist, function)
+			data, err = ArtistPage(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 		}
 		if err != nil {
 			fmt.Println(err)
 		}
 	} else {
 		function := "normal"
-		data, err = ArtistPage(lien+"/artists", page, nbArtist, function)
+		data, err = ArtistPage(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
 	}
 	if err != nil {
 		fmt.Println(err, "/")

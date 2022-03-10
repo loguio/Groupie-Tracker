@@ -2,25 +2,25 @@ package main
 
 //on Importe toute les bibliothèques que l'on a besoin
 
-type Page2 struct {
+type PageNoFilter struct { //Structure des donnée envoyer sur l'html
 	Noyau    []ArtistAPI
 	Page     int
 	NbArtist int
 	Function string
 }
-type Page3 struct {
+type PageFilterName struct { //Structure des donnée envoyer sur l'html
 	Noyau    []TrieName
 	Page     int
 	NbArtist int
 	Function string
 }
-type Page4 struct {
+type PageFilterDate struct { //Structure des donnée envoyer sur l'html
 	Noyau    []TrieDate
 	Page     int
 	NbArtist int
 	Function string
 }
-type Page5 struct {
+type PageFilterMembers struct { //Structure des donnée envoyer sur l'html
 	Noyau    []TrieMembers
 	Page     int
 	NbArtist int
@@ -59,22 +59,22 @@ type Dates struct {
 type Relation struct {
 	Id             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
-} // cette strcture nous permet de recuperer les donnée du lien API Relation
-type TrieName struct {
+}                      // cette strcture nous permet de recuperer les donnée du lien API Relation
+type TrieName struct { // cette structure récupere les donnée utile pour le filtre de noms
 	Name  string `json:"name"`
 	Image string `json:"image"`
 	Id    int    `json:"id"`
 	Page  int
 }
 
-type TrieDate struct {
+type TrieDate struct { // cette structure récupere les donnée utile pour le filtre de date
 	Name         string `json:"name"`
 	Image        string `json:"image"`
 	Id           int    `json:"id"`
 	CreationDate int    `json:"creationDate"`
 	Page         int
 }
-type TrieMembers struct {
+type TrieMembers struct { // cette structure récupere les donnée utile pour le filtre de membres
 	Name    string   `json:"name"`
 	Image   string   `json:"image"`
 	Id      int      `json:"id"`

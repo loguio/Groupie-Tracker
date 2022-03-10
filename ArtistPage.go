@@ -12,7 +12,7 @@ func ArtistPage(adress string, Page int, nbArtist int, function string) (interfa
 	fmt.Println("1. Performing Http Get...")
 	var idArtist = (Page-1)*nbArtist + 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
-	var page Page2
+	var page PageNoFilter
 	var artists []ArtistAPI // nos artistes seront stockés dans cette variables
 	var oneArtist ArtistAPI //on stock les données de un artiste danc cette variable
 	fmt.Println("1. Performing Http Get...")
