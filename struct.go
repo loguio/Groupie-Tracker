@@ -28,6 +28,11 @@ type DateLocation struct {
 	Dates    []string
 } //Cette structure nous permet d'afficher les lieu ainsi que les dates des spectacles
 
+type Carte struct {
+	Valeur   string
+	Location []string
+}
+
 type Location struct {
 	Id       int      `json:"id"`
 	Location []string `json:"locations"`

@@ -22,6 +22,7 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/artist", artist)
 	http.HandleFunc("/Groupie-tracker/Recherche", rechercher)
 	http.HandleFunc("/Groupie-tracker/listartistA-Z", FiltreAlpha)
+	http.HandleFunc("/Groupie-tracker/cart", carte)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
@@ -88,6 +89,23 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 		data, err := ArtistPage(lien+"/artists", page, nbArtist) //récupération des donnée a envoyer sur la page html
 		tmpl.ExecuteTemplate(w, "listartists", data)             //exécution du template
 	}
+}
+
+//####################################################################################################################################
+
+func carte(w http.ResponseWriter, r *http.Request) {
+	var Page Carte
+	lien := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q="
+	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html", "./templates/pagecart.html")
+	if err != nil {
+	}
+	value := r.FormValue("carte")
+	if value == "" {
+		lien = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris"
+	}
+	Page.Location = lieux("https://groupietrackers.herokuapp.com/api/locations/")
+	Page.Valeur = lien + value
+	tmpl.ExecuteTemplate(w, "pagecart", Page)
 }
 
 //##############################################################################################################################//
