@@ -115,7 +115,7 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 func mapp(w http.ResponseWriter, r *http.Request) {
 	var Page Carte                                                                                   // on créer page qui va nous permette d'avoir toute les donnéés utiles
 	url := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=" // cette url nous permet d'avoir la map de google maps avec la clé de l'API
-	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html")
+	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html", ".templates/cart.html")
 	if err != nil {
 		error500(err, w)
 	}
@@ -125,5 +125,5 @@ func mapp(w http.ResponseWriter, r *http.Request) {
 	}
 	Page.Location = place("https://groupietrackers.herokuapp.com/api/locations/") // on envois toute les lieux possible sans doublons et dans l'ordre alphabetique a l'utilisateur
 	Page.Valeur = url + value
-	tmpl.ExecuteTemplate(w, "pagecart", Page) // on affiche le template pagecart avec les données de Page
+	tmpl.ExecuteTemplate(w, "cart", Page) // on affiche le template pagecart avec les données de Page
 }
