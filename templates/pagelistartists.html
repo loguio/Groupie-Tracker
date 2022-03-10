@@ -1,9 +1,36 @@
 {{ define "pagelistartists" }}
-<div class="filter">
-    <!-- Insérer les filtres -->
+<div class="trie_filter">
+    <form  action="/Groupie-tracker/listartist" method="POST">
+        <button class="btn_filter" type="submit" name="alphabet"><p>A-Z</p></button>
+        <input type="hidden" value="TRUE" name="trieAlpha"> 
+        <input type="hidden" name="Artists" value="{{.NbArtist}}">
+    </form>
+    <form action="/Groupie-tracker/listartist" method="POST">
+        <button class="btn_filter" type="submit" name="Creation Date"><p>Dates</p></button>
+        <input type="hidden" value="TRUE" name="trieDate"> 
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
+    </form>
+    <form action="/Groupie-tracker/listartist" method="POST">
+        <button class="btn_filter" type="submit" name="Groups"><p>Groupes</p></button>
+        <input type="hidden" value="TRUE" name="trieGroups">
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
+    </form>
+    <form action="/Groupie-tracker/listartist" method="POST">
+        <button class="btn_filter" type="submit" name="Solo"><p>Solo</p></button>
+        <input type="hidden" value="TRUE" name="trieSolo">
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
+    </form>
+    <form action="/Groupie-tracker/nbArtist" method="POST">
+        <input class="search" type="text" name="Artists" placeholder="Nombre d'artistes a voir...">   
+        <input type="hidden" value="{{.NbArtist}}"> 
+        <input type="hidden" name="function" value="{{.Function}}">
+    </form>
+    <form action="/Groupie-tracker/Recherche" method="POST">
+        <input class="search" type="text" name="recherche" placeholder="Entrez un nom d'artiste">
+    </form>
 </div>
 <div class="cart_cart">
-    {{range $}}
+    {{range .Noyau}}
     <section id="cart">
         <div class="cart_artists">
             <img class="img_artist" src={{.Image}} />
@@ -11,23 +38,22 @@
             </section>
     {{end}}
 </div>
+
 <div>
     <div class="changementpage">
-        <form action="/Groupie-tracker/PagePrecedente" method="POST">
-            <div class="btn_travel_page">
-                <button class="btn_travel" type="submit" name="précédent"><p> < Précédent </p></button>
-            </div>
-            {{range $}}
+        <form action="/Groupie-tracker/listartist" method="POST">
+            <button class="btn_travel" type="submit" name="précédent"><p>< Précédent</p></button>
             <input type="hidden" name="page"  value="{{.Page}}">
-            {{end}}
+            <input type="hidden" name="pagePrecedente"  value="TRUE">
+            <input type="hidden" name="Artists" value="{{.NbArtist}}">
+            <input type="hidden" name="function" value="{{.Function}}">
         </form>
-        <form action="/Groupie-tracker/PageSuivante" method="POST">
-            <div class="btn_travel_page">
-                <button class="btn_travel" type="submit" name="suivant"><p> Suivant > </p></button>
-            </div>
-            {{range $}}
+        <form action="/Groupie-tracker/listartist" method="POST">
+            <button class="btn_travel" type="submit" name="suivant"><p>Suivant ></p></button>
             <input type="hidden" name="page" value="{{.Page}}">
-            {{end}}
+            <input type="hidden" name="pageSuivante"  value="TRUE">
+            <input type="hidden" name="Artists" value="{{.NbArtist}}">
+            <input type="hidden" name="function" value="{{.Function}}">
         </form>
     </div>
 </div>
