@@ -90,7 +90,6 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 		for j := 0; j != len(tempartists); j++ {
 			if creationDate[i] == tempartists[j].CreationDate {
 				artists = append(artists, tempartists[j])
-				fmt.Println(tempartists[j].CreationDate)
 				tempartists = remove(tempartists, j)
 				break
 			}
