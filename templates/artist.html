@@ -1,16 +1,23 @@
 {{ define "artist" }}
+<!doctype html>
+<html>
 <head>
-    <title>Groupie Tracker - Artists </title>
+    <title>Groupie Tracker - {{.Name}} </title>
     <link rel="icon" href="../static/css/img/logo2.png">
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
-    <div>
+<body>
+<div>
         {{ template "navbar" . }}
     </div>
     <div>
         {{ template "pageartist" . }}
     </div>
-    <div>
+</body>
+<footer>
+<div>
         {{ template "footer" . }}
-    </div>
+</div>
+</footer>
+</html>
 {{ end }}

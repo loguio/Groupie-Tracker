@@ -3,7 +3,7 @@ Feuille de style qui permet de mettre en forme les différentes pages qui compos
 
 */
 
-body {
+html {
     background-color: #8ad8f2;
 }
 
@@ -37,22 +37,19 @@ header p {
     font-size: 40px;
     padding-right: 500px;
 }
-.navbar__links { 
+.navbar_links { 
     color: white;
-    background-color: black;
-    font-size: 20px;
+    font-size: 35px;
     text-decoration: none;
 } 
 
-.navbar__links:hover {
-    color: black;
-    background-color: white;
+.navbar_links:hover {
+    color: yellow;
 } 
 
 
-
-
 /* Page accueil */
+/* pageaccueil.html */
 #presentation {
     margin-top: 180px;
     width: 100%;
@@ -105,7 +102,7 @@ header p {
 .person {
     background: linear-gradient(to bottom, lightyellow, lightblue);
     width: 400px;
-    height: 450px;
+    height: 600px;
     border: 0;
     border-radius: 15px;
     text-align: center;
@@ -122,13 +119,13 @@ header p {
 .person img {
     padding-top: 30px;
     width: 250px;
-    height: 150px;
+    height: auto;
     border-radius: 15px;
 }
 
 
-
 /* Footer */
+/* footer.html */
 footer {
     background-color: #1e5c70;
     position: sticky;
@@ -153,16 +150,10 @@ footer p {
 }
 
 
-
-
-
-
-
-
 /* Page listartistes */
 
 .cart_cart {
-    margin-top: 170px;
+    margin-top: 50px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -176,11 +167,9 @@ footer p {
     border-radius: 50px; 
     width: 400px;
     padding: 20px;
-    /* -moz-transition: all 2 ease; */
  }
  
 .cart_artists:hover {
-    -moz-transform: scale(1.05);
     transform: scale(1.01);
     box-shadow: 7px 7px 10px grey;
 }
@@ -218,12 +207,18 @@ footer p {
     color: white;
 }
 
-
-
+.changementpage {
+    margin-top: 50px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
 
 
 /* Page artistes */
-
 #blocks {
     display: flex;
     flex-direction: row;
@@ -233,8 +228,6 @@ footer p {
     align-content: stretch;
     margin-top: 150px;
 }
-
-
 #artist {
     background-color: #1e5c70;
     width: 100%;
@@ -258,8 +251,6 @@ footer p {
     width: 400px;
     height: 400px;
 }
-
-
 #info {
     background-color: #41c4f0;
     border-radius: 15px;
@@ -282,8 +273,6 @@ footer p {
     background-color: #406470;
     border-radius: 15px;
 }
-
-
 #members {
     background-color: lightblue;
     border-radius: 15px 15px;
@@ -298,9 +287,6 @@ footer p {
     color: black;
     font-size: 25px;
 }
-
-
-
 #relation {
     background-color: lightgrey;
     border-radius: 15px 15px;
@@ -314,4 +300,108 @@ footer p {
     text-align: center;
     color: black;
     font-size: 25px;
+}
+
+
+/* Page carte */
+.page_carte_titre {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    margin-bottom: 30px;
+}
+.page_carte_titre h1 {
+    margin-top: 150px;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+}
+.carte {
+    position:center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    margin-bottom: 50px;
+}
+
+/* Barre de recherche page cart */
+.search_cart {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch; 
+}
+.btn_search_cart {
+    border: 0;
+    border-radius: 15px;
+    background-color: #1e5c70;
+    height: 40px;
+    width: 120px;
+    display: inline-block;
+}
+
+
+/* Bouton filtre + barre de recherche */
+.trie_filter {
+    margin-top: 140px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch; 
+}
+.btn_filter {
+    border: 0;
+    border-radius: 15px;
+    background-color: #1e5c70;
+    height: 40px;
+    width: 120px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+}
+.btn_filter:hover {
+    transform: scale(1.04); 
+}
+.btn_filter p {
+    color: white;
+    font-size: 20px;
+}
+.btn_filter p:hover {
+    color: yellow;
+    font-size: 20px;
+}
+
+/* Bouton page suivante et pécédente */
+.btn_travel {
+    border: 0;
+    border-radius: 15px;
+    background-color: #1e5c70;
+}
+.btn_travel p {
+    color: white;
+    text-align: center;
+}
+
+/* Barre de recherche + nombres de membres */
+.search {
+    border: 0;
+    background-color: #1e5c70;
+    height: 40px;
+    border-radius:15px;
+}
+.search::placeholder {
+    color: white;
+    text-align:center;  
 }

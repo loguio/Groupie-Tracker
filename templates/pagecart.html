@@ -2,23 +2,25 @@
 <div class="page_carte_titre">
     <h1>Carte</h1>
 </div>
-<form action="/Groupie-tracker/cart" method="POST">
-    <button type="submit">submit</button>
-    <select name="map">
-        <option>choose a location</option>
-        {{range .Location}}
-        <option name="map">
-            {{.}}
-        </option>
-        {{end}}
-    </select>
-</form>
+<div class="search_cart">
+    <form action="/Groupie-tracker/cart" method="POST">
+        <button class="btn_search_cart" type="submit"><p>Envoyer</p></button>
+        <select name="carte">
+            <option>choose a location</option>
+            {{range .Location}}
+            <option name="carte">
+                {{.}}
+            </option>
+            {{end}}
+        </select>
+    </form>
+</div>
 <div class="carte">
     <iframe
-        width=80%
-        height=80%
+        width=100%
+        height=70%
         frameborder="0" style="border:0"
         src={{.Valeur}}>
-       </iframe>
+    </iframe>
 </div>
 {{ end }}
