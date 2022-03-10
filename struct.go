@@ -6,21 +6,25 @@ type Page2 struct {
 	Noyau    []ArtistAPI
 	Page     int
 	NbArtist int
+	Function string
 }
 type Page3 struct {
 	Noyau    []TrieName
 	Page     int
 	NbArtist int
+	Function string
 }
 type Page4 struct {
 	Noyau    []TrieDate
 	Page     int
 	NbArtist int
+	Function string
 }
 type Page5 struct {
 	Noyau    []TrieMembers
 	Page     int
 	NbArtist int
+	Function string
 }
 
 type ArtistAPI struct {
@@ -76,4 +80,7 @@ type TrieMembers struct {
 	Id      int      `json:"id"`
 	Members []string `json:"members"`
 	Page    int
+}
+type Page6 struct {
+	Noyau []TrieName
 }

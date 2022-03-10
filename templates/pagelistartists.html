@@ -1,7 +1,7 @@
 {{ define "pagelistartists" }}
 <div class="cart_cart"> 
     <form action="/Groupie-tracker/Recherche" method="POST">
-        <input type="text" name="recherche" placeholder="Entrez un nom d'artiste">   
+        <input type="text" name="recherche" placeholder="Entrez un nom d'artiste">
     </form>
     {{range .Noyau}}
     <section id="cart">
@@ -12,34 +12,47 @@
     {{end}}
 </div>
 <div class="trie">
-    <form action="/Groupie-tracker/listartistA-Z" method="POST">
+    <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="alphabet">A-Z</button>
+        <input type="hidden" value="TRUE" name="trieAlpha"> 
+        <input type="hidden" name="Artists" value="{{.NbArtist}}">
     </form>
-    <form action="/Groupie-tracker/listartistDate" method="POST">
+    <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Creation Date">Creation Date</button>
+        <input type="hidden" value="TRUE" name="trieDate"> 
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
-    <form action="/Groupie-tracker/listartistGroups" method="POST">
+    <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Groups">Groups</button>
+        <input type="hidden" value="TRUE" name="trieGroups">
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
-    <form action="/Groupie-tracker/listartistSolo" method="POST">
+    <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Solo">Solo</button>
+        <input type="hidden" value="TRUE" name="trieSolo">
+        <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
 </div>
 <div>
     <form action="/Groupie-tracker/nbArtist" method="POST">
         <input type="text" name="Artists" placeholder="Rentrez un nombre d'artistes a voir">   
         <input type="hidden" value="{{.NbArtist}}"> 
+        <input type="hidden" name="function" value="{{.Function}}">
     </form>
     <div class="changementpage">
-        <form action="/Groupie-tracker/PagePrecedente" method="POST">
+        <form action="/Groupie-tracker/listartist" method="POST">
             <button type="submit" name="précédent"> < </button>
             <input type="hidden" name="page"  value="{{.Page}}">
+            <input type="hidden" name="pagePrecedente"  value="TRUE">
             <input type="hidden" name="Artists" value="{{.NbArtist}}">
+            <input type="hidden" name="function" value="{{.Function}}">
         </form>
-        <form action="/Groupie-tracker/PageSuivante" method="POST">
+        <form action="/Groupie-tracker/listartist" method="POST">
             <button type="submit" name="suivant">></button>
             <input type="hidden" name="page" value="{{.Page}}">
+            <input type="hidden" name="pageSuivante"  value="TRUE">
             <input type="hidden" name="Artists" value="{{.NbArtist}}">
+            <input type="hidden" name="function" value="{{.Function}}">
         </form>
     </div>
 </div>
