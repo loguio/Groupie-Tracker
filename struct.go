@@ -1,12 +1,6 @@
 package main
 
-type PageListArtist struct {
-	Noyau    []TrieName
-	Page     int
-	NbArtist int
-	Function string
-}
-type PageFilterName struct { //Structure des donnée envoyer sur l'html
+type PageListArtist struct { //Structure des donnée envoyer sur l'html
 	Noyau    []TrieName
 	Page     int
 	NbArtist int
@@ -88,7 +82,4 @@ type TrieMembers struct { // cette structure récupere les donnée utile pour le
 	Id      int      `json:"id"`
 	Members []string `json:"members"`
 	Page    int
-}
-type Page6 struct {
-	Noyau []TrieName
 }

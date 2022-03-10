@@ -1,3 +1,4 @@
+{{define "error404"}}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -11,7 +12,10 @@
             <p>Sorry, page not found</p>
         </div>
         <div>
-            <button><a href="localhost:5500/"><strong>Home</strong></a></button>
+        <form action="/Groupie-tracker">
+            <button><strong>Home</strong></a></button>
+            </form>
         </div>
     </body>
 </html>
+{{end}}

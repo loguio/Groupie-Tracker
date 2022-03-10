@@ -9,10 +9,10 @@ import (
 	"strconv"
 )
 
-func trieAlpha(adress string, Page int, nbArtist int, function string) (interface{}, error) {
+func FilterAlpha(adress string, Page int, nbArtist int, function string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
-	var page PageFilterName
+	var page PageListArtist
 	var names []string
 	var tempartists []TrieName // nos artistes seront stockés dans cette variables
 	var artists []TrieName     // nos artistes seront stockés dans cette variables
@@ -56,7 +56,7 @@ func trieAlpha(adress string, Page int, nbArtist int, function string) (interfac
 	return page, err
 }
 
-func trieDate(adress string, Page int, nbArtist int, function string) (interface{}, error) {
+func FilterDate(adress string, Page int, nbArtist int, function string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	var page PageFilterDate
@@ -107,7 +107,7 @@ func trieDate(adress string, Page int, nbArtist int, function string) (interface
 	return page, err
 }
 
-func trieGroups(adress string, Page int, nbArtist int, function string) (interface{}, error) {
+func FilterGroups(adress string, Page int, nbArtist int, function string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	point := 0
@@ -149,7 +149,7 @@ func trieGroups(adress string, Page int, nbArtist int, function string) (interfa
 	return page, err
 }
 
-func trieSolo(adress string, Page int, nbArtist int, function string) (interface{}, error) {
+func FilterSolo(adress string, Page int, nbArtist int, function string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	point := 1
