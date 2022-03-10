@@ -5,10 +5,10 @@
 <div class="search_cart">
     <form action="/Groupie-tracker/cart" method="POST">
         <button class="btn_search_cart" type="submit"><p>Envoyer</p></button>
-        <select name="carte">
+        <select name="map">
             <option>choose a location</option>
             {{range .Location}}
-            <option name="carte">
+            <option name="map">
                 {{.}}
             </option>
             {{end}}

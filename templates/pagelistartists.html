@@ -1,23 +1,23 @@
 {{ define "pagelistartists" }}
-<div class="trie_filter">
+<div class="Filter_filter">
     <form  action="/Groupie-tracker/listartist" method="POST">
         <button class="btn_filter" type="submit" name="alphabet"><p>A-Z</p></button>
-        <input type="hidden" value="TRUE" name="trieAlpha"> 
+        <input type="hidden" value="TRUE" name="FilterAlpha"> 
         <input type="hidden" name="Artists" value="{{.NbArtist}}">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button class="btn_filter" type="submit" name="Creation Date"><p>Dates</p></button>
-        <input type="hidden" value="TRUE" name="trieDate"> 
+        <input type="hidden" value="TRUE" name="FilterDate"> 
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button class="btn_filter" type="submit" name="Groups"><p>Groupes</p></button>
-        <input type="hidden" value="TRUE" name="trieGroups">
+        <input type="hidden" value="TRUE" name="FilterGroups">
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button class="btn_filter" type="submit" name="Solo"><p>Solo</p></button>
-        <input type="hidden" value="TRUE" name="trieSolo">
+        <input type="hidden" value="TRUE" name="FilterSolo">
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
     <form action="/Groupie-tracker/nbArtist" method="POST">
@@ -26,7 +26,7 @@
         <input type="hidden" name="function" value="{{.Function}}">
     </form>
     <form action="/Groupie-tracker/Recherche" method="POST">
-        <input class="search" type="text" name="recherche" placeholder="Entrez un nom d'artiste">
+        <input class="search" type="text" name="find" placeholder="Entrez un nom d'artiste">
     </form>
 </div>
 <div class="cart_cart">
