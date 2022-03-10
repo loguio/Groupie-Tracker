@@ -4,11 +4,6 @@
                                 | |_//|    /| \_/|| \_/||  __/| ||  /_     | |  |    /| |-|||  \_ |   \ |  /_ |    /
                                 \____\\_/\_\\____/\____/\_/   \_/\____\    \_/  \_/\_\\_/ \|\____/\_|\_\\____\\_/\_\
 
-<div align="center">
-    <img src="../static/img/logo2.png" alt="Logo" width="80" height="80">
-  </a>
-</div>
-
 # Groupie Tracker
 ***
 Le projet Groupie-Tracker consiste à créer une ou plusieurs pages web qui est agrémenté par une API. 
@@ -39,6 +34,10 @@ $ go run .
 - Marius BOURSE (B1 Informatique)
 - Flavio CORMERAIS (B1 Informatique)
 - Jules OUTIN (B1 Informatique)
+
+## Outil collaboratif
+***
+$ https://jamboard.google.com/d/1eZ5kzk3KYp-0rN9qX3yqgY9LzcHAj8v1THHAMEmbjiY/viewer?f=0
 
 ## Droits d'auteur et licenses
 ***

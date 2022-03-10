@@ -209,6 +209,26 @@ footer p {
     color: white;
 }
 
+.changementpage {
+    margin-top: 50px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
+/* Bouton page suivante et pécédente */
+.btn_travel {
+    border: 0;
+    border-radius: 15px;
+    background-color: #1e5c70;
+}
+.btn_travel p {
+    color: white;
+    text-align: center;
+}
+
 
 /* Page artistes */
 
@@ -296,38 +316,28 @@ footer p {
 }
 
 
-/* Bouton page suivante et pécédente */
-.btn_travel_page {
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
-}
-.btn_travel {
-    border: 0;
-    border-radius: 15px;
-    background-color: #1e5c70;
-}
-.btn_travel p {
-    color: white;
-    text-align: center;
-}
-
 /* Page carte */
-.page_carte {
+.page_carte_titre {
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: center;
 	align-content: stretch;
-    margin-bottom: 500px;
+    margin-bottom: 30px;
 }
-.page_carte h1 {
+.page_carte_titre h1 {
     margin-top: 150px;
     font-size: 50px;
     text-align: center;
     color: white;
+}
+.carte {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    margin-bottom: 50px;
 }

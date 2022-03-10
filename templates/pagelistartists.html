@@ -1,5 +1,7 @@
 {{ define "pagelistartists" }}
-
+<div class="filter">
+    <!-- Insérer les filtres -->
+</div>
 <div class="cart_cart">
     {{range $}}
     <section id="cart">
@@ -13,7 +15,7 @@
     <div class="changementpage">
         <form action="/Groupie-tracker/PagePrecedente" method="POST">
             <div class="btn_travel_page">
-                <button class="btn_travel" type="submit" name="précédent"><p> < </p></button>
+                <button class="btn_travel" type="submit" name="précédent"><p> < Précédent </p></button>
             </div>
             {{range $}}
             <input type="hidden" name="page"  value="{{.Page}}">
@@ -21,7 +23,7 @@
         </form>
         <form action="/Groupie-tracker/PageSuivante" method="POST">
             <div class="btn_travel_page">
-                <button class="btn_travel" type="submit" name="suivant"><p> > </p></button>
+                <button class="btn_travel" type="submit" name="suivant"><p> Suivant > </p></button>
             </div>
             {{range $}}
             <input type="hidden" name="page" value="{{.Page}}">
