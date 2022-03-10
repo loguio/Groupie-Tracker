@@ -74,8 +74,6 @@ type TrieName struct {
 	Id    int    `json:"id"`
 	Page  int
 }
-<<<<<<< HEAD
-=======
 
 type TrieDate struct {
 	Name         string `json:"name"`
@@ -94,4 +92,3 @@ type TrieMembers struct {
 type Page6 struct {
 	Noyau []TrieName
 }
->>>>>>> 930ec1c349c03b05ea0ff747ec02e9069d04a5c1
