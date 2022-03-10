@@ -314,3 +314,20 @@ footer p {
     color: white;
     text-align: center;
 }
+
+/* Page carte */
+.page_carte {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    margin-bottom: 500px;
+}
+.page_carte h1 {
+    margin-top: 150px;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+}
