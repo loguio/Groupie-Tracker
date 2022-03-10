@@ -19,8 +19,8 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
-	http.HandleFunc("/Groupie-tracker/Recherche", rechercher)
-	http.HandleFunc("/Groupie-tracker/cart", carte)
+	http.HandleFunc("/Groupie-tracker/Recherche", find)
+	http.HandleFunc("/Groupie-tracker/cart", mapp)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
@@ -33,10 +33,10 @@ func error404(w http.ResponseWriter, r *http.Request) {
 
 //########################################################################################################################################//
 
-func rechercher(w http.ResponseWriter, r *http.Request) {
+func find(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		recherche := r.FormValue("recherche")
-		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(recherche), "")) // récupération des artiste pour les artists recherché
+		find := r.FormValue("find")
+		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(find), "")) // récupération des artiste pour les artists recherché
 		if errr != nil {
 			print(errr)
 		}
@@ -101,18 +101,18 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 
 //####################################################################################################################################
 
-func carte(w http.ResponseWriter, r *http.Request) {
+func mapp(w http.ResponseWriter, r *http.Request) {
 	var Page Carte
-	lien := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q="
-	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html", "./templates/pagecart.html")
+	url := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q="
+	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html")
 	if err != nil {
 	}
-	value := r.FormValue("carte")
+	value := r.FormValue("map")
 	if value == "" {
-		lien = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris"
+		url = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris"
 	}
-	Page.Location = lieux("https://groupietrackers.herokuapp.com/api/locations/")
-	Page.Valeur = lien + value
+	Page.Location = place("https://groupietrackers.herokuapp.com/api/locations/")
+	Page.Valeur = url + value
 	tmpl.ExecuteTemplate(w, "pagecart", Page)
 }
 
@@ -266,3 +266,5 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 	} //récupération des donnée a envoyer sur la page html
 	tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
 }
+
+//########################################################################################################################################################

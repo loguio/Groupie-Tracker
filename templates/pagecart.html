@@ -1,18 +1,13 @@
 {{ define "pagecart" }}
-<style>
-.deroul div{ display:none; }
-.deroul:hover div{ display:block }
-</style>
-
 <div class="page_carte_titre">
     <h1>Carte</h1>
 </div>
 <form action="/Groupie-tracker/cart" method="POST">
-    <button type="submit">sumbmit</button>
-    <select name="carte">
+    <button type="submit">submit</button>
+    <select name="map">
         <option>choose a location</option>
         {{range .Location}}
-        <option name="carte">
+        <option name="map">
             {{.}}
         </option>
         {{end}}
