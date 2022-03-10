@@ -115,7 +115,7 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 func mapp(w http.ResponseWriter, r *http.Request) {
 	var Page Carte                                                                                   // on créer page qui va nous permette d'avoir toute les donnéés utiles
 	url := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=" // cette url nous permet d'avoir la map de google maps avec la clé de l'API
-	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html", ".templates/cart.html")
+	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html", "./templates/cart.html")
 	if err != nil {
 		error500(err, w)
 	}
