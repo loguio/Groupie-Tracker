@@ -12,10 +12,10 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 
 ## Les exigences
 ***
-- [x] Réaliser le backend en Golang.
-- [x] Que le site et le serveur ne crash pas dans.
-- [x] Que les pages ne rencontre pas d'erreurs.
-- [x] utiliser les bonnes partiquent de programmations.
+- Réaliser le backend en Golang.
+- Que le site et le serveur ne crash pas dans.
+- Que les pages ne rencontre pas d'erreurs.
+- utiliser les bonnes partiquent de programmations.
 
 ## Technologies utilisés
 ***
