@@ -17,8 +17,8 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 - Affichage des différentes informations récupérer en Golang en Html/Css
 
 ## Installation et utilisation
-```
 ***
+```
 $ git clone https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git
 $ go run .
 ```
