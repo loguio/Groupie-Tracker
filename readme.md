@@ -1,4 +1,4 @@
-#Groupie Tracker
+# Groupie Tracker
 ***
 Le projet Groupie-Tracker consiste à créer une ou plusieurs pages web qui est agrémenté par une API. 
 Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux de concerts et la liste des membres des différents groupes. 
