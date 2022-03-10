@@ -112,7 +112,9 @@ func listartist(w http.ResponseWriter, r *http.Request) {
 				if err != nil {
 					error500(err, w)
 				} else {
-					page -= 1
+					if page != 1 {
+						page -= 1
+					}
 					if r.FormValue("function") == "FilterSolo" { // récupération de la variable qui nous indique quelle filtre on utilise
 						function := r.FormValue("function")
 						data, err = FilterSolo(lien+"/artists", page, nbArtist, function) //  récupération des artists en fonction du filtre
