@@ -28,7 +28,7 @@ func bonLieu(date string) string {
 	// cette fonctions permet d'enlever les caractères qui ne servent a rien
 	date = strings.Replace(date, "-", " ", -1)
 	date = strings.Replace(date, "_", " ", -1)
-	return date
+	return strings.Title(date)
 }
 
 func concertdate(adress string) ([]string, error) {

@@ -20,16 +20,20 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
 	http.HandleFunc("/Groupie-tracker/Recherche", rechercher)
-
+	http.HandleFunc("/Groupie-tracker/cart", carte)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
 }
 
-func error404(w http.ResponseWriter, r *http.Request) { // affichage de l'erreur 404
+//#####################################################################################################################################//
+
+func error404(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "error 404 custom lets go c win")
 }
 
-func rechercher(w http.ResponseWriter, r *http.Request) { //fonction pour afficher les artists recherché
+//########################################################################################################################################//
+
+func rechercher(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		recherche := r.FormValue("recherche")
 		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(recherche), "")) // récupération des artiste pour les artists recherché
@@ -44,6 +48,8 @@ func rechercher(w http.ResponseWriter, r *http.Request) { //fonction pour affich
 	}
 }
 
+//##########################################################################################################################################//
+
 func groupieTracker(w http.ResponseWriter, r *http.Request) { //récupération des donnée a envoyer sur la page html
 	tmpl, err := template.ParseFiles("./templates/home.html", "./templates/navbar.html", "./templates/footer.html", "./templates/pageaccueil.html", "./templates/pagelistartists.html") // utilisation du fichier navPage.gohtml pour le template
 	if err != nil {
@@ -53,6 +59,8 @@ func groupieTracker(w http.ResponseWriter, r *http.Request) { //récupération d
 	}
 	tmpl.ExecuteTemplate(w, "home", "") //exécution du template
 }
+
+//#######################################################################################################################################//
 
 func artist(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
@@ -71,6 +79,8 @@ func artist(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//#########################################################################################################################################//
+
 func nbArtist(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		page := 1
@@ -88,6 +98,25 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 		tmpl.ExecuteTemplate(w, "listartists", data) //exécution du template
 	}
 }
+
+//####################################################################################################################################
+
+func carte(w http.ResponseWriter, r *http.Request) {
+	var Page Carte
+	lien := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q="
+	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/listartist.html", "./templates/pagecart.html")
+	if err != nil {
+	}
+	value := r.FormValue("carte")
+	if value == "" {
+		lien = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris"
+	}
+	Page.Location = lieux("https://groupietrackers.herokuapp.com/api/locations/")
+	Page.Valeur = lien + value
+	tmpl.ExecuteTemplate(w, "pagecart", Page)
+}
+
+//##############################################################################################################################//
 
 func listartist(w http.ResponseWriter, r *http.Request) {
 	lien := "https://groupietrackers.herokuapp.com/api"
