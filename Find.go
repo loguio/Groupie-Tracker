@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func rechercheFind(adress string, name []string) (interface{}, error) {
+func Find(adress string, name []string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	var tempo []string
@@ -32,7 +32,7 @@ func rechercheFind(adress string, name []string) (interface{}, error) {
 			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		idArtist++
-		tempo = strings.Split(strings.ToUpper(oneArtist.Name), "")
+		tempo = strings.Split(strings.ToUpper(oneArtist.Name), "") // on met le nom des artistes en majuscule car notre
 		for i := 0; i < len(name); i++ {
 			if name[i] == tempo[i] {
 			} else {

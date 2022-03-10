@@ -19,7 +19,7 @@ func main() {
 	http.HandleFunc("/Groupie-tracker/listartist", listartist)
 	http.HandleFunc("/Groupie-tracker/nbArtist", nbArtist)
 	http.HandleFunc("/Groupie-tracker/artist", artist)
-	http.HandleFunc("/Groupie-tracker/Recherche", find)
+	http.HandleFunc("/Groupie-tracker/Find", find)
 	http.HandleFunc("/Groupie-tracker/cart", mapp)
 	fmt.Println("le serveur est en cours d'éxécution a l'adresse http://localhost:3000/Groupie-tracker")
 	http.ListenAndServe("localhost:3000", nil) //lancement du serveur
@@ -28,15 +28,15 @@ func main() {
 //#####################################################################################################################################//
 
 func error404(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "error 404 custom lets go c win")
+	fmt.Fprintln(w, "error 404 custom")
 }
 
 //########################################################################################################################################//
 
 func find(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		find := r.FormValue("find")
-		data, errr := rechercheFind("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(find), "")) // récupération des artiste pour les artists recherché
+	if r.Method == "POST" { // on recupère l'information que l'utilisateur a bien rentrer une information
+		find := r.FormValue("find")                                                                                       // on recupère la veleur et on la stock dans find
+		data, errr := Find("https://groupietrackers.herokuapp.com/api/artists", strings.Split(strings.ToUpper(find), "")) //on recupère les artistes qui on les bons artistes par rapport a find
 		if errr != nil {
 			print(errr)
 		}
@@ -44,7 +44,7 @@ func find(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			print(err)
 		}
-		tmpl.ExecuteTemplate(w, "listartists", data)
+		tmpl.ExecuteTemplate(w, "listartists", data) // on execute le template et donc on envois la bonne page sur le site internet
 	}
 }
 
@@ -63,7 +63,7 @@ func groupieTracker(w http.ResponseWriter, r *http.Request) { //récupération d
 //#######################################################################################################################################//
 
 func artist(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	if r.Method == "POST" { // on recupère l'information que l'utilisateur a bien rentrer une information
 		id_artiste := r.FormValue("id")
 		data, err := clicked(id_artiste) //récupération des donnée a envoyer sur la page html
 		if err != nil {
@@ -102,18 +102,18 @@ func nbArtist(w http.ResponseWriter, r *http.Request) {
 //####################################################################################################################################
 
 func mapp(w http.ResponseWriter, r *http.Request) {
-	var Page Carte
-	url := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q="
+	var Page Carte                                                                                   // on créer page qui va nous permette d'avoir toute les donnéés utiles
+	url := "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=" // cette url nous permet d'avoir la map de google maps avec la clé de l'API
 	tmpl, err := template.ParseFiles("./templates/navbar.html", "./templates/footer.html", "./templates/pagelistartists.html", "./templates/pagecart.html")
 	if err != nil {
 	}
-	value := r.FormValue("map")
+	value := r.FormValue("map") // on recupère la valeur map sur le serveur ce qui va nous permette d'avoir le lieu que l'utilisateur a demander
 	if value == "" {
-		url = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris"
+		url = "https:www.google.com/maps/embed/v1/place?key=AIzaSyAXXPpGp3CYZDcUSiE2YRlNID4ybzoZa7o&q=Paris" // lorsque l'on lance la map pour la première fois c'est Paris qui est affiché
 	}
-	Page.Location = place("https://groupietrackers.herokuapp.com/api/locations/")
+	Page.Location = place("https://groupietrackers.herokuapp.com/api/locations/") // on envois toute les lieux possible sans doublons et dans l'ordre alphabetique a l'utilisateur
 	Page.Valeur = url + value
-	tmpl.ExecuteTemplate(w, "pagecart", Page)
+	tmpl.ExecuteTemplate(w, "pagecart", Page) // on affiche le template pagecart avec les données de Page
 }
 
 //##############################################################################################################################//
