@@ -15,8 +15,7 @@ func place(address string) []string {
 	Locate.Id = 1
 	var listPlace []string
 	for Locate.Id != 0 {
-		var id string
-		id = strconv.Itoa(Locate.Id)
+		id := strconv.Itoa(Locate.Id)
 		resp, err := http.Get(address + id) // on recupère les données qui sont stockés dans resp
 		if err != nil {
 			log.Fatalln(err) // si il y a une erreur donc erreur

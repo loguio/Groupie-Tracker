@@ -11,25 +11,25 @@
             </section>
     {{end}}
 </div>
-<div class="trie">
+<div class="Filter">
     <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="alphabet">A-Z</button>
-        <input type="hidden" value="TRUE" name="trieAlpha"> 
+        <input type="hidden" value="TRUE" name="FilterAlpha"> 
         <input type="hidden" name="Artists" value="{{.NbArtist}}">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Creation Date">Creation Date</button>
-        <input type="hidden" value="TRUE" name="trieDate"> 
+        <input type="hidden" value="TRUE" name="FilterDate"> 
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Groups">Groups</button>
-        <input type="hidden" value="TRUE" name="trieGroups">
+        <input type="hidden" value="TRUE" name="FilterGroups">
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
     <form action="/Groupie-tracker/listartist" method="POST">
         <button type="submit" name="Solo">Solo</button>
-        <input type="hidden" value="TRUE" name="trieSolo">
+        <input type="hidden" value="TRUE" name="FilterSolo">
         <input type="hidden" value="{{.NbArtist}}" name="Artists">
     </form>
 </div>
