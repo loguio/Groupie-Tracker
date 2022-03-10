@@ -9,12 +9,12 @@ import (
 	"strings"
 )
 
-func rechercheFind(adress string, nom []string) (interface{}, error) {
+func Find(adress string, name []string) (interface{}, error) {
 	var idArtist = 1 // on prend le première identifiant de l'artiste que l'utilisateur veut afficher
 	var url = ""
 	var tempo []string
 	var artists []TrieName // nos artistes seront stockés dans cette variables
-	var pageRecherche PageListArtist
+	var pageFind PageListArtist
 	var oneArtist TrieName //on stock les données de un artiste danc cette variable
 	for idArtist != 0 {    // on repete cette action jusqu'a ce qu'on ait recupéré les données de 12 artistes
 		url = "/" + strconv.Itoa(idArtist)  // On recupère un URL equivalent a afficher les données avec l'ID d'un artiste
@@ -32,18 +32,18 @@ func rechercheFind(adress string, nom []string) (interface{}, error) {
 			break
 		} // si l'id est égal a 0 c'est que l'on a atteint la fin des artistes et que il n'y en a pas plus a afficher donc on return pour sortir de la boucle
 		idArtist++
-		tempo = strings.Split(strings.ToUpper(oneArtist.Name), "")
-		for i := 0; i < len(nom); i++ {
-			if nom[i] == tempo[i] {
+		tempo = strings.Split(strings.ToUpper(oneArtist.Name), "") // on met le nom des artistes en majuscule car notre
+		for i := 0; i < len(name); i++ {
+			if name[i] == tempo[i] {
 			} else {
 				break
 			}
-			if i == len(nom)-1 {
+			if i == len(name)-1 {
 				artists = append(artists, oneArtist)
 			}
 		}
-		pageRecherche.Noyau = artists
+		pageFind.Noyau = artists
 	}
 	var err error
-	return pageRecherche, err
+	return pageFind, err
 }
