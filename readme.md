@@ -17,11 +17,13 @@ Cette API contient des noms de groupe, des noms d'artistes, leurs dates et lieux
 - Que les pages ne rencontre pas d'erreurs.
 - utiliser les bonnes partiquent de programmations.
 
-## Technologies utilisés
+<!-- Les technologies utilisées -->
+## Technologies utilisées
 ***
 - Lecture de l'API avec le langage Golang
 - Affichage des différentes informations récupérer en Golang en Html/Css
 
+<!-- Installation et utilisation -->
 ## Installation et utilisation
 ***
 ```
@@ -29,6 +31,7 @@ $ git clone https://git.ytrack.learn.ynov.com/JOUTIN/Groupie_Tracker.git
 $ go run .
 ```
 
+<!-- Développeur -->
 ## Développeur
 ***
 - Marius BOURSE (B1 Informatique)
