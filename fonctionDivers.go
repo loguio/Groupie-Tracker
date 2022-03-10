@@ -20,7 +20,10 @@ func relation(adress string) (map[string][]string, error) {
 	json.Unmarshal(bodyBytes, &relation)
 	return relation.DatesLocations, err
 }
-
+func remove(s []TrieDate, i int) []TrieDate {
+	s[len(s)-1], s[i] = s[i], s[len(s)-1]
+	return s[:len(s)-1]
+}
 func bonLieu(date string) string {
 	// cette fonctions permet d'enlever les caractères qui ne servent a rien
 	date = strings.Replace(date, "-", " ", -1)

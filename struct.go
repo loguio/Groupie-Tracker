@@ -4,6 +4,25 @@ type PageListArtist struct {
 	Noyau    []TrieName
 	Page     int
 	NbArtist int
+	Function string
+}
+type Page3 struct {
+	Noyau    []TrieName
+	Page     int
+	NbArtist int
+	Function string
+}
+type Page4 struct {
+	Noyau    []TrieDate
+	Page     int
+	NbArtist int
+	Function string
+}
+type Page5 struct {
+	Noyau    []TrieMembers
+	Page     int
+	NbArtist int
+	Function string
 }
 
 type ArtistAPI struct {
@@ -55,3 +74,24 @@ type TrieName struct {
 	Id    int    `json:"id"`
 	Page  int
 }
+<<<<<<< HEAD
+=======
+
+type TrieDate struct {
+	Name         string `json:"name"`
+	Image        string `json:"image"`
+	Id           int    `json:"id"`
+	CreationDate int    `json:"creationDate"`
+	Page         int
+}
+type TrieMembers struct {
+	Name    string   `json:"name"`
+	Image   string   `json:"image"`
+	Id      int      `json:"id"`
+	Members []string `json:"members"`
+	Page    int
+}
+type Page6 struct {
+	Noyau []TrieName
+}
+>>>>>>> 930ec1c349c03b05ea0ff747ec02e9069d04a5c1
